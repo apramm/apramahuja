@@ -2,6 +2,7 @@ import Head from "next/head"
 import Navbar from "../navbar"
 import { Box, Container } from "@chakra-ui/react"
 import Snorlax from "../snorlax"
+import dynamic from 'next/dynamic'
 
 const LazyVoxelDog = dynamic(() => import('../snorlax'), {
     ssr: false,
