@@ -12,7 +12,7 @@ const Snorlax = () => {
   const refContainer = useRef()
   const [loading, setLoading] = useState(true)
   const refRenderer = useRef()
-  const urlDogGLB = (process.env.NODE_ENV === 'production' ? 'https://craftzdog.global.ssl.fastly.net/homepage' : '') + '/snorlax.glb'
+  const urlDogGLB = '/images/snorlax.glb'
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
