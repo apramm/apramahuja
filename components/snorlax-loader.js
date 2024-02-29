@@ -11,7 +11,7 @@ export const SnorlaxSpinner = () => (
     mt="calc(0px - var(--spinner-size))"
   />
 )
-
+SnorlaxSpinner.displayName = 'SnorlaxSpinner';
 export const SnorlaxContainer = forwardRef(({ children }, ref) => (
   <Box
     ref={ref}
@@ -26,7 +26,7 @@ export const SnorlaxContainer = forwardRef(({ children }, ref) => (
     {children}
   </Box>
 ))
-
+SnorlaxContainer.displayName = 'SnorlaxContainer';
 const Loader = () => {
   return (
     <SnorlaxContainer>
@@ -34,6 +34,5 @@ const Loader = () => {
     </SnorlaxContainer>
   )
 }
-Loader.displayName = 'Loader';
 
 export default Loader
