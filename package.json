@@ -1,0 +1,32 @@
+{
+  "name": "apramm.github.io",
+  "version": "1.0.0",
+  "description": "Apram's personal website built using Next.js and Chakra UI.",
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0",
+    "build": "next build",
+    "publish": "gh-pages -d /Users/apramahuja/Desktop/proj/apramm.github.io/build",
+    "prettier": "prettier --write .",
+    "lint": "next lint"
+  },
+  "keywords": [],
+  "author": "Apram Ahuja",
+  "license": "MIT",
+  "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "framer-motion": "^11.0.6",
+    "next": "^14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.0.1",
+    "three": "^0.162.0"
+  },
+  "devDependencies": {
+    "eslint-config-next": "^14.1.0",
+    "gh-pages": "^6.1.1",
+    "prettier": "^3.2.5"
+  }
+}
