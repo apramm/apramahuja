@@ -23,7 +23,6 @@ export const GridItem = ({ children, href, title, thumbnail }) => (
 
 export const WorkGridItem = ({
   children,
-  category = 'works',
   link,
   title,
   thumbnail

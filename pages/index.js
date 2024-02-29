@@ -69,11 +69,11 @@ const Page = () => {
           About Me
         </Heading>
         <Paragraph>
-        👋 Hi! I am Apram Ahuja. Currently pursuing a Bachelor's of Science in Mathematics and Minor in Data Science @UBC (08/2025).
+        👋 Hi! I am Apram Ahuja. Currently pursuing a Bachelors of Science in Mathematics and Minor in Data Science @UBC (08/2025).
         <br/>
         🔎  I am always exploring more about data management, algorithms their complexities and solving some real-world issues using them. 
         <br/>
-        🧑‍💻Skilled in JavaScript, Java, C++, MySQL and OracleSQL, HTML/CSS, OpenGL by in working on a diverse set of domains, including web development, data analysis.
+         🧑‍💻Skilled in JavaScript, Java, C++, MySQL and OracleSQL, HTML/CSS, OpenGL by in working on a diverse set of domains, including web development, data analysis.
         <br/>
         🥊 Interested in Kickboxing, Brazilian Jiu-jitsu and Sambo.
         </Paragraph>

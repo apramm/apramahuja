@@ -34,5 +34,6 @@ const Loader = () => {
     </SnorlaxContainer>
   )
 }
+Loader.displayName = 'Loader';
 
 export default Loader
