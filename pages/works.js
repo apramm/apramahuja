@@ -3,12 +3,12 @@ import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { WorkGridItem } from '../components/grid-item'
 
-import thumbAsa from '../public/images/asa.png'
-import thumbFootball from '../public/images/football.png'
-import thumbInference from '../public/images/inference.png'
-import thumbObs from '../public/images/obs.png'
-import thumbPlant from '../public/images/plantwhisperer.png'
-import thumbZoo from '../public/images/zoo.png'
+import thumbAsa from '../public/images/asa.webp'
+import thumbFootball from '../public/images/football.webp'
+import thumbInference from '../public/images/inference.webp'
+import thumbObs from '../public/images/obs.webp'
+import thumbPlant from '../public/images/plantwhisperer.webp'
+import thumbZoo from '../public/images/zoo.webp'
 const Works = () => (
   <Layout title="Works">
     <Container>
