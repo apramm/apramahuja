@@ -29,6 +29,7 @@ const LinkItem = ({ href, path, target, children, ...props }) => {
 const Navbar = props => {
     const { path } = props
 
+
     return (
       <Box
         position="fixed"
@@ -62,13 +63,13 @@ const Navbar = props => {
             mt={{ base: 4, md: 0 }}
           >
             <LinkItem href="/works" path={path}>
-              Works
+              Projects
             </LinkItem>
 
             <LinkItem
               as={Link}
               target="_blank"
-              href = "https://drive.google.com/file/d/1QLi3Hxz3Q8kCzo0dUQrBzyV9jcMsyfg7/view?usp=sharing"
+              href = "https://drive.google.com/file/d/1Z60R5hDMHbkpfXUv7uY5ej99URXhJiKC/view?usp=sharing"
               display="inline-flex"
               alignItems="center"
               style={{ gap: 4 }}
@@ -98,7 +99,7 @@ const Navbar = props => {
                   </MenuItem>
                   <MenuItem
                     as={Link}
-                    href = "https://drive.google.com/file/d/1QLi3Hxz3Q8kCzo0dUQrBzyV9jcMsyfg7/view?usp=sharing"
+                    href = "https://drive.google.com/file/d/1Z60R5hDMHbkpfXUv7uY5ej99URXhJiKC/view?usp=sharing"
                     target="_blank">
                     Resume
                     </MenuItem>

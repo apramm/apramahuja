@@ -91,7 +91,7 @@ const Page = () => {
           <Button
             as={NextLink}
             target="_blank"
-            href="https://drive.google.com/file/d/1QLi3Hxz3Q8kCzo0dUQrBzyV9jcMsyfg7/view?usp=sharing"
+            href="https://drive.google.com/file/d/1Z60R5hDMHbkpfXUv7uY5ej99URXhJiKC/view?usp=sharing"
             scroll={false}
             rightIcon={<ChevronRightIcon />}
             colorScheme="teal"
