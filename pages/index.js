@@ -69,7 +69,7 @@ const Page = () => {
           About Me
         </Heading>
         <Paragraph>
-        👋 Hi! I am Apram Ahuja. Currently pursuing a Bachelors of Science in Mathematics and Minor in Data Science @UBC (08/2025).
+        👋 Hi! I am Apram Ahuja. Currently pursuing a Bachelors of Science in Computer Science and Minor in Data Science @UBC (08/2025).
         <br/>
         🔎  I am always exploring more about data management, algorithms their complexities and solving some real-world issues using them. 
         <br/>
@@ -91,7 +91,7 @@ const Page = () => {
           <Button
             as={NextLink}
             target="_blank"
-            href="https://drive.google.com/file/d/1Z60R5hDMHbkpfXUv7uY5ej99URXhJiKC/view?usp=sharing"
+            href="https://drive.google.com/file/d/1jq16SSDCnBB_0tCmCVeaEwXwERYDYaQG/view?usp=sharing"
             scroll={false}
             rightIcon={<ChevronRightIcon />}
             colorScheme="teal"

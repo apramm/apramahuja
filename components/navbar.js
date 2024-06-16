@@ -69,7 +69,7 @@ const Navbar = props => {
             <LinkItem
               as={Link}
               target="_blank"
-              href = "https://drive.google.com/file/d/1Z60R5hDMHbkpfXUv7uY5ej99URXhJiKC/view?usp=sharing"
+              href = "https://drive.google.com/file/d/1jq16SSDCnBB_0tCmCVeaEwXwERYDYaQG/view?usp=sharing"
               display="inline-flex"
               alignItems="center"
               style={{ gap: 4 }}
