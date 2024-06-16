@@ -15,6 +15,7 @@ import Layout from '../components/layouts/article'
 import { ChevronRightIcon, EmailIcon } from '@chakra-ui/icons'
 import { IoLogoTwitter, IoLogoInstagram, IoLogoGithub, IoLogoLinkedin} from 'react-icons/io5'
 import Paragraph from '../components/paragraph'
+import { Analytics } from "@vercel/analytics/react"
 
 
 const Page = () => {
@@ -31,6 +32,7 @@ const Page = () => {
                 >
                 Hello, I&apos;m snorlax. I like to sleep and eat. I also like to code.
             </Box>
+        <Analytics/>
 
         <Box display={{md:'flex'}}>
         <Box flexGrow={1}>
