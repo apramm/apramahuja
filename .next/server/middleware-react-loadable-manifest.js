@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"../components/layouts/main.js -> ../snorlax\":{\"id\":\"../components/layouts/main.js -> ../snorlax\",\"files\":[]}}"
+self.__REACT_LOADABLE_MANIFEST="{\"components/layouts/main.js -> ../snorlax\":{\"id\":\"components/layouts/main.js -> ../snorlax\",\"files\":[]}}"

@@ -1,6 +1,6 @@
 {
-  "../components/layouts/main.js -> ../snorlax": {
-    "id": "../components/layouts/main.js -> ../snorlax",
+  "components/layouts/main.js -> ../snorlax": {
+    "id": "components/layouts/main.js -> ../snorlax",
     "files": []
   }
 }

@@ -2,6 +2,7 @@ import { Container, Heading, SimpleGrid } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { WorkGridItem } from '../components/grid-item'
+import dynamic from 'next/dynamic'
 
 import thumbAsa from '../public/images/asa.webp'
 import thumbFootball from '../public/images/football.webp'
@@ -10,6 +11,18 @@ import thumbObs from '../public/images/obs.webp'
 import thumbPlant from '../public/images/plantwhisperer.webp'
 import thumbZoo from '../public/images/zoo.webp'
 import thumbGraphics from '../public/images/graphics.png'
+
+
+// // Project Components:
+// const thumbAsa = dynamic(() => import('../public/images/asa.webp'))
+// const thumbFootball = dynamic(() => import('../public/images/football.webp'))
+// const thumbInference = dynamic(() => import('../public/images/inference.webp'))
+// const thumbObs = dynamic(() => import('../public/images/obs.webp'))
+// const thumbPlant = dynamic(() => import('../public/images/plantwhisperer.webp'))
+// const thumbZoo = dynamic(() => import('../public/images/zoo.webp'))
+// const thumbGraphics = dynamic(() => import('../public/images/graphics.png'))
+ 
+
 const Works = () => (
   <Layout title="Works">
     <Container>

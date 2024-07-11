@@ -39,7 +39,8 @@ export const WorkGridItem = ({
         src={thumbnail}
         alt={title}
         className="grid-item-thumbnail"
-        placeholder="blur"
+        rel = "preload"
+        placeholder = "blur"
       />
       <LinkOverlay as="div" href={`${link}`} target='_blank'>
         <Text mt={2} fontSize={20}>
