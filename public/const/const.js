@@ -1,0 +1,14 @@
+export const Resume = 'https://drive.google.com/file/d/1FwRMQlEK28ILQvggzPkIMicj6ryTNk4i/view?usp=sharing';
+export const Profile = '/images/apram.jpeg';
+export const GitHub = 'https://github.com/apramm';
+export const LinkedIn = 'https://www.linkedin.com/in/apram/';
+export const Twitter = 'https://twitter.com/apram0235';
+export const Instagram = 'https://instagram.com/apramahuja';
+export const Email = 'mailto:apri@student.ubc.ca';
+export const Graphics = 'https://apramm.github.io/graphics/';
+export const PlantWhisperer = 'https://devpost.com/software/plant-whisperer';
+export const Banking = 'https://github.com/apramm/OnlineBankingSystem';
+export const Zoo = 'https://github.com/apramm/ZooManagementSystem';
+export const Football = 'https://github.com/apramm/Exploring-Betting-Odds-in-a-Football-Match';
+export const Inference = 'https://github.com/aron-bram/STAT-201-2023W1-GROUP-6';
+export const ASA = 'https://github.com/apramm/ASADatafest';

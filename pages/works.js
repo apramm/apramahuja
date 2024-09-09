@@ -10,6 +10,7 @@ import thumbObs from '../public/images/obs.webp'
 import thumbPlant from '../public/images/plantwhisperer.webp'
 import thumbZoo from '../public/images/zoo.webp'
 import thumbGraphics from '../public/images/graphics.png'
+import { ASA, Football, Graphics, Banking, Inference, PlantWhisperer, Zoo } from '../public/const/const'
 
 const Works = () => (
   <Layout title="Works">
@@ -20,18 +21,18 @@ const Works = () => (
 
       <SimpleGrid columns={[1, 1, 2]} gap={6}>
       <Section>
-          <WorkGridItem link="https://apramm.github.io/graphics/" title="Real Time 3D Graphics" thumbnail={thumbGraphics}>
+          <WorkGridItem link={Graphics} title="Real Time 3D Graphics" thumbnail={thumbGraphics}>
             Real Time Graphics Website with multiple 3D workspace using Three.js and WebGL
           </WorkGridItem>
         </Section>
         <Section>
-          <WorkGridItem link="https://devpost.com/software/plant-whisperer" title="PlantWhisperer" thumbnail={thumbPlant}>
+          <WorkGridItem link={PlantWhisperer} title="PlantWhisperer" thumbnail={thumbPlant}>
             nwHacks2024 Winner 🥳 A crop disease detection app using LLM and PlantID API
           </WorkGridItem>
         </Section>
         <Section  delay={0.1}>
           <WorkGridItem
-            link="https://github.com/apramm/OnlineBankingSystem"
+            link={Banking}
             title="Banking Simplified"
             thumbnail={thumbObs}
           >
@@ -41,7 +42,7 @@ const Works = () => (
 
         <Section delay={0.1}>
           <WorkGridItem
-            link="https://github.com/apramm/ZooManagementSystem"
+            link={Zoo}
             title="Zoo Dashboard"
             thumbnail={thumbZoo}
           >
@@ -55,7 +56,7 @@ const Works = () => (
 
       <Section delay={0.3}>
           <WorkGridItem
-            link="https://github.com/apramm/Exploring-Betting-Odds-in-a-Football-Match"
+            link={Football}
             thumbnail={thumbFootball}
             title="EPL Betting Odds Model"
           >
@@ -64,13 +65,13 @@ const Works = () => (
         </Section>
 
       <Section delay={0.3}>
-          <WorkGridItem link="https://github.com/aron-bram/STAT-201-2023W1-GROUP-6" thumbnail={thumbInference} title="Inference">
+          <WorkGridItem link={Inference} thumbnail={thumbInference} title="Inference">
             Understanding the effect of age on Olympic Athlete performance
           </WorkGridItem>
         </Section> 
 
         <Section delay={0.3}>
-          <WorkGridItem link="https://github.com/apramm/ASADatafest" thumbnail={thumbAsa} title="ASA DataFest 2023">
+          <WorkGridItem link={ASA} thumbnail={thumbAsa} title="ASA DataFest 2023">
             Consultancy model for Pro Bono Services @American Statistical Association DataFest
           </WorkGridItem>
         </Section>

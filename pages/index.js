@@ -17,6 +17,14 @@ import { IoLogoTwitter, IoLogoInstagram, IoLogoGithub, IoLogoLinkedin} from 'rea
 import Paragraph from '../components/paragraph'
 import { Analytics } from "@vercel/analytics/react"
 
+import {Profile} from "../public/const/const.js"
+import {Resume} from "../public/const/const.js"
+import {GitHub} from "../public/const/const.js"
+import {LinkedIn} from "../public/const/const.js"
+import {Twitter} from "../public/const/const.js"
+import {Instagram} from "../public/const/const.js"
+import {Email} from "../public/const/const.js"
+
 
 const Page = () => {
     return (
@@ -30,8 +38,8 @@ const Page = () => {
                     bg={useColorModeValue('blackAlpha.500', 'blackAlpha.200')}
                     css={{ backdropFilter: 'blur(10px)' }}
                 >
-                Hello, I&apos;m snorlax. I like to sleep and eat. I also like to code.
-            </Box>
+                  Who's that pokemon? 🤔 
+                </Box>
         <Analytics/>
 
         <Box display={{md:'flex'}}>
@@ -58,7 +66,7 @@ const Page = () => {
             overflow="hidden"
           >
             <Image
-              src="/images/apram.jpg"
+              src={Profile}
               alt="Profile image"
               width="200"
               height="200"
@@ -71,7 +79,7 @@ const Page = () => {
           About Me
         </Heading>
         <Paragraph>
-        👋 Hi! I am Apram Ahuja. Currently pursuing a Bachelors of Science in Computer Science and Minor in Data Science @UBC (08/2025).
+        👋 Hi! I am Apram Ahuja, DevOps Intern <b><a href = "https://www.optum.com/en/" target="_blank">@Optum</a></b> and pursuing Bachelors of Science in Computer Science and Minor in Data Science <b><a href = "https://www.cs.ubc.ca/">@UBC</a></b> (08/2026).
         <br/>
         🔎  I am always exploring more about data management, algorithms their complexities and solving some real-world issues using them. 
         <br/>
@@ -93,7 +101,7 @@ const Page = () => {
           <Button
             as={NextLink}
             target="_blank"
-            href="https://drive.google.com/file/d/1jq16SSDCnBB_0tCmCVeaEwXwERYDYaQG/view?usp=sharing"
+            href={Resume}
             scroll={false}
             rightIcon={<ChevronRightIcon />}
             colorScheme="teal"
@@ -109,7 +117,7 @@ const Page = () => {
         </Heading>
         <List>
           <ListItem>
-            <Link href="https://github.com/apramm" target="_blank">
+            <Link href={GitHub} target="_blank">
               <Button
                 variant="ghost"
                 colorScheme="teal"
@@ -120,7 +128,7 @@ const Page = () => {
             </Link>
           </ListItem>
           <ListItem>
-            <Link href="https://www.linkedin.com/in/apram/" target="_blank">
+            <Link href={LinkedIn} target="_blank">
               <Button
                 variant="ghost"
                 colorScheme="teal"
@@ -131,7 +139,7 @@ const Page = () => {
             </Link>
           </ListItem>
           <ListItem>
-            <Link href="https://twitter.com/apram0235" target="_blank">
+            <Link href={Twitter} target="_blank">
               <Button
                 variant="ghost"
                 colorScheme="teal"
@@ -142,7 +150,7 @@ const Page = () => {
             </Link>
           </ListItem>
           <ListItem>
-            <Link href="https://instagram.com/apramahuja" target="_blank">
+            <Link href={Instagram} target="_blank">
               <Button
                 variant="ghost"
                 colorScheme="teal"
@@ -157,7 +165,7 @@ const Page = () => {
         <Box align="center" my={4}>
           <Button
             as={NextLink}
-            href= "mailto:apri@student.ubc.ca"
+            href= {Email}
             scroll={false}
             leftIcon={<EmailIcon />}
             colorScheme="teal"
