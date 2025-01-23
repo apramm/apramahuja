@@ -278,6 +278,16 @@ module.exports = require("styled-jsx/style");
 
 /***/ }),
 
+/***/ "path":
+/*!***********************!*\
+  !*** external "path" ***!
+  \***********************/
+/***/ ((module) => {
+
+module.exports = require("path");
+
+/***/ }),
+
 /***/ "@chakra-ui/icons":
 /*!***********************************!*\
   !*** external "@chakra-ui/icons" ***!
@@ -365,16 +375,6 @@ module.exports = import("three");;
 /***/ ((module) => {
 
 module.exports = import("three/addons/loaders/DRACOLoader.js");;
-
-/***/ }),
-
-/***/ "path":
-/*!***********************!*\
-  !*** external "path" ***!
-  \***********************/
-/***/ ((module) => {
-
-module.exports = require("path");
 
 /***/ })
 

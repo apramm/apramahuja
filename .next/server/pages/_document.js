@@ -73,6 +73,16 @@ module.exports = require("react/jsx-runtime");
 
 /***/ }),
 
+/***/ "path":
+/*!***********************!*\
+  !*** external "path" ***!
+  \***********************/
+/***/ ((module) => {
+
+module.exports = require("path");
+
+/***/ }),
+
 /***/ "@chakra-ui/react":
 /*!***********************************!*\
   !*** external "@chakra-ui/react" ***!
@@ -90,16 +100,6 @@ module.exports = import("@chakra-ui/react");;
 /***/ ((module) => {
 
 module.exports = import("@chakra-ui/theme-tools");;
-
-/***/ }),
-
-/***/ "path":
-/*!***********************!*\
-  !*** external "path" ***!
-  \***********************/
-/***/ ((module) => {
-
-module.exports = require("path");
 
 /***/ })
 
