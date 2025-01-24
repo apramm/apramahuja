@@ -7,7 +7,6 @@ import {
   Button,
   List,
   ListItem,
-  useColorModeValue
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import Section from '../components/section'

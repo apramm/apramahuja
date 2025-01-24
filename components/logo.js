@@ -1,6 +1,6 @@
 import Link from 'next/link'
 // import Image from 'next/image'
-import {Text, useColorModeValue} from '@chakra-ui/react'
+// import {Text, useColorModeValue} from '@chakra-ui/react'
 // import FootprintIcon from './icons/footprint'
 import styled from '@emotion/styled'
 import Image from 'next/image'
