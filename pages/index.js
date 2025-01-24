@@ -13,7 +13,8 @@ import Image from 'next/image'
 import Section from '../components/section'
 import Layout from '../components/layouts/article'
 import { ChevronRightIcon, EmailIcon } from '@chakra-ui/icons'
-import { IoLogoTwitter, IoLogoInstagram, IoLogoGithub, IoLogoLinkedin} from 'react-icons/io5'
+import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin} from 'react-icons/io5'
+import {FaStrava} from 'react-icons/fa'
 import Paragraph from '../components/paragraph'
 import { Analytics } from '@vercel/analytics/react'
 
@@ -21,7 +22,7 @@ import {Profile} from '../public/const/const.js'
 import {Resume} from '../public/const/const.js'
 import {GitHub} from '../public/const/const.js'
 import {LinkedIn} from '../public/const/const.js'
-import {Twitter} from '../public/const/const.js'
+import {Strava} from '../public/const/const.js'
 import {Instagram} from '../public/const/const.js'
 import {Email} from '../public/const/const.js'
 
@@ -30,24 +31,23 @@ const Page = () => {
     return (
       <Layout>
         <Container>
-                <Box
+                {/* <Box
                     borderRadius='lg'
                     mb={6}
-                    p={3}
+                    p={1}
                     textAlign='center'
                     bg={useColorModeValue('blackAlpha.500', 'blackAlpha.200')}
                     css={{ backdropFilter: 'blur(10px)' }}
                 >
-                  Who&apos;s that pokemon? 🤔 
-                </Box>
+                  "Inspired by Toji's determination" 
+                </Box> */}
         <Analytics/>
 
         <Box display={{md:'flex'}}>
         <Box flexGrow={1}>
-        <Heading as='h2' variant = 'page-title'>
+        <Heading as='h2' variant = 'page-title' fontStyle={'unset'}>
             Apram Ahuja
         </Heading>
-        <p> Developer</p>
         </Box> 
         <Box
           flexShrink={0}
@@ -79,13 +79,13 @@ const Page = () => {
           About Me
         </Heading>
         <Paragraph>
-        👋 Hi! I am Apram Ahuja, DevOps Intern <b><a href = 'https://www.optum.com/en/' target='_blank'>@Optum</a></b> and pursuing Bachelors of Science in Computer Science and Minor in Data Science <b><a href = 'https://www.cs.ubc.ca/'>@UBC</a></b> (08/2026).
+        👋 Hi! I am Apram Ahuja, Software and DevOps Engineer Intern <b><a href = 'https://www.optum.com/en/' target='_blank'>@Optum</a></b>, pursuing Bachelors of Science in Computer Science and Minor in Data Science <b><a href = 'https://www.cs.ubc.ca/'>@UBC</a></b> (08/2026).
         <br/>
-        🔎  I am always exploring more about data management, algorithms their complexities and solving some real-world issues using them. 
+        🔎  Interested in Algorithm design & mathematical modelling, software construction. Love to explore newer interests and pushing further boundaries.
         <br/>
-         🧑‍💻Skilled in JavaScript, Java, C++, MySQL and OracleSQL, HTML/CSS, OpenGL by in working on a diverse set of domains, including web development, data analysis.
+         🧑‍💻 Skilled in JavaScript, Java, C++, .NET, Python, OpenGL and working on a diverse set of domains, including distributed systems and data engineering.
         <br/>
-        🥊 Interested in Kickboxing, Brazilian Jiu-jitsu and Sambo.
+        🥊 Run, Swim, Gym, Kickboxing, Brazilian Jiu-jitsu and Sambo.
         </Paragraph>
         <Box align='center' my={4} justify='space-between'>
           <Button 
@@ -139,13 +139,13 @@ const Page = () => {
             </Link>
           </ListItem>
           <ListItem>
-            <Link href={Twitter} target='_blank'>
+            <Link href={Strava} target='_blank'>
               <Button
                 variant='ghost'
                 colorScheme='teal'
-                leftIcon={<IoLogoTwitter />}
+                leftIcon={<FaStrava />}
               >
-                @apram0235
+                @apramrun
               </Button>
             </Link>
           </ListItem>

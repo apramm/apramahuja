@@ -12,7 +12,7 @@ const Snorlax = () => {
   const refContainer = useRef()
   const [loading, setLoading] = useState(true)
   const refRenderer = useRef()
-  const urlDogGLB = '/images/snorlax.glb'
+  const urlDogGLB = '/images/toji_fushiguro.glb'
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
@@ -52,7 +52,7 @@ const Snorlax = () => {
 
       // 640 -> 240
       // 8   -> 6
-      const scale = scH * 0.005 + 2.3
+      const scale = scH * 0.029 + 1.8
       const camera = new THREE.OrthographicCamera(
         -scale,
         scale,

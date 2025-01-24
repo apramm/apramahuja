@@ -1,8 +1,8 @@
-export const Resume = 'https://drive.google.com/file/d/1FwRMQlEK28ILQvggzPkIMicj6ryTNk4i/view?usp=sharing';
-export const Profile = '/images/apram.jpeg';
+export const Resume = './Resume_S.pdf';
+export const Profile = '/images/apram.jpg';
 export const GitHub = 'https://github.com/apramm';
 export const LinkedIn = 'https://www.linkedin.com/in/apram/';
-export const Twitter = 'https://twitter.com/apram0235';
+export const Strava = 'https://www.strava.com/athletes/144141823';
 export const Instagram = 'https://instagram.com/apramahuja';
 export const Email = 'mailto:apri@student.ubc.ca';
 export const Graphics = 'https://apramm.github.io/graphics/';

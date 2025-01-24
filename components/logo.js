@@ -3,6 +3,7 @@ import Link from 'next/link'
 import {Text, useColorModeValue} from '@chakra-ui/react'
 // import FootprintIcon from './icons/footprint'
 import styled from '@emotion/styled'
+import Image from 'next/image'
 
 
 const LogoBox = styled.span`
@@ -21,19 +22,24 @@ const LogoBox = styled.span`
 
 const Logo = () => {
     // const footprints = `./icons/footprint${useColorModeValue('','-dark')}.svg`
+    const footprints = '/images/icon.png'
 
     return (
         (<Link href="/" scroll={false}>
             <LogoBox>
-                {/* <Image src={footprints} alt="logo" width={20} height={20} /> */}
-                {/* <FootprintIcon /> */}
-                <Text 
-                color= {useColorModeValue('gray.800', 'whiteAlpha.900')}
-                fontFamily = 'M PLUS Rounded 1c'
-                fontWeight="bold"
-                ml={3}>
-                Apram Ahuja
-                </Text>
+            <Image 
+                    src={footprints}
+                    alt="logo"
+                    width={42}
+                    height={42}
+                    priority  // Add priority for above-the-fold images
+                    style={{  // Add style for better control
+                        marginRight: '8px',
+                        marginTop: '3px',
+                        objectFit: 'contain'
+                    }}
+                />
+                
             </LogoBox>
         </Link>)
     );
