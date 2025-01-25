@@ -10,7 +10,7 @@ import {
 import Image from 'next/image'
 import Section from '../components/section'
 import Layout from '../components/layouts/article'
-import { ChevronRightIcon, EmailIcon } from '@chakra-ui/icons'
+import { ChevronRightIcon} from '@chakra-ui/icons'
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin} from 'react-icons/io5'
 import {FaStrava} from 'react-icons/fa'
 import Paragraph from '../components/paragraph'
@@ -18,13 +18,13 @@ import { Analytics } from '@vercel/analytics/react'
 import {useColorModeValue } from '@chakra-ui/react'
 
 import {Profile} from '../public/const/const.js'
-import {Resume} from '../public/const/const.js'
+//import {Resume} from '../public/const/const.js'
 // import {Resume} from '../components/resume.js'
 import {GitHub} from '../public/const/const.js'
 import {LinkedIn} from '../public/const/const.js'
 import {Strava} from '../public/const/const.js'
 import {Instagram} from '../public/const/const.js'
-import {Email} from '../public/const/const.js'
+//import {Email} from '../public/const/const.js'
 
 
 const Page = () => {
