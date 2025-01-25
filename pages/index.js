@@ -5,8 +5,7 @@ import {
   Heading,
   Box,
   Button,
-  List,
-  ListItem,
+  SimpleGrid
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import Section from '../components/section'
@@ -32,16 +31,17 @@ const Page = () => {
     return (
       <Layout>
         <Container>
-                <Box
-                    borderRadius='lg'
-                    mb={6}
-                    p={1}
-                    textAlign='center'
-                    bg={useColorModeValue('blackAlpha.500', 'blackAlpha.200')}
-                    css={{ backdropFilter: 'blur(10px)' }}
-                >
-                  "Toji represents pure human potential - skill, willpower, and strategy." 
-                </Box>
+        <Box
+            borderRadius="lg"
+            mb={6}
+            p={1}
+            textAlign="center"
+            bg={useColorModeValue('blackAlpha.500', 'blackAlpha.200')}
+            css={{ backdropFilter: 'blur(10px)' }}
+          >
+            &quot;Toji represents pure human potential - skill, willpower, and strategy.&quot;
+          </Box>
+
         <Analytics/>
 
         <Box display={{md:'flex'}}>
@@ -88,7 +88,7 @@ const Page = () => {
         <br/>
         🥊 Run, Swim, Gym, Kickboxing, Brazilian Jiu-jitsu and Sambo.
         </Paragraph>
-        <Box align='center' my={4} justify='space-between'>
+        <Box align='center' my={4}  gap={40} justifyContent='center'>
           <Button 
             as={NextLink}
             href='/works'
@@ -101,8 +101,7 @@ const Page = () => {
           &nbsp;&nbsp;&nbsp;
           <Button
             as={NextLink}
-            target='_blank'
-            href={Resume}
+            href= '\resume-page'
             scroll={false}
             rightIcon={<ChevronRightIcon />}
             colorScheme='purple'
@@ -111,74 +110,59 @@ const Page = () => {
           </Button>
         </Box>
       </Section>
-
       <Section delay={0.3}>
-        <Heading as='h3' variant='section-title'>
-          On the web
-        </Heading>
-        <List>
-          <ListItem>
-            <Link href={GitHub} target='_blank'>
-              <Button
-                variant='ghost'
-                colorScheme='#FFD082'
-                leftIcon={<IoLogoGithub />}
-              >
-                @apramm
-              </Button>
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link href={LinkedIn} target='_blank'>
-              <Button
-                variant='ghost'
-                colorScheme='#FFD082'
-                leftIcon={<IoLogoLinkedin />}
-              >
-                @apramahuja
-              </Button>
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link href={Strava} target='_blank'>
-              <Button
-                variant='ghost'
-                colorScheme='#FFD082'
-                leftIcon={<FaStrava />}
-              >
-                @apramrun
-              </Button>
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link href={Instagram} target='_blank'>
-              <Button
-                variant='ghost'
-                colorScheme='#FFD082'
-                leftIcon={<IoLogoInstagram />}
-              >
-                @apramahuja
-              </Button>
-            </Link>
-          </ListItem>
-        </List>
-
-        <Box align='center' my={4}>
-          <Button
-            as={NextLink}
-            href= {Email}
-            scroll={false}
-            leftIcon={<EmailIcon />}
-            colorScheme='#FFD082'
-          >
-            Reach out to me
-          </Button>
-        </Box>
-
-        </Section>
-
-        </Container>
-        </Layout>
+  <Heading as="h3" variant="section-title">
+    On the web
+  </Heading>
+  <SimpleGrid columns={[1, 2]} spacing={4} mt={4}>
+    <Box>
+      <Link href={GitHub} target="_blank">
+        <Button
+          variant="ghost"
+          colorScheme="#FFD082"
+          leftIcon={<IoLogoGithub />}
+        >
+          @apramm
+        </Button>
+      </Link>
+    </Box>
+    <Box>
+      <Link href={LinkedIn} target="_blank">
+        <Button
+          variant="ghost"
+          colorScheme="#FFD082"
+          leftIcon={<IoLogoLinkedin />}
+        >
+          @apramahuja
+        </Button>
+      </Link>
+    </Box>
+    <Box>
+      <Link href={Strava} target="_blank">
+        <Button
+          variant="ghost"
+          colorScheme="#FFD082"
+          leftIcon={<FaStrava />}
+        >
+          @apramrun
+        </Button>
+      </Link>
+    </Box>
+    <Box>
+      <Link href={Instagram} target="_blank">
+        <Button
+          variant="ghost"
+          colorScheme="#FFD082"
+          leftIcon={<IoLogoInstagram />}
+        >
+          @apramahuja
+        </Button>
+      </Link>
+    </Box>
+  </SimpleGrid>
+  </Section>
+  </Container>
+   </Layout>
     );
 }
 
