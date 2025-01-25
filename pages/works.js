@@ -12,6 +12,9 @@ import thumbZoo from '../public/images/zoo.webp'
 import thumbGraphics from '../public/images/graphics.png'
 import { ASA, Football, Graphics, Banking, Inference, PlantWhisperer, Zoo } from '../public/const/const'
 
+import Image from 'next/image'; // Import Next.js image optimization
+
+// Use React.lazy for lazy loading
 const Works = () => (
   <Layout title="Works">
     <Container>
@@ -20,27 +23,34 @@ const Works = () => (
       </Heading>
 
       <SimpleGrid columns={[1, 1, 2]} gap={6}>
-      <Section>
-          <WorkGridItem link={Graphics} title="Real Time 3D Graphics" thumbnail={thumbGraphics}>
+        <Section>
+          <WorkGridItem
+            link={Graphics}
+            title="Real Time 3D Graphics"
+            thumbnail={thumbGraphics}
+          >
             Real Time Graphics Website with multiple 3D workspace using Three.js and WebGL
           </WorkGridItem>
         </Section>
         <Section>
-          <WorkGridItem link={PlantWhisperer} title="PlantWhisperer" thumbnail={thumbPlant}>
+          <WorkGridItem
+            link={PlantWhisperer}
+            title="PlantWhisperer"
+            thumbnail={thumbPlant}
+          >
             nwHacks2024 Winner 🥳 A crop disease detection app using LLM and PlantID API
           </WorkGridItem>
         </Section>
-        <Section  delay={0.1}>
+        <Section>
           <WorkGridItem
             link={Banking}
             title="Banking Simplified"
             thumbnail={thumbObs}
           >
-            Desktop application for simplfied banking and budgeting
+            Desktop application for simplified banking and budgeting
           </WorkGridItem>
         </Section>
-
-        <Section delay={0.1}>
+        <Section>
           <WorkGridItem
             link={Zoo}
             title="Zoo Dashboard"
@@ -51,10 +61,8 @@ const Works = () => (
         </Section>
       </SimpleGrid>
 
-
       <SimpleGrid columns={[1, 1, 2]} gap={6}>
-
-      <Section delay={0.3}>
+        <Section>
           <WorkGridItem
             link={Football}
             thumbnail={thumbFootball}
@@ -63,22 +71,28 @@ const Works = () => (
             A model for understanding the effectivity of betting odds on football matches
           </WorkGridItem>
         </Section>
-
-      <Section delay={0.3}>
-          <WorkGridItem link={Inference} thumbnail={thumbInference} title="Inference">
+        <Section>
+          <WorkGridItem
+            link={Inference}
+            thumbnail={thumbInference}
+            title="Inference"
+          >
             Understanding the effect of age on Olympic Athlete performance
           </WorkGridItem>
-        </Section> 
-
-        <Section delay={0.3}>
-          <WorkGridItem link={ASA} thumbnail={thumbAsa} title="ASA DataFest 2023">
+        </Section>
+        <Section>
+          <WorkGridItem
+            link={ASA}
+            thumbnail={thumbAsa}
+            title="ASA DataFest 2023"
+          >
             Consultancy model for Pro Bono Services @American Statistical Association DataFest
           </WorkGridItem>
         </Section>
       </SimpleGrid>
     </Container>
   </Layout>
-)
+);
 
-export default Works
-export { getServerSideProps } from '../components/chakra'
+export default Works;
+export { getServerSideProps } from '../components/chakra';
