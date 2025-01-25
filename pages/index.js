@@ -16,9 +16,11 @@ import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin} from 'react-icons/io5'
 import {FaStrava} from 'react-icons/fa'
 import Paragraph from '../components/paragraph'
 import { Analytics } from '@vercel/analytics/react'
+import {useColorModeValue } from '@chakra-ui/react'
 
 import {Profile} from '../public/const/const.js'
 import {Resume} from '../public/const/const.js'
+// import {Resume} from '../components/resume.js'
 import {GitHub} from '../public/const/const.js'
 import {LinkedIn} from '../public/const/const.js'
 import {Strava} from '../public/const/const.js'
@@ -30,7 +32,7 @@ const Page = () => {
     return (
       <Layout>
         <Container>
-                {/* <Box
+                <Box
                     borderRadius='lg'
                     mb={6}
                     p={1}
@@ -38,28 +40,28 @@ const Page = () => {
                     bg={useColorModeValue('blackAlpha.500', 'blackAlpha.200')}
                     css={{ backdropFilter: 'blur(10px)' }}
                 >
-                  "Inspired by Toji's determination" 
-                </Box> */}
+                  "Toji represents pure human potential - skill, willpower, and strategy." 
+                </Box>
         <Analytics/>
 
         <Box display={{md:'flex'}}>
         <Box flexGrow={1}>
-        <Heading as='h2' variant = 'page-title' fontStyle={'unset'}>
+        <Heading as='h2' variant = 'page-title'>
             Apram Ahuja
         </Heading>
         </Box> 
         <Box
           flexShrink={0}
           mt={{ base: 4, md: 0 }}
-          ml={{ md: 6 }}
+          ml={{ md: 6}}
           textAlign='center'
         >
           <Box
-            borderColor='whiteAlpha.800'
-            borderWidth={2}
-            borderStyle='solid'
-            w='200px'
-            h='200px'
+            borderColor='whiyellowpha.800'
+            borderWidth={5}
+            borderStyle='double'
+            w='185px'
+            h='185px'
             display='inline-block'
             borderRadius='full'
             overflow='hidden'
@@ -92,7 +94,7 @@ const Page = () => {
             href='/works'
             scroll={false}
             rightIcon={<ChevronRightIcon />}
-            colorScheme='teal'
+            colorScheme='purple'
           >
             Projects
           </Button>
@@ -103,7 +105,7 @@ const Page = () => {
             href={Resume}
             scroll={false}
             rightIcon={<ChevronRightIcon />}
-            colorScheme='teal'
+            colorScheme='purple'
           >
             Resume
           </Button>
@@ -119,7 +121,7 @@ const Page = () => {
             <Link href={GitHub} target='_blank'>
               <Button
                 variant='ghost'
-                colorScheme='teal'
+                colorScheme='#FFD082'
                 leftIcon={<IoLogoGithub />}
               >
                 @apramm
@@ -130,7 +132,7 @@ const Page = () => {
             <Link href={LinkedIn} target='_blank'>
               <Button
                 variant='ghost'
-                colorScheme='teal'
+                colorScheme='#FFD082'
                 leftIcon={<IoLogoLinkedin />}
               >
                 @apramahuja
@@ -141,7 +143,7 @@ const Page = () => {
             <Link href={Strava} target='_blank'>
               <Button
                 variant='ghost'
-                colorScheme='teal'
+                colorScheme='#FFD082'
                 leftIcon={<FaStrava />}
               >
                 @apramrun
@@ -152,7 +154,7 @@ const Page = () => {
             <Link href={Instagram} target='_blank'>
               <Button
                 variant='ghost'
-                colorScheme='teal'
+                colorScheme='#FFD082'
                 leftIcon={<IoLogoInstagram />}
               >
                 @apramahuja
@@ -167,7 +169,7 @@ const Page = () => {
             href= {Email}
             scroll={false}
             leftIcon={<EmailIcon />}
-            colorScheme='teal'
+            colorScheme='#FFD082'
           >
             Reach out to me
           </Button>

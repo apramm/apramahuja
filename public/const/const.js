@@ -1,4 +1,4 @@
-export const Resume = './Resume_S.pdf';
+export const Resume = '../components/resume.js';
 export const Profile = '/images/apram.jpg';
 export const GitHub = 'https://github.com/apramm';
 export const LinkedIn = 'https://www.linkedin.com/in/apram/';

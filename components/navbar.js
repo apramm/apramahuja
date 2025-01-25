@@ -66,7 +66,7 @@ const Navbar = props => {
               Projects
             </LinkItem>
 
-            <LinkItem
+            {/* <LinkItem
               as={Link}
               target="_blank"
               href = {Resume}
@@ -74,7 +74,8 @@ const Navbar = props => {
               alignItems="center"
               style={{ gap: 4 }}
               pl={2}
-            >
+            > */}
+            <LinkItem href="/resume-page" path={path}>
               Resume
             </LinkItem>
           </Stack>
