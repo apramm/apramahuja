@@ -15,7 +15,7 @@ import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin} from 'react-icons/io5'
 import {FaStrava} from 'react-icons/fa'
 import Paragraph from '../components/paragraph'
 import { Analytics } from '@vercel/analytics/react'
-import {useColorModeValue } from '@chakra-ui/react'
+// import {useColorModeValue } from '@chakra-ui/react'
 
 import {Profile} from '../public/const/const.js'
 //import {Resume} from '../public/const/const.js'
@@ -31,7 +31,7 @@ const Page = () => {
     return (
       <Layout>
         <Container>
-        <Box
+        {/* <Box
             borderRadius="lg"
             mb={6}
             p={1}
@@ -40,7 +40,7 @@ const Page = () => {
             css={{ backdropFilter: 'blur(10px)' }}
           >
             &quot;Toji represents pure human potential - skill, willpower, and strategy.&quot;
-          </Box>
+          </Box> */}
 
         <Analytics/>
 
@@ -60,8 +60,8 @@ const Page = () => {
             borderColor='whiyellowpha.800'
             borderWidth={5}
             borderStyle='double'
-            w='185px'
-            h='185px'
+            w='200px'
+            h='200px'
             display='inline-block'
             borderRadius='full'
             overflow='hidden'
@@ -94,7 +94,7 @@ const Page = () => {
             href='/works'
             scroll={false}
             rightIcon={<ChevronRightIcon />}
-            colorScheme='purple'
+            colorScheme='orange'
           >
             Projects
           </Button>
@@ -104,7 +104,7 @@ const Page = () => {
             href= '\resume-page'
             scroll={false}
             rightIcon={<ChevronRightIcon />}
-            colorScheme='purple'
+            colorScheme= 'orange'
           >
             Resume
           </Button>
@@ -119,10 +119,10 @@ const Page = () => {
       <Link href={GitHub} target="_blank">
         <Button
           variant="ghost"
-          colorScheme="#FFD082"
+           colorScheme='cyan'
           leftIcon={<IoLogoGithub />}
         >
-          @apramm
+          apramm
         </Button>
       </Link>
     </Box>
@@ -130,10 +130,10 @@ const Page = () => {
       <Link href={LinkedIn} target="_blank">
         <Button
           variant="ghost"
-          colorScheme="#FFD082"
+           colorScheme='cyan'
           leftIcon={<IoLogoLinkedin />}
         >
-          @apramahuja
+          apramahuja
         </Button>
       </Link>
     </Box>
@@ -141,10 +141,10 @@ const Page = () => {
       <Link href={Strava} target="_blank">
         <Button
           variant="ghost"
-          colorScheme="#FFD082"
+           colorScheme='cyan'
           leftIcon={<FaStrava />}
         >
-          @apramrun
+          apramrun
         </Button>
       </Link>
     </Box>
@@ -152,10 +152,10 @@ const Page = () => {
       <Link href={Instagram} target="_blank">
         <Button
           variant="ghost"
-          colorScheme="#FFD082"
+           colorScheme='cyan'
           leftIcon={<IoLogoInstagram />}
         >
-          @apramahuja
+          apramahuja
         </Button>
       </Link>
     </Box>

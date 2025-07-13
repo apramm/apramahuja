@@ -47,7 +47,7 @@ const Navbar = props => {
           align="center"
           justify="space-between"
         >
-          <Flex align="center" mr={5}>
+          <Flex align="center" mr={5} marginTop={{ base: 5, md: 3 }}>
             <Heading as="h1" size="lg" letterSpacing={'tighter'}>
               <Logo />
             </Heading>

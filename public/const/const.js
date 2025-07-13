@@ -1,5 +1,5 @@
 export const Resume = '../components/resume.js';
-export const Profile = '/images/apram.jpg';
+export const Profile = '/images/profile/profile.jpg';
 export const GitHub = 'https://github.com/apramm';
 export const LinkedIn = 'https://www.linkedin.com/in/apram/';
 export const Strava = 'https://www.strava.com/athletes/144141823';
