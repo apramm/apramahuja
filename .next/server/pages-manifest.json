@@ -1,8 +1,1 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/resume-page": "pages/resume-page.js",
-  "/works": "pages/works.js"
-}
+{"/_app":"pages/_app.js","/_document":"pages/_document.js","/404":"pages/404.html","/":"pages/index.html","/_error":"pages/_error.js","/resume-page":"pages/resume-page.js","/works":"pages/works.js"}
