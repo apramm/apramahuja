@@ -22,7 +22,7 @@ const Resume = () => (
             minHeight="50vh" // Large enough for better visibility
             minWidth="80vh"
           >
-            <PDFAnnotator pdfUrl="https://apramm.github.io/resume/"  />
+            <PDFAnnotator pdfUrl="https://apramm.github.io/docs/?doc=resume"  />
           </Box>
         </Section>
       </SimpleGrid>
