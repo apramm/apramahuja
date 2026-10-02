@@ -2,7 +2,7 @@ name: sync
 
 on:
   schedule:
-    - cron: "7,37 * * * *"   # every 30 min, off the top of the hour (GitHub may delay runs)
+    - cron: "7,22,37,52 * * * *"   # every 15 min, off the top of the hour; faster risks Vercel Hobby's 100 deploys/day
   workflow_dispatch:
 
 permissions: {}
