@@ -3,7 +3,7 @@ title: "Books"
 description: "what i'm reading"
 tags: [books]
 weight: 5
-example: true
+example: false
 ---
 
-Example interest. <!-- TODO(apram): add books -->
+I keep a running log of what I read at [apramreads](https://apramm.github.io/apramreads/).

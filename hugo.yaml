@@ -17,6 +17,7 @@ params:
   docsBase: "https://apramm.github.io/docs/?doc="
   links:
     github: "https://github.com/apramm"
+    leetcode: "https://leetcode.com/u/apramm/"
     linkedin: "https://www.linkedin.com/in/apram/"
     strava: "https://www.strava.com/athletes/144141823"
     email: "mailto:apri@student.ubc.ca"

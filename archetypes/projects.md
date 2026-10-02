@@ -9,6 +9,7 @@ weight: 0              # optional ordering for featured projects (lower first)
 status: "active"       # complete | active | archived
 github: ""             # optional repo URL
 demo: ""               # optional live/demo URL
+link: ""      # optional project page (lab, event, article)
 doc: ""                # optional key on apramm.github.io/docs (?doc=<key>)
 image: ""              # optional, page bundle resource or /images/... (file in assets/images/)
 image_alt: ""          # optional; empty = decorative

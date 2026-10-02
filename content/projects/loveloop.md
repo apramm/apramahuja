@@ -8,6 +8,7 @@ featured: true
 weight: 4
 status: "complete"
 github: ""
+link: "https://eml.ubc.ca/projects/immersive-fertility-awareness-training/"
 demo: ""
 doc: ""
 image: ""

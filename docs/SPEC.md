@@ -101,6 +101,7 @@ weight: 1                                                # optional ordering
 status: "complete"                                       # complete | active | archived
 github: ""                                               # optional
 demo: ""                                                 # optional
+link: ""                                                 # optional project page (lab, event)
 doc: ""                                                  # optional key on apramm.github.io/docs (?doc=<key>)
 image: ""                                                # optional, page bundle or /images/...
 example: false

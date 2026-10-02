@@ -7,7 +7,7 @@ tags: [Kotlin, FastAPI, Groq]
 featured: true
 weight: 1
 status: "complete"
-github: ""
+github: "https://github.com/kanish10/PILOT"
 demo: ""
 doc: ""
 image: ""

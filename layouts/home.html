@@ -6,7 +6,7 @@
   <nav aria-label="elsewhere">
     <ul class="inline">
       {{ $links := merge (site.Params.links | default dict) (dict "resume" site.Params.resume) }}
-      {{ range $k := slice "github" "linkedin" "strava" "resume" "email" }}{{ with index $links $k }}<li><a href="{{ . }}">{{ $k }}</a></li>{{ end }}{{ end }}
+      {{ range $k := slice "github" "leetcode" "linkedin" "strava" "resume" "email" }}{{ with index $links $k }}<li><a href="{{ . }}">{{ $k }}</a></li>{{ end }}{{ end }}
     </ul>
   </nav>
 </div>
