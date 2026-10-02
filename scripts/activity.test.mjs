@@ -73,7 +73,10 @@ test('normalize maps Strava sport types, gym has no distance, long durations get
   assert.equal(normalize('strava', { ...stravaRun, sport_type: 'GravelRide' }).activity, 'ride')
   assert.equal(normalize('strava', { ...stravaRun, sport_type: 'Swim' }).activity, 'swim')
   assert.equal(normalize('strava', { ...stravaRun, sport_type: 'Walk' }).activity, 'walk')
-  assert.equal(normalize('strava', { ...stravaRun, sport_type: 'Kitesurf' }).activity, 'other')
+  assert.equal(normalize('strava', { ...stravaRun, sport_type: 'Soccer' }).activity, 'soccer')
+  assert.equal(normalize('strava', { ...stravaRun, sport_type: 'Kitesurf' }).activity, 'kitesurf')
+  assert.equal(normalize('strava', { ...stravaRun, sport_type: 'StandUpPaddling' }).activity, 'other')
+  assert.deepEqual(normalize('strava', { ...stravaRun, sport_type: 'Tennis' }).tags, [])
 })
 
 test('normalize maps a Hevy workout to type gym with duration from start/end', () => {

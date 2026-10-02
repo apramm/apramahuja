@@ -10,7 +10,7 @@ const SAFE_FILE = /^[\w-]+\.md$/
 export const DEFAULT_TZ = 'America/Vancouver'
 
 // Default tags so interest pages can relate activities by tag; hand-added tags are merged in on resync.
-const DEFAULT_TAGS = { run: ['running'], hike: ['hiking'], ride: ['cycling'], swim: ['swimming'], gym: ['fitness'], walk: ['walking'], other: [] }
+const DEFAULT_TAGS = { run: ['running'], hike: ['hiking'], ride: ['cycling'], swim: ['swimming'], gym: ['fitness'], walk: ['walking'], soccer: ['soccer'], other: [] }
 
 const STRAVA_TYPES = {
   run: ['Run', 'TrailRun', 'VirtualRun'],
@@ -19,11 +19,14 @@ const STRAVA_TYPES = {
   swim: ['Swim'],
   gym: ['WeightTraining', 'Workout', 'Crossfit', 'HighIntensityIntervalTraining', 'Yoga', 'Pilates'],
   walk: ['Walk'],
+  soccer: ['Soccer'],
 }
 
 export function stravaType(sportType) {
   for (const [type, names] of Object.entries(STRAVA_TYPES)) if (names.includes(sportType)) return type
-  return 'other'
+  // ponytail: unmapped sports show Strava's own name if it fits the 10ch column; map it above if it matters
+  const name = String(sportType ?? '').toLowerCase()
+  return /^[a-z]{1,10}$/.test(name) ? name : 'other'
 }
 
 export function formatDuration(totalSeconds) {
@@ -104,7 +107,7 @@ export function normalize(source, r, { tz = DEFAULT_TZ } = {}) {
   // Fixed SPEC key order; drop undefined optionals.
   const out = {}
   for (const k of ['title', 'date', 'activity', 'distance_km', 'duration', 'moving_seconds', 'elevation_m', 'location']) if (a[k] !== undefined) out[k] = a[k]
-  return { ...out, tags: [...DEFAULT_TAGS[out.activity]], source, source_id: a.source_id, source_url: a.source_url, photos: [], example: false }
+  return { ...out, tags: [...(DEFAULT_TAGS[out.activity] ?? [])], source, source_id: a.source_id, source_url: a.source_url, photos: [], example: false }
 }
 
 // JSON scalars/arrays are valid YAML, and JSON string escaping makes any title safe on one line.

@@ -121,7 +121,7 @@ link: ""
 # activities/<yyyy-mm-dd>-<slug>.md   (manual or generated)
 title: "Evening run"
 date: 2026-09-27T18:10:00-07:00
-activity: run                  # run | hike | ride | swim | gym | walk | other
+activity: run                  # run | hike | ride | swim | gym | walk | soccer | other
 distance_km: 8.4               # optional
 duration: "44:21"              # display string
 moving_seconds: 2661           # optional, for sorting/aggregates

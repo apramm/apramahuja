@@ -96,7 +96,7 @@ a.title:hover, a.title:focus-visible { text-decoration-color: currentColor; }
 .ex { color: var(--muted); border: 1px solid var(--rule); border-radius: 2px; padding: 0 .3em; margin-left: .4em; font-size: .6875rem; vertical-align: .1em; }
 
 /* activity rows: fixed mono columns date | type | stats */
-.act { display: grid; grid-template-columns: 4.25rem 3.25rem 1fr; gap: .75rem; align-items: baseline; min-height: 2.75rem; padding: .625rem 0; color: var(--fg); }
+.act { display: grid; grid-template-columns: 6ch 10ch 1fr; gap: .75rem; align-items: baseline; min-height: 2.75rem; padding: .625rem 0; color: var(--fg); }
 .act time, .act > span:nth-child(2) { color: var(--muted); }
 .rows > li:has(> .act) { padding: 0; }
 

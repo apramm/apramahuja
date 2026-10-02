@@ -1,15 +1,21 @@
 {
-  "example": true,
-  "fetched_at": "2026-10-01T00:00:00.000Z",
+  "fetched_at": "2026-10-02T02:09:50.779Z",
   "user": "aprammusic",
   "recent": [
-    { "track": "Example Track One", "artist": "Placeholder Artist", "album": "Sample Album", "url": "", "played_at": "2026-10-01T00:00:00.000Z" },
-    { "track": "Example Track Two", "artist": "Another Placeholder", "album": "Demo LP", "url": "", "played_at": "2026-09-30T22:15:00.000Z" },
-    { "track": "Example Track Three", "artist": "Placeholder Artist", "album": "Sample Album", "url": "", "played_at": "2026-09-30T21:40:00.000Z" }
+    {
+      "track": "Me and Your Mama",
+      "artist": "Childish Gambino",
+      "album": "\"Awaken, My Love!\"",
+      "url": "https://www.last.fm/music/Childish+Gambino/_/Me+and+Your+Mama",
+      "played_at": "2026-10-01T23:53:20.000Z"
+    }
   ],
   "top_week": [
-    { "track": "Example Track One", "artist": "Placeholder Artist", "plays": 9, "url": "" },
-    { "track": "Example Track Four", "artist": "Fictional Band", "plays": 6, "url": "" },
-    { "track": "Example Track Two", "artist": "Another Placeholder", "plays": 4, "url": "" }
+    {
+      "track": "Me and Your Mama",
+      "artist": "Childish Gambino",
+      "plays": 1,
+      "url": "https://www.last.fm/music/Childish+Gambino/_/Me+and+Your+Mama"
+    }
   ]
 }

@@ -4,7 +4,7 @@
 # synced files are named <date>-<source>-<id>.md by scripts/
 title: "{{ replace (replaceRE `^\d{4}-\d{2}-\d{2}-` "" .File.ContentBaseName) "-" " " | title }}"
 date: {{ .Date }}
-activity: run              # run | hike | ride | swim | gym | walk | other
+activity: run              # run | hike | ride | swim | gym | walk | soccer | other
 distance_km: 0         # optional
 duration: ""           # display string, e.g. "44:21" or "1h 05m"
 moving_seconds: 0      # optional, for sorting/aggregates
