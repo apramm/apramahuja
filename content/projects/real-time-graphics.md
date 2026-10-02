@@ -1,7 +1,7 @@
 ---
 title: "Real-time 3D Graphics"
 date: 2024-01-01
-description: "real-time graphics site with multiple 3D workspaces"
+description: "interactive 3D scenes in the browser with three.js and webgl"
 outcome: ""
 tags: [JavaScript, Three.js, WebGL]
 featured: false

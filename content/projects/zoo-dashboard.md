@@ -1,7 +1,7 @@
 ---
 title: "Zoo Dashboard"
 date: 2023-04-01
-description: "tracking zoo animals and their popularity with oracle sql"
+description: "a dashboard tracking zoo animals and their popularity, on oracle sql"
 outcome: ""
 tags: [Oracle SQL]
 featured: false

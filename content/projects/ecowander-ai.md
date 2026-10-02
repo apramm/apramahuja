@@ -1,8 +1,8 @@
 ---
 title: "Ecowander.ai"
 date: 2024-10-05   # CIC hackathon, Oct 2024 (from repo history)
-description: "eco-friendly travel planner built at the CIC hackathon"
-outcome: ""
+description: "plans budget-friendly, lower-impact trips with Llama 3 on Bedrock"
+outcome: "CIC hackathon, 2024"
 tags: [TypeScript, Flask, Amazon Bedrock, Llama 3, AWS EC2]
 featured: false
 weight: 0

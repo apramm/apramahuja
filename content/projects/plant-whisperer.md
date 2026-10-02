@@ -1,7 +1,7 @@
 ---
 title: "PlantWhisperer"
 date: 2024-02-01
-description: "crop disease detection using an LLM and the PlantID API"
+description: "diagnoses crop disease from a plant photo and explains it"
 outcome: "winner, nwHacks 2024"
 tags: [LLM, PlantID API]
 featured: true

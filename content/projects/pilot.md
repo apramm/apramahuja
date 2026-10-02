@@ -1,7 +1,7 @@
 ---
 title: "PILOT"
 date: 2026-03-01
-description: "multi-agent voice assistant for android"
+description: "control android apps by voice: agents navigate the UI for you"
 outcome: "1st prize, IEEE EDT"
 tags: [Kotlin, FastAPI, Groq]
 featured: true
@@ -16,7 +16,8 @@ example: false
 
 ## what it does
 
-A multi-agent voice assistant for Android that controls apps through Accessibility Services.
+A multi-agent voice assistant that uses Android Accessibility Services to navigate and control
+mobile apps from natural-language commands. Won 1st prize at IEEE EDT (March 2026).
 
 ## how it works
 

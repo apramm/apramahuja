@@ -7,11 +7,11 @@
 <meta name="description" content="{{ (.Description | default site.Params.description) | plainify }}">
 <link rel="canonical" href="{{ .Permalink }}">
 <link rel="icon" href="{{ "images/favicon.ico" | relURL }}">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="light">
 <link rel="preload" href="{{ "fonts/newsreader-latin-400-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/geist-mono-latin-400-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <!-- CSP hash in vercel.json: update it if this script changes -->
-<script>(function(){var d=document.documentElement,k="theme",m=["auto","light","dark"],c;function s(v){if(v!=="light"&&v!=="dark")v="auto";if(v==="auto")delete d.dataset.theme;else d.dataset.theme=v;var b=document.getElementById(k);if(b){b.lastChild.textContent=v}return v}try{c=localStorage.getItem(k)}catch(e){}c=s(c);document.addEventListener("DOMContentLoaded",function(){s(c)});document.addEventListener("click",function(e){if(!e.target.closest("#"+k))return;c=s(m[(m.indexOf(c)+1)%3]);try{c==="auto"?localStorage.removeItem(k):localStorage.setItem(k,c)}catch(e){}})})()</script>
+<script>(function(){var d=document.documentElement,k="theme",c;function s(v){v=v==="dark"?"dark":"light";d.dataset.theme=v;var b=document.getElementById(k);if(b){b.lastChild.textContent=v}return v}try{c=localStorage.getItem(k)}catch(e){}c=s(c);document.addEventListener("DOMContentLoaded",function(){s(c)});document.addEventListener("click",function(e){if(!e.target.closest("#"+k))return;c=s(c==="dark"?"light":"dark");try{localStorage.setItem(k,c)}catch(e){}})})()</script>
 {{ with resources.Get "css/site.css" | minify | fingerprint }}<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">{{ end }}
 </head>
 <body>
@@ -28,7 +28,7 @@
       {{ range slice "projects" "experience" "activities" "photos" "interests" "now" }}<li><a href="{{ printf "/%s/" . | relURL }}">{{ . }}</a></li>{{ end }}
     </ul>
   </nav>
-  <p>built with hugo · updated {{ now.Format "2006-01-02" }} · <button id="theme" class="theme" type="button">theme: <span>auto</span></button></p>
+  <p>built with hugo · updated {{ now.Format "2006-01-02" }} · <button id="theme" class="theme" type="button">theme: <span>light</span></button></p>
 </footer>
 </body>
 </html>

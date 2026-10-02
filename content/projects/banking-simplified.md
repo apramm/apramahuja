@@ -1,7 +1,7 @@
 ---
 title: "Banking Simplified"
 date: 2023-01-01   # date approximate
-description: "desktop app for simplified banking and budgeting"
+description: "java desktop app for everyday banking and budgeting"
 outcome: ""
 tags: [Desktop]
 featured: false

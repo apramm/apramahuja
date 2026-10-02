@@ -1,7 +1,7 @@
 ---
 title: "EPL Betting Odds Model"
 date: 2023-01-01   # date approximate
-description: "how well betting odds predict football matches"
+description: "do betting odds actually predict premier league results?"
 outcome: ""
 tags: [Data Science]
 featured: false

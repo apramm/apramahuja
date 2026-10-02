@@ -1,7 +1,7 @@
 ---
 title: "Inference"
 date: 2023-09-01   # date approximate (STAT 201, 2023W1 term)
-description: "the effect of age on olympic athlete performance"
+description: "does age change olympic performance? a statistical inference study"
 outcome: "STAT 201 group project"
 tags: [Statistics, Data Science]
 featured: false

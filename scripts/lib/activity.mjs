@@ -119,17 +119,25 @@ export function toFrontMatter(obj, body = '') {
 export const filenameFor = (a) => `${a.date.slice(0, 10)}-${a.source}-${a.source_id}.md`
 
 // Reads back our own JSON-per-line front matter plus the plain YAML a human is likely to hand-write
-// (bare scalars, `- item` block lists, `[a, b]` flow lists).
-// ponytail: tolerant YAML subset, not a YAML parser; nested maps/multiline scalars are ignored (kept as-is only if they are in the body).
+// (bare scalars, `- item` block lists, `[a, b]` flow lists, `- src: x` / `  alt: y` lists of flat maps).
+// ponytail: tolerant YAML subset, not a YAML parser; deeper nesting/multiline scalars are ignored (kept as-is only if they are in the body).
 export function parseFrontMatter(text) {
   const m = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/)
   if (!m) return { data: {}, body: text }
   const scalar = (v) => { try { return JSON.parse(v) } catch { return v.replace(/^(['"])(.*)\1$/, '$2') } }
   const data = {}
   let listKey = null
+  const KEY = /^([A-Za-z_][\w-]*):\s*(.*?)\s*$/
   for (const line of m[1].split(/\r?\n/)) {
     const item = line.match(/^\s+-\s+(.*?)\s*$/)
-    if (item && listKey) { data[listKey].push(scalar(item[1])); continue }
+    if (item && listKey) {
+      const kv = item[1].match(KEY)
+      data[listKey].push(kv ? { [kv[1]]: scalar(kv[2]) } : scalar(item[1]))
+      continue
+    }
+    const cont = listKey && line.match(/^\s+([A-Za-z_][\w-]*):\s*(.*?)\s*$/)
+    const last = cont && data[listKey].at(-1)
+    if (last && typeof last === 'object') { last[cont[1]] = scalar(cont[2]); continue }
     const kv = line.match(/^([A-Za-z_][\w-]*):\s*(.*?)\s*$/)
     if (!kv) { listKey = null; continue }
     const [, k, v] = kv
@@ -141,7 +149,18 @@ export function parseFrontMatter(text) {
   return { data, body: m[2] }
 }
 
-// Hand edits win for body, photos, description; tags are unioned. Every other key is owned by the sync.
+const photoSrc = (p) => (typeof p === 'string' ? p : p?.src)
+const validPhoto = (p) => typeof photoSrc(p) === 'string' && photoSrc(p) !== '' && (typeof p === 'string' || p.alt === undefined || typeof p.alt === 'string')
+
+// Synced photos first in provider order (an existing entry with the same src wins, so hand-edited alt
+// text survives), then every other existing entry (hand-added, or synced earlier but not this run).
+export function mergePhotos(synced, existing) {
+  const old = Array.isArray(existing) ? existing.filter(validPhoto) : []
+  const srcs = new Set(synced.map(photoSrc))
+  return [...synced.map((s) => old.find((o) => photoSrc(o) === s.src) ?? s), ...old.filter((o) => !srcs.has(photoSrc(o)))]
+}
+
+// Hand edits win for body, description and existing photo entries; tags are unioned. Every other key is owned by the sync.
 function mergeExisting(a, existing) {
   if (existing == null) return { fm: a, body: '' }
   const { data, body } = parseFrontMatter(existing)
@@ -153,7 +172,7 @@ function mergeExisting(a, existing) {
       description: typeof data.description === 'string' && data.description ? data.description : undefined,
       ...rest,
       tags: [...new Set([...a.tags, ...strings(data.tags)])],
-      photos: Array.isArray(data.photos) ? strings(data.photos) : a.photos,
+      photos: mergePhotos(a.photos, data.photos),
     },
     body,
   }

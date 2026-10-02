@@ -13,9 +13,6 @@
   --gutter: 1.25rem;
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --bg: #121413; --fg: #E6E8E3; --muted: #9AA29C; --rule: #2A2F2C; --accent: #7DB6C4; color-scheme: dark; }
-}
 :root[data-theme="dark"] { --bg: #121413; --fg: #E6E8E3; --muted: #9AA29C; --rule: #2A2F2C; --accent: #7DB6C4; color-scheme: dark; }
 @media (min-width: 40rem) { :root { --gutter: 2rem; } }
 
@@ -153,4 +150,20 @@ footer.site p { margin: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* activity photos: one large crop, then a 2-column grid of squares */
+.act-photos { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin: 1rem 0 1.5rem; }
+.act-photos img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: var(--rule); }
+.act-photos img:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 5; max-height: 32rem; }
+.thumbs .act { grid-template-columns: 6ch 10ch 1fr 44px; }
+.thumbs .thumb { grid-column: -2; align-self: center; width: 44px; height: 44px; object-fit: cover; background: var(--rule); }
+/* phones: date above type, so the stats column gets the width */
+@media (max-width: 26rem) {
+  .act, .thumbs .act { grid-template-columns: 10ch 1fr; column-gap: .75rem; row-gap: 0; }
+  .thumbs .act { grid-template-columns: 10ch 1fr 44px; }
+  .act > time { grid-column: 1; grid-row: 1; }
+  .act > span:nth-of-type(1) { grid-column: 1; grid-row: 2; }
+  .act > .stats { grid-column: 2; grid-row: 1 / 3; }
+  .thumbs .thumb { grid-row: 1 / 3; }
 }

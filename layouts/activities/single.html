@@ -2,6 +2,9 @@
 {{ $p := .Params }}
 <article>
   {{ partial "page-header.html" . }}
+  {{ with $p.photos }}<div class="act-photos">{{ range $i, $ph := . }}{{/* "path" or {src, alt} */}}{{ $ph = cond (reflect.IsMap $ph) $ph (dict "src" $ph) }}
+    {{ partial "img.html" (dict "page" $ "src" $ph.src "alt" ($ph.alt | default (printf "%s, photo %d" $.Title (add $i 1))) "sizes" "(min-width: 672px) 640px, 100vw" "eager" (eq $i 0)) }}{{ end }}
+  </div>{{ end }}
   <dl class="stats">
     <dt>date</dt><dd><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></dd>
     <dt>type</dt><dd>{{ $p.activity | default "other" }}</dd>
@@ -12,7 +15,6 @@
     {{ with $p.source }}<dt>source</dt><dd>{{ . }}</dd>{{ end }}
   </dl>
   <div class="prose">{{ .Content }}</div>
-  {{ with $p.photos }}{{ $items := slice }}{{ range . }}{{/* "path" or {src, alt} */}}{{ $ph := cond (reflect.IsMap .) . (dict "src" .) }}{{ $items = $items | append (dict "page" $ "src" $ph.src "alt" ($ph.alt | default "")) }}{{ end }}{{ partial "photo-grid.html" $items }}{{ end }}
   {{ if and $p.source_url (in (slice "strava" "hevy") $p.source) }}<p class="more"><a href="{{ $p.source_url }}">view on {{ $p.source }} →</a></p>{{ end }}
   <p class="more"><a href="{{ "/activities/" | relURL }}">← all activity</a></p>
 </article>

@@ -43,11 +43,11 @@ image, no client-side calls to Strava / Last.fm / Hevy.
   | `--accent` | `#2F6B7A` | `#7DB6C4` |
 
   All text pairs meet WCAG AA (4.5:1) on `--bg`.
-- **Light + dark**: follows `prefers-color-scheme` by default. A small text toggle
-  (`light / dark / auto`) in the footer sets `data-theme` on `<html>` and stores it in
+- **Light + dark**: light by default, regardless of the OS setting. A small text toggle
+  (`light / dark`) in the footer sets `data-theme` on `<html>` and stores it in
   `localStorage` (wrapped in try/catch). A ≤ 1 KB inline script in `<head>` applies the stored
-  choice before first paint. Token blocks: `:root` (light), `@media (prefers-color-scheme: dark)
-  :root:not([data-theme=light])`, `:root[data-theme=dark]`.
+  choice before first paint. Token blocks: `:root` (light), `:root[data-theme=dark]`.
+  Changing the script means updating its `sha256` in the CSP in `vercel.json`.
 - Links: `--accent`, underline on hover/focus. Entry titles: `--fg` with a faint underline
   (`--rule`). Visible `:focus-visible` outline in `--accent`.
 - Motion: none except the optional 3D mark and the 3-bar "listening" indicator; both disabled
@@ -186,6 +186,16 @@ Last.fm ┘   (GitHub Action cron, every 6h + manual dispatch)
   secret, and fails so GitHub emails the owner. `scripts/strava-auth.mjs` prints the authorize URL
   and exchanges a code for the first refresh token locally. Scope `read,activity:read`. Only
   `visibility: everyone` activities are published.
+- Strava photos: for each published activity with `total_photo_count > 0`, one call to
+  `GET /activities/{id}/photos?size=1024&photo_sources=true`; the largest entry in `urls` is
+  downloaded to `assets/images/activities/<id>-<n>.<ext>` and committed (Hugo resizes it to webp, so
+  only same-origin images ship). Existing files are reused, never re-downloaded or deleted.
+  Downloads: https only, exact host allowlist in `sync-strava.mjs` (Strava's CloudFront hosts), no
+  redirects, no auth header, `image/jpeg|png|webp` checked against magic bytes, 8 MB cap, timeout,
+  temp + rename. Photo GPS (`location`) is not stored. A photo failure logs `::warning::` and the
+  activity is still written. Front matter: `photos: [{src, alt}]`, alt = caption or
+  `"<title>, photo <n>"`; synced entries first in Strava order, then hand-added ones; an existing
+  entry with the same `src` wins (hand-edited alt survives).
 - Hevy: `GET https://api.hevyapp.com/v1/workouts` with `api-key` header (`HEVY_API_KEY`,
   Hevy Pro). Maps to `activity: gym`, duration from start/end, title from workout title. UTC
   times are converted to `SITE_TZ` (default `America/Vancouver`).
@@ -196,7 +206,7 @@ Last.fm ┘   (GitHub Action cron, every 6h + manual dispatch)
 - Secrets live only in GitHub Actions secrets and local `.env` (gitignored). Nothing secret is
   read by Hugo or shipped to the browser. `.env.example` documents every variable.
 - Workflow `sync.yml`: checkout (`persist-credentials: false`) → node 22 → run three syncs
-  (each `continue-on-error`) → commit `data/`/`content/activities` changes as
+  (each `continue-on-error`) → commit `data/`/`content/activities`/`assets/images/activities` changes as
   `github-actions[bot]` → push `main` with the token passed only to that step → fail the job if
   any provider failed. `permissions: {}` at workflow level, `contents: write` on the job. Every
   action pinned by commit SHA; Dependabot bumps them. Workflow `ci.yml`: on PR/push, `node --test 'scripts/*.test.mjs'` and

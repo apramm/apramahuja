@@ -1,7 +1,7 @@
 ---
 title: "LoveLoop"
 date: 2025-05-01   # date approximate (Emerging Media Lab, 2025)
-description: "open-source AR game, built at the UBC Emerging Media Lab"
+description: "AR game teaching fertility awareness, built in UE5 by a team of 4"
 outcome: ""
 tags: [Unreal Engine 5, C++, AWS S3]
 featured: true

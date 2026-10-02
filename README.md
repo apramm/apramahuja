@@ -50,6 +50,12 @@ Visitors never contact these APIs. If a provider is down or a key is missing, th
 fails without touching existing files, and the site keeps the last good data. Hand edits to a
 synced activity (notes in the body, `photos`) survive later syncs.
 
+Strava photos on public activities are downloaded at sync time into `assets/images/activities/`
+and committed with the activity files; Hugo serves resized webp copies from the site itself. Each
+photo is fetched once. To add your own photo to a synced activity, put the file in
+`assets/images/activities/` and append `{src: "/images/activities/<file>", alt: "..."}` (or just
+the path) to its `photos:` list; you can also edit the `alt` of a synced photo.
+
 Add the keys under **GitHub → repo → Settings → Secrets and variables → Actions**:
 
 | Secret | How to get it |
