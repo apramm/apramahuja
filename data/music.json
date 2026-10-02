@@ -1,7 +1,21 @@
 {
-  "fetched_at": "2026-10-02T04:42:59.491Z",
+  "fetched_at": "2026-10-02T10:45:23.557Z",
   "user": "aprammusic",
   "recent": [
+    {
+      "track": "Mob Ties",
+      "artist": "Drake",
+      "album": "Scorpion",
+      "url": "https://www.last.fm/music/Drake/_/Mob+Ties",
+      "played_at": "2026-10-02T04:45:34.000Z"
+    },
+    {
+      "track": "King Kunta",
+      "artist": "Kendrick Lamar",
+      "album": "To Pimp a Butterfly",
+      "url": "https://www.last.fm/music/Kendrick+Lamar/_/King+Kunta",
+      "played_at": "2026-10-02T04:32:14.000Z"
+    },
     {
       "track": "God's Plan",
       "artist": "Drake",
@@ -72,16 +86,16 @@
       "url": "https://www.last.fm/music/Drake/_/God%27s+Plan"
     },
     {
+      "track": "Mob Ties",
+      "artist": "Drake",
+      "plays": 1,
+      "url": "https://www.last.fm/music/Drake/_/Mob+Ties"
+    },
+    {
       "track": "Unakkul Naane",
       "artist": "Harris Jayaraj, Rohini, Pritt & Dilushselva",
       "plays": 1,
       "url": "https://www.last.fm/music/Harris+Jayaraj,+Rohini,+Pritt+&+Dilushselva/_/Unakkul+Naane"
-    },
-    {
-      "track": "Hurt Feelings",
-      "artist": "Mac Miller",
-      "plays": 1,
-      "url": "https://www.last.fm/music/Mac+Miller/_/Hurt+Feelings"
     }
   ]
 }
