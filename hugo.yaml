@@ -11,7 +11,7 @@ markup:
       unsafe: false
 params:
   name: "Apram Ahuja"
-  subtitle: "i like getting to the bottom of problems, and sometimes solving them"
+  subtitle: "i like getting to the bottom of problems, sometimes solving them"
   description: "Apram Ahuja: software engineer and CS student at UBC. Projects, experience, runs, and what I'm listening to."
   resume: "https://apramm.github.io/docs/?doc=resume"
   docsBase: "https://apramm.github.io/docs/?doc="
