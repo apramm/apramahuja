@@ -1,7 +1,49 @@
 {
-  "fetched_at": "2026-10-02T02:09:50.779Z",
+  "fetched_at": "2026-10-02T04:42:59.491Z",
   "user": "aprammusic",
   "recent": [
+    {
+      "track": "God's Plan",
+      "artist": "Drake",
+      "album": "Scorpion",
+      "url": "https://www.last.fm/music/Drake/_/God%27s+Plan",
+      "played_at": "2026-10-02T04:03:32.000Z"
+    },
+    {
+      "track": "Hurt Feelings",
+      "artist": "Mac Miller",
+      "album": "Swimming",
+      "url": "https://www.last.fm/music/Mac+Miller/_/Hurt+Feelings",
+      "played_at": "2026-10-02T03:57:48.000Z"
+    },
+    {
+      "track": "Olha Mein Patola",
+      "artist": "Masoom Sharma & Sheenam Katholik",
+      "album": "Olha Mein Patola - Single",
+      "url": "https://www.last.fm/music/Masoom+Sharma+&+Sheenam+Katholik/_/Olha+Mein+Patola",
+      "played_at": "2026-10-02T02:26:01.000Z"
+    },
+    {
+      "track": "Othaiyadi Pathayila",
+      "artist": "Anirudh Ravichander & Dhibu Ninan Thomas",
+      "album": "Kanaa (Original Motion Picture Soundtrack)",
+      "url": "https://www.last.fm/music/Anirudh+Ravichander+&+Dhibu+Ninan+Thomas/_/Othaiyadi+Pathayila",
+      "played_at": "2026-10-02T02:14:00.000Z"
+    },
+    {
+      "track": "Othaiyadi Pathayila",
+      "artist": "Anirudh Ravichander & Dhibu Ninan Thomas",
+      "album": "Kanaa (Original Motion Picture Soundtrack)",
+      "url": "https://www.last.fm/music/Anirudh+Ravichander+&+Dhibu+Ninan+Thomas/_/Othaiyadi+Pathayila",
+      "played_at": "2026-10-02T02:09:51.000Z"
+    },
+    {
+      "track": "Unakkul Naane",
+      "artist": "Harris Jayaraj, Rohini, Pritt & Dilushselva",
+      "album": "Unakkul Naane - Single",
+      "url": "https://www.last.fm/music/Harris+Jayaraj,+Rohini,+Pritt+&+Dilushselva/_/Unakkul+Naane",
+      "played_at": "2026-10-02T01:52:25.000Z"
+    },
     {
       "track": "Me and Your Mama",
       "artist": "Childish Gambino",
@@ -12,10 +54,34 @@
   ],
   "top_week": [
     {
+      "track": "Othaiyadi Pathayila",
+      "artist": "Anirudh Ravichander & Dhibu Ninan Thomas",
+      "plays": 2,
+      "url": "https://www.last.fm/music/Anirudh+Ravichander+&+Dhibu+Ninan+Thomas/_/Othaiyadi+Pathayila"
+    },
+    {
       "track": "Me and Your Mama",
       "artist": "Childish Gambino",
       "plays": 1,
       "url": "https://www.last.fm/music/Childish+Gambino/_/Me+and+Your+Mama"
+    },
+    {
+      "track": "God's Plan",
+      "artist": "Drake",
+      "plays": 1,
+      "url": "https://www.last.fm/music/Drake/_/God%27s+Plan"
+    },
+    {
+      "track": "Unakkul Naane",
+      "artist": "Harris Jayaraj, Rohini, Pritt & Dilushselva",
+      "plays": 1,
+      "url": "https://www.last.fm/music/Harris+Jayaraj,+Rohini,+Pritt+&+Dilushselva/_/Unakkul+Naane"
+    },
+    {
+      "track": "Hurt Feelings",
+      "artist": "Mac Miller",
+      "plays": 1,
+      "url": "https://www.last.fm/music/Mac+Miller/_/Hurt+Feelings"
     }
   ]
 }
