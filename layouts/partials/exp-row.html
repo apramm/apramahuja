@@ -1,8 +1,8 @@
 {{- /* one experience page → entry-row; work: "role @ org", education: org with degree below */ -}}
 {{- $when := printf "%s – %s" (substr (printf "%v" (.Params.start | default "")) 0 7) (lower (substr (printf "%v" (.Params.end | default "present")) 0 7)) -}}
 {{- $href := printf "%s#%s" ("/experience/" | relURL) .File.ContentBaseName -}}
-{{- if eq .Params.kind "education" -}}
-{{ partial "entry-row.html" (dict "page" . "title" (.Params.organization | default .Title) "href" $href "sub" (cond (isset .Params "organization") .Title "") "date" $when) }}
-{{- else -}}
-{{ partial "entry-row.html" (dict "page" . "title" (cond (isset .Params "organization") (printf "%s @ %s" .Title .Params.organization) .Title) "href" $href "sub" .Params.summary "date" $when) }}
+{{- $title := .Title }}{{ $sub := .Params.summary -}}
+{{- with .Params.organization -}}
+  {{- if eq $.Params.kind "education" }}{{ $title = . }}{{ $sub = $.Title }}{{ else }}{{ $title = printf "%s @ %s" $.Title . }}{{ end -}}
 {{- end -}}
+{{ partial "entry-row.html" (dict "page" . "title" $title "href" $href "sub" $sub "date" $when) }}

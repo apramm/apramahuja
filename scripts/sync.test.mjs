@@ -33,9 +33,10 @@ test('strava: missing env skips with exit 0', async () => {
   assert.match(lines.join('\n'), /skipping/i)
 })
 
-test('strava: writes public activities, excludes private and only_me', async () => {
+test('strava: writes only visibility=everyone activities', async () => {
   const dir = await tmp()
-  const code = await runStrava({ env: stravaEnv, fetch: stravaFetch([act(1), act(2, { private: true }), act(3, { visibility: 'only_me' })]), dir, log: capture().logger })
+  const acts = [act(1), act(2, { private: true }), act(3, { visibility: 'only_me' }), act(4, { visibility: 'followers_only' }), act(5, { visibility: undefined })]
+  const code = await runStrava({ env: stravaEnv, fetch: stravaFetch(acts), dir, log: capture().logger })
   assert.equal(code, 0)
   assert.deepEqual(await readdir(dir), ['2026-09-27-strava-1.md'])
 })
@@ -48,11 +49,13 @@ test('strava: API error exits 1 and leaves existing files untouched', async () =
   assert.equal(await readFile(join(dir, '2026-01-01-strava-9.md'), 'utf8'), 'keep me')
 })
 
-test('strava: rotated refresh token logs a ::warning:: without printing the token', async () => {
+test('strava: rotated refresh token writes data, logs ::error:: naming the secret, exits 1, never prints the token', async () => {
   const { lines, logger } = capture()
-  await runStrava({ env: stravaEnv, fetch: stravaFetch([], { access_token: 'access', refresh_token: 'refresh-NEW' }), dir: await tmp(), log: logger })
+  const dir = await tmp()
+  assert.equal(await runStrava({ env: stravaEnv, fetch: stravaFetch([act(1)], { access_token: 'access', refresh_token: 'refresh-NEW' }), dir, log: logger }), 1)
+  assert.deepEqual(await readdir(dir), ['2026-09-27-strava-1.md'])
   const out = lines.join('\n')
-  assert.match(out, /::warning::.*STRAVA_REFRESH_TOKEN/)
+  assert.match(out, /::error::.*STRAVA_REFRESH_TOKEN/)
   assert.doesNotMatch(out, /refresh-NEW|sekrit|access/)
 })
 
@@ -105,4 +108,10 @@ test('lastfm: writes music.json, skips rewrite when only fetched_at changed, err
 
   assert.equal(await runLastfm({ env, fetch: async () => json({ error: 10, message: 'Invalid API key' }), file, log: capture().logger }), 1)
   assert.equal(await readFile(file, 'utf8'), first)
+})
+
+test('lastfm: lone surrogates are replaced', () => {
+  const m = toMusic({ recent: { recenttracks: { track: { name: 'a\ud800', artist: { '#text': '\udfff' }, url: '' } } }, top: { toptracks: { track: [] } }, user: 'u', fetchedAt: 'now' })
+  assert.equal(m.recent[0].track, 'a�')
+  assert.equal(m.recent[0].artist, '�')
 })

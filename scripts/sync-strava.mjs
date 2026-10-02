@@ -14,16 +14,21 @@ export async function run({ env = process.env, fetch = globalThis.fetch, dir = j
       body: JSON.stringify({ client_id: env.STRAVA_CLIENT_ID, client_secret: env.STRAVA_CLIENT_SECRET, refresh_token: env.STRAVA_REFRESH_TOKEN, grant_type: 'refresh_token' }),
     })
     if (!token.access_token) throw new Error('Strava token response had no access token')
-    if (token.refresh_token && token.refresh_token !== env.STRAVA_REFRESH_TOKEN) {
-      log.warn('::warning::Strava rotated the refresh token. Run `node scripts/strava-auth.mjs` to get a fresh one and update the STRAVA_REFRESH_TOKEN repository secret, or future syncs may fail.')
-    }
+    // Strava invalidates the old refresh token once it issues a new one, so this needs the owner's action.
+    // Sync this run's data anyway, then exit 1 so the workflow fails and GitHub emails the owner.
+    const rotated = Boolean(token.refresh_token) && token.refresh_token !== env.STRAVA_REFRESH_TOKEN
     const list = await getJson(fetch, 'https://www.strava.com/api/v3/athlete/activities?per_page=30', {
       headers: { authorization: `Bearer ${token.access_token}` },
     })
     if (!Array.isArray(list)) throw new Error('Strava activities response was not a list')
-    const activities = list.filter((a) => !a.private && a.visibility !== 'only_me').map((a) => normalize('strava', a))
+    // Allowlist: only activities the owner made visible to everyone (excludes followers_only, only_me, missing).
+    const activities = list.filter((a) => a.visibility === 'everyone' && !a.private).map((a) => normalize('strava', a))
     const r = await writeActivities(dir, activities, 'strava')
     log.log(`strava: ${activities.length} activities (${r.written} written, ${r.unchanged} unchanged, ${r.removed} removed)`)
+    if (rotated) {
+      log.error('::error::Strava rotated the refresh token; the STRAVA_REFRESH_TOKEN secret is now stale. Run `node scripts/strava-auth.mjs` locally and update the STRAVA_REFRESH_TOKEN repository secret.')
+      return 1
+    }
     return 0
   } catch (err) {
     log.error(`::error::strava sync failed, existing files left untouched: ${err.message}`)

@@ -19,7 +19,7 @@ const code = i > -1 ? process.argv[i + 1] : null
 if (!id) { console.error('Set STRAVA_CLIENT_ID (in .env or the environment).'); process.exit(1) }
 
 if (!code) {
-  const params = new URLSearchParams({ client_id: id, response_type: 'code', redirect_uri: 'http://localhost', approval_prompt: 'force', scope: 'read,activity:read_all' })
+  const params = new URLSearchParams({ client_id: id, response_type: 'code', redirect_uri: 'http://localhost', approval_prompt: 'force', scope: 'read,activity:read' })
   console.error('1. Open this URL and approve access.')
   console.error('2. The browser lands on http://localhost/?...&code=XXXX (the page will not load; that is fine).')
   console.error('3. Run: node scripts/strava-auth.mjs --code XXXX\n')

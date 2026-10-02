@@ -1,6 +1,6 @@
 ---
 title: "Role title"
-organization: ""
+organization: ""       # company or school; leave "" to show just the title
 kind: work             # work | education
 start: {{ now.Format "2006-01" }}   # YYYY-MM
 end: present           # YYYY-MM or "present"

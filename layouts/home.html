@@ -13,12 +13,15 @@
 {{ end }}
 
 {{ define "main" }}
-{{ with site.GetPage "/now" }}{{ if or .Params.now hugo.Data.music }}
+{{ $now := site.GetPage "/now" }}
+{{ $items := slice }}{{ with $now }}{{ $items = .Params.now }}{{ end }}
+{{ $recent := (hugo.Data.music | default dict).recent }}
+{{ if or $items $recent }}
 <section aria-labelledby="now">
   {{ partial "section-label.html" (dict "id" "now" "text" "now") }}
-  {{ partial "now-list.html" . }}
+  {{ partial "now-list.html" $now }}
 </section>
-{{ end }}{{ end }}
+{{ end }}
 
 {{ $exp := where site.RegularPages "Section" "experience" }}
 {{ with first 4 (sort (where $exp "Params.kind" "work") "Params.start" "desc") }}
@@ -32,7 +35,7 @@
 {{ with first 4 (where (where site.RegularPages "Section" "projects") "Params.featured" true).ByWeight }}
 <section aria-labelledby="projects">
   {{ partial "section-label.html" (dict "id" "projects" "text" "projects") }}
-  <ul class="rows">{{ range . }}<li>{{ partial "entry-row.html" (dict "page" . "title" .Title "href" .RelPermalink "desc" .Description "sub" .Params.outcome "date" (.Date.Format "2006")) }}</li>{{ end }}</ul>
+  <ul class="rows">{{ range . }}<li>{{ partial "project-row.html" . }}</li>{{ end }}</ul>
   <p class="more"><a href="{{ "/projects/" | relURL }}">all projects →</a></p>
 </section>
 {{ end }}

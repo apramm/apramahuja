@@ -1,10 +1,10 @@
-{{- /* context: the now page */ -}}
+{{- /* context: the now page, or nil (listening line still renders from data/music.json) */ -}}
 <ul class="now">
-  {{ range .Params.now }}
-  <li><span class="k">{{ .label }}</span> <span>{{ if .link }}<a href="{{ .link | relURL }}">{{ .value }}</a>{{ else }}{{ .value }}{{ end }}</span></li>
-  {{ end }}
-  {{ with hugo.Data.music }}{{ $user := .user | default site.Params.lastfm.user }}{{ with index (.recent | default slice) 0 }}
+  {{ with . }}{{ range .Params.now }}
+  <li><span class="k">{{ .label }}</span> <span>{{ if .link }}<a href="{{ .link | relURL }}">{{ .value }}</a>{{ else }}{{ .value }}{{ end }}{{ partial "example-tag.html" . }}</span></li>
+  {{ end }}{{ end }}
+  {{ with hugo.Data.music }}{{ $music := . }}{{ $user := .user | default site.Params.lastfm.user }}{{ with index (.recent | default slice) 0 }}
   {{ $ago := "" }}{{ with .played_at }}{{ $h := (now.Sub (time .)).Hours }}{{ $ago = cond (lt $h 1) "just now" (cond (lt $h 24) (printf "%.0fh ago" $h) (printf "%.0fd ago" (math.Floor (div $h 24)))) }}{{ end }}
-  <li><span class="k">listening</span> <span><span class="bars" aria-hidden="true"><span></span><span></span><span></span></span><i>{{ .track }}</i> by {{ .artist }} · <a href="https://www.last.fm/user/{{ $user }}">last.fm</a>{{ with $ago }} · {{ . }}{{ end }}</span></li>
+  <li><span class="k">listening</span> <span><span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>“{{ .track }}” by {{ .artist }} · <a href="https://www.last.fm/user/{{ $user }}">last.fm</a>{{ with $ago }} · {{ . }}{{ end }}{{ partial "example-tag.html" $music }}</span></li>
   {{ end }}{{ end }}
 </ul>

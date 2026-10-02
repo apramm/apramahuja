@@ -1,14 +1,8 @@
-{{- /* slice of (dict "page" p "src" path "alt" text "href" optional-link) */ -}}
+{{- /* slice of (dict "page" p "src" path "alt" text "href" optional-link "example" bool "eager" bool) */ -}}
 <ul class="grid">
 {{ range . }}
-  {{ $src := .src }}{{ $r := "" }}{{ with .page }}{{ $r = .Resources.Get $src }}{{ end }}
   <li>{{ with .href }}<a href="{{ . }}">{{ end }}
-  {{ if and $r (eq $r.MediaType.MainType "image") (ne $r.MediaType.SubType "svg") }}
-    {{ $s := $r.Resize "480x webp" }}{{ $l := $r.Resize (printf "%dx webp" (cond (gt $r.Width 960) 960 $r.Width)) }}
-    <img src="{{ $s.RelPermalink }}" srcset="{{ $s.RelPermalink }} 480w, {{ $l.RelPermalink }} {{ $l.Width }}w" sizes="(min-width: 680px) 210px, 50vw" width="{{ $s.Width }}" height="{{ $s.Height }}" alt="{{ .alt }}" loading="lazy" decoding="async">
-  {{ else }}
-    <img src="{{ .src | relURL }}" alt="{{ .alt }}" loading="lazy" decoding="async">
-  {{ end }}
-  {{ with .href }}</a>{{ end }}</li>
+  {{ partial "img.html" (merge . (dict "sizes" "(min-width: 680px) 210px, 50vw")) }}
+  {{ with .href }}</a>{{ end }}{{ partial "example-tag.html" . }}</li>
 {{ end }}
 </ul>

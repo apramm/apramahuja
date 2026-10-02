@@ -174,21 +174,31 @@ Last.fm ┘   (GitHub Action cron, every 6h + manual dispatch)
   touching existing files** (write to temp, then rename). The site always builds from the last
   good data.
 - Idempotent: re-running with the same data produces no git diff.
+- Hand edits survive: a resync keeps an existing file's body, `photos` and `description`, and
+  merges `tags`. Stale files are pruned only inside the fetched date window.
+- Synced activities get default `tags` by activity (run→running, hike→hiking, ride→cycling,
+  swim→swimming, gym→fitness, walk→walking) so interest pages find them.
+- Strings are made well-formed (`toWellFormed`); dates must be ISO or the record is rejected;
+  generated filenames must match `^[\w-]+\.md$`.
 - Strava: OAuth refresh-token flow (client id/secret + refresh token as Actions secrets).
-  If Strava returns a rotated refresh token the job logs a warning (it cannot rewrite secrets).
-  `scripts/strava-auth.mjs` prints the authorize URL and exchanges a code for the first refresh
-  token locally. Scope `activity:read_all`. Private activities are excluded.
+  If Strava returns a rotated refresh token the job writes the data, logs `::error::` naming the
+  secret, and fails so GitHub emails the owner. `scripts/strava-auth.mjs` prints the authorize URL
+  and exchanges a code for the first refresh token locally. Scope `read,activity:read`. Only
+  `visibility: everyone` activities are published.
 - Hevy: `GET https://api.hevyapp.com/v1/workouts` with `api-key` header (`HEVY_API_KEY`,
-  Hevy Pro). Maps to `activity: gym`, duration from start/end, title from workout title.
+  Hevy Pro). Maps to `activity: gym`, duration from start/end, title from workout title. UTC
+  times are converted to `SITE_TZ` (default `America/Vancouver`).
 - Last.fm: `user.getRecentTracks` (limit 10) + `user.getTopTracks period=7day` (limit 5) with
   `LASTFM_API_KEY`; user from `LASTFM_USER` or `hugo.yaml`. Writes `data/music.json`:
   `{ fetched_at, user, recent:[{track, artist, album, url, played_at}], top_week:[{track, artist, plays, url}] }`.
   No album art downloaded.
 - Secrets live only in GitHub Actions secrets and local `.env` (gitignored). Nothing secret is
   read by Hugo or shipped to the browser. `.env.example` documents every variable.
-- Workflow `sync.yml`: checkout → node 20 → run three syncs (each `continue-on-error`) →
-  commit `data:`/`content/activities` changes as `github-actions[bot]` → push `main`.
-  Permissions: `contents: write` only. Workflow `ci.yml`: on PR/push, `node --test scripts/` and
+- Workflow `sync.yml`: checkout (`persist-credentials: false`) → node 22 → run three syncs
+  (each `continue-on-error`) → commit `data/`/`content/activities` changes as
+  `github-actions[bot]` → push `main` with the token passed only to that step → fail the job if
+  any provider failed. `permissions: {}` at workflow level, `contents: write` on the job. Every
+  action pinned by commit SHA; Dependabot bumps them. Workflow `ci.yml`: on PR/push, `node --test scripts/` and
   `hugo --minify` with the pinned version.
 
 ## 3D mark

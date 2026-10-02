@@ -1,11 +1,14 @@
 {{ define "main" }}
 {{ partial "page-header.html" . }}
 {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+{{ $eager := true }}
 {{ range (.Paginate (.Pages.GroupByDate "2006")).PageGroups }}
 <section aria-labelledby="y{{ .Key }}">
   {{ partial "section-label.html" (dict "id" (print "y" .Key) "text" .Key) }}
   {{ $items := slice }}
-  {{ range .Pages }}{{ $pg := . }}{{ with .Params.image }}{{ $items = $items | append (dict "page" $pg "src" . "alt" ($pg.Params.alt | default $pg.Title)) }}{{ end }}{{ end }}
+  {{ range .Pages }}{{ $pg := . }}{{ with .Params.image }}
+    {{ $items = $items | append (dict "page" $pg "src" . "alt" ($pg.Params.alt | default "") "href" $pg.RelPermalink "example" $pg.Params.example "eager" $eager) }}{{ $eager = false }}
+  {{ end }}{{ end }}
   {{ partial "photo-grid.html" $items }}
 </section>
 {{ end }}

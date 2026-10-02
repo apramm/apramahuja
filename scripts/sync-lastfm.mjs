@@ -4,7 +4,7 @@ import { join } from 'node:path'
 import { getJson, writeAtomic, isMain } from './lib/activity.mjs'
 
 const https = (u) => (typeof u === 'string' && u.startsWith('https://') ? u : '')
-const text = (v) => (typeof v === 'string' ? v : typeof v?.['#text'] === 'string' ? v['#text'] : typeof v?.name === 'string' ? v.name : '')
+const text = (v) => (typeof v === 'string' ? v : typeof v?.['#text'] === 'string' ? v['#text'] : typeof v?.name === 'string' ? v.name : '').toWellFormed()
 const list = (t) => (t == null ? [] : [].concat(t)) // Last.fm returns an object, not an array, for a single item
 
 export function toMusic({ recent, top, user, fetchedAt }) {

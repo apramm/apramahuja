@@ -1,0 +1,14 @@
+{{- /* (dict "page" p "src" path "alt" text "sizes" s "eager" bool); resolves page resource, then assets/, else plain <img> */ -}}
+{{- $r := "" -}}
+{{- with .page }}{{ $r = .Resources.Get $.src }}{{ end -}}
+{{- if not $r }}{{ $r = resources.Get (strings.TrimPrefix "/" .src) }}{{ end -}}
+{{- $load := cond (.eager | default false) `loading="eager" fetchpriority="high"` `loading="lazy"` | safeHTMLAttr -}}
+{{- if and $r (eq $r.MediaType.MainType "image") (ne $r.MediaType.SubType "svg") -}}
+  {{- $widths := cond (gt $r.Width 480) (slice 480 (math.Min $r.Width 960)) (slice $r.Width) -}}
+  {{- $set := slice }}{{ range $widths }}{{ $set = $set | append ($r.Resize (printf "%dx webp" (int .))) }}{{ end -}}
+  {{- $s := index $set 0 -}}
+  {{- $srcset := slice }}{{ range $set }}{{ $srcset = $srcset | append (printf "%s %dw" .RelPermalink .Width) }}{{ end -}}
+<img src="{{ $s.RelPermalink }}" srcset="{{ delimit $srcset ", " }}" sizes="{{ .sizes | default "100vw" }}" width="{{ $s.Width }}" height="{{ $s.Height }}" alt="{{ .alt }}" {{ $load }} decoding="async">
+{{- else -}}
+<img src="{{ .src | relURL }}" alt="{{ .alt }}" {{ $load }} decoding="async">
+{{- end -}}
