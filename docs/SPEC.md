@@ -50,7 +50,7 @@ image, no client-side calls to Strava / Last.fm / Hevy.
   Changing the script means updating its `sha256` in the CSP in `vercel.json`.
 - Links: `--accent`, underline on hover/focus. Entry titles: `--fg` with a faint underline
   (`--rule`). Visible `:focus-visible` outline in `--accent`.
-- Motion: none except the optional 3D mark and the 3-bar "listening" indicator; both disabled
+- Motion: none except the 3-bar "listening" indicator, which is disabled
   under `prefers-reduced-motion: reduce`.
 
 ## Pages
@@ -72,7 +72,7 @@ image, no client-side calls to Strava / Last.fm / Hevy.
 
 1. **Header**: name (Newsreader 24px), one-line subtitle (`params.subtitle`), mono link row
    `github · resume · linkedin · strava · leetcode · email` from `params.links`; the email href is
-   emitted as hex HTML entities (no JS) so plain-text scrapers miss it. 3D mark floated right
+   percent-encoded in the href (no JS) so plain-text scrapers miss it. portrait floated right (see Portrait).
    (120px desktop, 84px phone).
 2. **now**: items from `content/now.md` `now:` list (`label`, `value`, optional `link`, optional `logo`), then a
    **listening** line from `data/music.json` → `recent[0]`: "listening to *Track* by Artist ·
@@ -217,30 +217,16 @@ Last.fm ┘   (GitHub Action cron, every 6h + manual dispatch)
   action pinned by commit SHA; Dependabot bumps them. Workflow `ci.yml`: on PR/push, `node --test 'scripts/*.test.mjs'` and
   `hugo --minify` with the pinned version.
 
-## 3D mark
+## Portrait
 
-- Default: `scripts/make-avatar.mjs` (stdlib only, deterministic) builds a chibi low-poly
-  figurine of the owner (black wavy hair, dark rectangular glasses, charcoal hoodie with hood
-  and drawstrings, white sneakers, on a grass/rock base) → `static/models/avatar.glb`
-  (flat-shaded, vertex colors, face toward +Z, ≤ 5k tris, ≤ 200 KB) and
-  `static/models/avatar.svg` poster (same mesh, camera `20deg 80deg`, painter's algorithm,
-  3 shade tones; real colors literal, base/outline/shadow from theme vars, ≤ 40 KB).
-  Both generators self-check the GLB on every run.
-- Alternative: `scripts/make-mountain.mjs` → `mountain.glb` + `mountain.svg` (low-poly peak
-  with a trail). Switch back by setting in `hugo.yaml`:
-  `params.mark: { model: /models/mountain.glb, poster: /models/mountain.svg,
-  orbit: "35deg 65deg auto", alt: "Low-poly mountain with a trail; drag to rotate" }`.
-- `layouts/partials/mark.html`: renders the SVG poster inline (decorative, `aria-hidden`) and
-  passes `params.mark.alt` / `params.mark.orbit` as data attributes.
-  On first `pointerenter`, `touchstart` or `click`, `static/js/mark.js` imports a vendored
-  `static/js/vendor/model-viewer.min.js` (pinned version) and swaps in `<model-viewer>`
-  with `camera-controls`, `disable-zoom`, no AR. Auto-rotate only when motion is allowed.
-  The poster stays if JS fails or is disabled.
+- `params.portrait.src` (an image in `assets/`, default `images/APRAM.jpg`) is shown as a circle
+  (128px desktop, 96px phone) floated right of the name. `layouts/home.html` takes a centred
+  square crop and serves 256w/512w WebP. Change the photo by replacing the file or the param.
 
 ## Performance & accessibility budgets
 
 - Homepage: HTML + CSS ≤ 30 KB gzipped, excluding fonts. Fonts ≤ 2 files preloaded.
-  JavaScript before interaction: the inline theme script and the deferred ~1.5 KB `mark.js` listener; the 1 MB viewer loads only on interaction.
+  JavaScript: only the inline theme script.
 - Images: Hugo-resized WebP with `srcset`, `loading="lazy"`, explicit width/height.
 - Semantic landmarks (`header`, `main`, `footer`, `nav`), one `h1` per page, ordered headings,
   skip link, 44px touch targets on link rows, alt text required for photos, Lighthouse

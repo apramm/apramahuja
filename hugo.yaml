@@ -11,7 +11,7 @@ markup:
       unsafe: false
 params:
   name: "Apram Ahuja"
-  subtitle: "computer science, ubc · backend & distributed systems · vancouver"
+  subtitle: "i like getting to the bottom of problems, and sometimes solving them"
   description: "Apram Ahuja: software engineer and CS student at UBC. Projects, experience, runs, and what I'm listening to."
   resume: "https://apramm.github.io/docs/?doc=resume"
   docsBase: "https://apramm.github.io/docs/?doc="
@@ -23,9 +23,6 @@ params:
     email: "mailto:apri@student.ubc.ca"
   lastfm:
     user: "aprammusic"
-  mark:
-    # alternative: /models/mountain.glb + /models/mountain.svg (camera "35deg 65deg auto")
-    model: "/models/avatar.glb"
-    poster: "/models/avatar.svg"
-    alt: "Low-poly figurine of Apram in glasses and a hoodie; drag to rotate"
-    orbit: "20deg 80deg auto"
+  portrait:
+    src: "images/APRAM.jpg"   # in assets/; centred square crop shown as a circle (layouts/home.html)
+    alt: "Apram on a forest trail"

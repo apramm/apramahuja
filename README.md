@@ -3,6 +3,63 @@
 A single-column personal site built with [Hugo](https://gohugo.io). Content is Markdown, and git
 is the CMS. The design and the content schema are specified in [`docs/SPEC.md`](docs/SPEC.md).
 
+## Updating the site
+
+Most of the site updates itself. The rest is one Markdown file and a push.
+
+### What updates on its own
+
+| What | Where it comes from | How often |
+|---|---|---|
+| **recently outside** + `/activities/` | Strava (runs, hikes, soccer…), including your activity photos | every 6 hours |
+| Gym workouts | Hevy (optional, needs `HEVY_API_KEY`) | every 6 hours |
+| **listening** line | Last.fm `aprammusic` (Apple Music → a scrobbler app → Last.fm) | every 6 hours |
+| "updated" date in the footer | the build itself | every deploy |
+
+Every 6 hours, the `sync` GitHub Action runs the three scripts in `scripts/`. They fetch your
+latest data with the keys stored in GitHub Secrets, write it into the repo
+(`content/activities/`, `assets/images/activities/`, `data/music.json`) and commit it. That
+commit triggers Vercel, which rebuilds the site in under a minute. Visitors only ever load static
+pages, so the site doesn't depend on Strava or Last.fm being up. If one of them fails, the site
+keeps the last good data and GitHub emails you. To sync right away, open **Actions → sync → Run
+workflow** on GitHub.
+
+Only Strava activities set to **Everyone** are published. To hide an activity, make it private on
+Strava and the next sync removes it (this works for your 30 most recent activities; delete older files by hand). Notes you add to a synced activity's Markdown file survive
+later syncs.
+
+### Add a new job (about 2 minutes)
+
+```sh
+hugo new experience/acme.md      # creates content/experience/acme.md from the template
+```
+
+Fill in the fields it creates:
+
+```yaml
+title: "Software Engineer Intern"
+organization: "Acme"
+kind: work                # or: education
+start: 2027-01
+end: present              # or e.g. 2027-04
+summary: "one line about the problem you solved and the result"
+highlights:
+  - "What you did, how, and the measurable result."
+tags: [Go, Kubernetes]
+logo: "logos/acme.png"    # optional: drop a small PNG into assets/images/logos/
+```
+
+Then `git add -A && git commit -m "Add Acme" && git push`. Vercel deploys it, and the homepage
+shows the four newest jobs automatically. Projects work the same way (`hugo new
+projects/x.md`, with `featured: true` to put one on the homepage), and so do photos and interests.
+The table below lists them all.
+
+### Edit by hand
+
+- **now** (building / training / teaching): edit `content/now.md`.
+- **name, subtitle, header links, resume link**: edit `params` in `hugo.yaml`.
+- **photo**: replace `assets/images/APRAM.jpg` (or change `params.portrait` in `hugo.yaml`).
+
 ## Run locally
 
 ```sh
@@ -32,9 +89,6 @@ Set `draft: true` to hide a page, and set `example: true` to label placeholder c
 - **listening:** read from `data/music.json`, which the Last.fm sync writes. Delete the file to
   hide the line. The "3h ago" text is computed at build time, so it refreshes each time the sync
   commits.
-- **3D mountain:** replace `static/models/mountain.glb` and `static/models/mountain.svg` (the
-  poster), or point `params.mark` in `hugo.yaml` at other files. To regenerate the mountain, run
-  `node scripts/make-mountain.mjs`.
 - **name, subtitle, links, resume:** these are `params` in `hugo.yaml`. To use a local PDF for
   the resume, put the file in `static/` and change `params.resume`.
 
@@ -93,8 +147,8 @@ CSP in `vercel.json`, or the theme toggle stops working in production.
 content/      Markdown: projects, experience, activities, photos, interests, now
 layouts/      Hugo templates and partials
 assets/       CSS and images (processed and fingerprinted by Hugo)
-static/       fonts, 3D model, mark.js, vendored model-viewer, favicon
+static/       fonts, favicon
 data/         music.json (written by the sync)
-scripts/      sync scripts and tests, Strava auth helper, mountain generator
+scripts/      sync scripts and tests, Strava auth helper
 docs/         SPEC.md, PLAN.md, vendor notes
 ```

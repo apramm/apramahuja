@@ -50,19 +50,8 @@ a:hover, a:focus-visible { text-decoration: underline; }
 header.site { display: flow-root; margin-bottom: 2rem; }
 header.site .home { color: var(--fg); display: inline-block; padding: .625rem 0; }
 .intro .sub { color: var(--muted); margin: 0; }
-.intro .mark { float: right; margin: 0 0 .5rem 1rem; }
-
-/* 3D mark (partials/mark.html): SVG poster, swapped for <model-viewer> by js/mark.js */
-.mark {
-  --mark-moss: color-mix(in srgb, #5c784d 80%, var(--muted)); --mark-rock: var(--muted);
-  --mark-snow: color-mix(in srgb, var(--fg) 8%, #fff); --mark-trail: var(--accent);
-  position: relative; width: 120px; height: 120px; flex: none;
-}
-.mark svg, .mark model-viewer { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.mark model-viewer { opacity: 0; transition: opacity .2s; background: transparent; --poster-color: transparent; }
-.mark.is-3d model-viewer { opacity: 1; }
-.mark.is-3d svg { opacity: 0; transition: opacity .2s; }
-@media (max-width: 39.99rem) { .mark { width: 84px; height: 84px; } }
+.intro .portrait { float: right; width: 128px; height: 128px; margin: 0 0 .75rem 1.25rem; border-radius: 50%; object-fit: cover; background: var(--rule); box-shadow: 0 0 0 1px var(--rule); }
+@media (max-width: 39.99rem) { .intro .portrait { width: 96px; height: 96px; } .intro nav { clear: both; } }
 
 /* inline link lists separated by middots */
 .inline { list-style: none; margin: .25rem 0 0; padding: 0; display: flex; flex-wrap: wrap; }

@@ -9,5 +9,6 @@ summary: ""            # optional one line shown on the homepage
 highlights: []         # list of achievements
 tags: []               # technologies
 link: ""               # optional URL
+logo: ""               # optional, file in assets/images/logos/, e.g. "logos/mastercard.png"
 example: false         # true marks placeholder content
 ---

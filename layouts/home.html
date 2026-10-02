@@ -1,6 +1,8 @@
 {{ define "header" }}
 <div class="intro">
-  {{ if templates.Exists "partials/mark.html" }}{{ partial "mark.html" . }}{{ end }}
+  {{ with site.Params.portrait }}{{ $alt := .alt }}{{ with resources.Get .src }}{{ $sq := .Crop "1200x1200 Center webp q82" }}{{ $s := $sq.Resize "256x" }}{{ $l := $sq.Resize "512x" }}
+  <img class="portrait" src="{{ $s.RelPermalink }}" srcset="{{ $s.RelPermalink }} 256w, {{ $l.RelPermalink }} 512w" sizes="128px" width="{{ div $s.Width 2 }}" height="{{ div $s.Height 2 }}" alt="{{ $alt }}" fetchpriority="high">
+  {{ end }}{{ end }}
   <h1>{{ site.Params.name }}</h1>
   <p class="sub">{{ site.Params.subtitle }}</p>
   <nav aria-label="elsewhere">
