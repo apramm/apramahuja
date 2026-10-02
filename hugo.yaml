@@ -1,0 +1,27 @@
+baseURL: "https://apramahuja.com/"
+locale: "en-us"
+title: "Apram Ahuja"
+enableRobotsTXT: true
+disableKinds: ["taxonomy", "term"]
+pagination:
+  pagerSize: 50
+markup:
+  goldmark:
+    renderer:
+      unsafe: false
+params:
+  name: "Apram Ahuja"
+  subtitle: "computer science, ubc · backend & distributed systems · vancouver"
+  description: "Apram Ahuja: software engineer and CS student at UBC. Projects, experience, runs, and what I'm listening to."
+  resume: "https://apramm.github.io/docs/?doc=resume"
+  docsBase: "https://apramm.github.io/docs/?doc="
+  links:
+    github: "https://github.com/apramm"
+    linkedin: "https://www.linkedin.com/in/apram/"
+    strava: "https://www.strava.com/athletes/144141823"
+    email: "mailto:apri@student.ubc.ca"
+  lastfm:
+    user: "aprammusic"
+  mark:
+    model: "/models/mountain.glb"
+    poster: "/models/mountain.svg"

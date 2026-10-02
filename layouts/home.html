@@ -1,0 +1,54 @@
+{{ define "header" }}
+<div class="intro">
+  {{ if templates.Exists "partials/mark.html" }}{{ partial "mark.html" . }}{{ end }}
+  <h1>{{ site.Params.name }}</h1>
+  <p class="sub">{{ site.Params.subtitle }}</p>
+  <nav aria-label="elsewhere">
+    <ul class="inline">
+      {{ $links := merge (site.Params.links | default dict) (dict "resume" site.Params.resume) }}
+      {{ range $k := slice "github" "linkedin" "strava" "resume" "email" }}{{ with index $links $k }}<li><a href="{{ . }}">{{ $k }}</a></li>{{ end }}{{ end }}
+    </ul>
+  </nav>
+</div>
+{{ end }}
+
+{{ define "main" }}
+{{ with site.GetPage "/now" }}{{ if or .Params.now hugo.Data.music }}
+<section aria-labelledby="now">
+  {{ partial "section-label.html" (dict "id" "now" "text" "now") }}
+  {{ partial "now-list.html" . }}
+</section>
+{{ end }}{{ end }}
+
+{{ $exp := where site.RegularPages "Section" "experience" }}
+{{ with first 4 (sort (where $exp "Params.kind" "work") "Params.start" "desc") }}
+<section aria-labelledby="experience">
+  {{ partial "section-label.html" (dict "id" "experience" "text" "experience") }}
+  <ul class="rows">{{ range . }}<li>{{ partial "exp-row.html" . }}</li>{{ end }}</ul>
+  <p class="more"><a href="{{ "/experience/" | relURL }}">full experience →</a></p>
+</section>
+{{ end }}
+
+{{ with first 4 (where (where site.RegularPages "Section" "projects") "Params.featured" true).ByWeight }}
+<section aria-labelledby="projects">
+  {{ partial "section-label.html" (dict "id" "projects" "text" "projects") }}
+  <ul class="rows">{{ range . }}<li>{{ partial "entry-row.html" (dict "page" . "title" .Title "href" .RelPermalink "desc" .Description "sub" .Params.outcome "date" (.Date.Format "2006")) }}</li>{{ end }}</ul>
+  <p class="more"><a href="{{ "/projects/" | relURL }}">all projects →</a></p>
+</section>
+{{ end }}
+
+{{ with first 4 (where site.RegularPages "Section" "activities").ByDate.Reverse }}
+<section aria-labelledby="outside">
+  {{ partial "section-label.html" (dict "id" "outside" "text" "recently outside") }}
+  <ul class="rows">{{ range . }}{{ partial "activity-row.html" . }}{{ end }}</ul>
+  <p class="more"><a href="{{ "/activities/" | relURL }}">all activity →</a></p>
+</section>
+{{ end }}
+
+{{ with sort (where $exp "Params.kind" "education") "Params.start" "desc" }}
+<section aria-labelledby="education">
+  {{ partial "section-label.html" (dict "id" "education" "text" "education") }}
+  <ul class="rows">{{ range . }}<li>{{ partial "exp-row.html" . }}</li>{{ end }}</ul>
+</section>
+{{ end }}
+{{ end }}

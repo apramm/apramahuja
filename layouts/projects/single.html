@@ -1,0 +1,19 @@
+{{ define "main" }}
+<article>
+  {{ partial "page-header.html" . }}
+  <dl class="stats">
+    <dt>year</dt><dd>{{ .Date.Format "2006" }}</dd>
+    {{ with .Params.status }}<dt>status</dt><dd>{{ . }}</dd>{{ end }}
+    {{ with .Params.outcome }}<dt>outcome</dt><dd>{{ . }}</dd>{{ end }}
+    {{ with .Params.tags }}<dt>built with</dt><dd>{{ delimit . ", " }}</dd>{{ end }}
+  </dl>
+  {{ $links := slice }}
+  {{ with .Params.github }}{{ $links = $links | append (dict "t" "github" "u" .) }}{{ end }}
+  {{ with .Params.demo }}{{ $links = $links | append (dict "t" "demo" "u" .) }}{{ end }}
+  {{ with .Params.doc }}{{ $links = $links | append (dict "t" "write-up" "u" (print site.Params.docsBase .)) }}{{ end }}
+  {{ with $links }}<ul class="inline">{{ range . }}<li><a href="{{ .u }}">{{ .t }}</a></li>{{ end }}</ul>{{ end }}
+  {{ with .Params.image }}{{ partial "photo-grid.html" (slice (dict "page" $ "src" . "alt" $.Title)) }}{{ end }}
+  <div class="prose">{{ .Content }}</div>
+  <p class="more"><a href="{{ "/projects/" | relURL }}">← all projects</a></p>
+</article>
+{{ end }}

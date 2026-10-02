@@ -1,0 +1,17 @@
+{{- /* Decorative 3D mark: inline SVG poster, upgraded to <model-viewer> on first interaction by /js/mark.js. */ -}}
+{{- with site.Params.mark -}}
+<div class="mark" aria-hidden="true" data-model="{{ strings.TrimPrefix "/" .model | relURL }}" data-viewer="{{ "js/vendor/model-viewer.min.js" | relURL }}">
+  {{- readFile (path.Join "static" .poster) | safeHTML -}}
+</div>
+<style>
+.mark{--mark-moss:color-mix(in srgb,#5c784d 80%,var(--muted));--mark-rock:var(--muted);--mark-snow:color-mix(in srgb,var(--fg) 8%,#fff);--mark-trail:var(--accent);
+  position:relative;width:120px;height:120px;flex:none}
+.mark svg,.mark model-viewer{position:absolute;inset:0;width:100%;height:100%;display:block}
+.mark model-viewer{opacity:0;transition:opacity .2s;background:transparent;--poster-color:transparent}
+.mark.is-3d model-viewer{opacity:1}
+.mark.is-3d svg{opacity:0;transition:opacity .2s}
+@media (max-width:639px){.mark{width:84px;height:84px}}
+@media (prefers-reduced-motion:reduce){.mark model-viewer,.mark.is-3d svg{transition:none}}
+</style>
+<script type="module" src="{{ "js/mark.js" | relURL }}"></script>
+{{- end -}}

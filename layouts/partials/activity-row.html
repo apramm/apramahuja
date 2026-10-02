@@ -1,0 +1,5 @@
+<li><a class="act" href="{{ .RelPermalink }}">
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2" | lower }}</time>
+  <span>{{ .Params.activity | default "other" }}</span>
+  <span class="stats">{{ partial "activity-stats.html" . }}{{ partial "example-tag.html" . }}</span>
+</a></li>

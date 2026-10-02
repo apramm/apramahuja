@@ -1,7 +1,8 @@
-notes.txt 
-node_modules
-dist
-.vercel
+.DS_Store
+notes.txt
 .env
-.next
-
+.vercel
+node_modules/
+public/
+resources/_gen/
+.hugo_build.lock

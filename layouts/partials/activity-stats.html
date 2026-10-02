@@ -1,0 +1,8 @@
+{{- /* returns "8.4 km · 44:21 · +120 m · Vancouver"; falls back to title when there is no distance */ -}}
+{{- $p := .Params -}}
+{{- $parts := slice -}}
+{{- with $p.distance_km }}{{ $parts = $parts | append (printf "%.1f km" (float .)) }}{{ else }}{{ $parts = $parts | append .Title }}{{ end -}}
+{{- with $p.duration }}{{ $parts = $parts | append (string .) }}{{ end -}}
+{{- with $p.elevation_m }}{{ $parts = $parts | append (printf "+%.0f m" (float .)) }}{{ end -}}
+{{- with $p.location }}{{ $parts = $parts | append . }}{{ end -}}
+{{- return delimit $parts " · " -}}

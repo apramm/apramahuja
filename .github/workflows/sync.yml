@@ -1,0 +1,62 @@
+name: sync
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Each provider is independent: one failing never blocks the others or the commit.
+      # Secrets are scoped to the single step that needs them.
+      - name: Sync Strava
+        continue-on-error: true
+        run: node scripts/sync-strava.mjs
+        env:
+          STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
+          STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
+
+      - name: Sync Hevy
+        continue-on-error: true
+        run: node scripts/sync-hevy.mjs
+        env:
+          HEVY_API_KEY: ${{ secrets.HEVY_API_KEY }}
+
+      - name: Sync Last.fm
+        continue-on-error: true
+        run: node scripts/sync-lastfm.mjs
+        env:
+          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+          LASTFM_USER: ${{ vars.LASTFM_USER }}
+
+      - name: Commit changes
+        run: |
+          git add content/activities data
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: sync activities and music"
+          git pull --rebase origin main
+          git push origin HEAD:main

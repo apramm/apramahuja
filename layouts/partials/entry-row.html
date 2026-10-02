@@ -1,0 +1,10 @@
+{{- /* (dict "page" p "title" t "href" url "desc" d "sub" s "date" d); all but title optional */ -}}
+<div class="row">
+  <div>
+    {{- with .href }}<a class="title" href="{{ . }}">{{ $.title }}</a>{{ else }}<span class="title">{{ .title }}</span>{{ end -}}
+    {{- with .desc }}<span class="desc">: {{ . }}</span>{{ end -}}
+    {{- with .page }}{{ partial "example-tag.html" . }}{{ end -}}
+    {{- with .sub }}<span class="sub">{{ . }}</span>{{ end -}}
+  </div>
+  {{ with .date }}<span class="date">{{ . }}</span>{{ end }}
+</div>

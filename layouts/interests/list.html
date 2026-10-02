@@ -1,0 +1,7 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+{{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+<ul class="rows">
+  {{ range .Pages.ByWeight }}<li>{{ partial "entry-row.html" (dict "page" . "title" .Title "href" .RelPermalink "sub" .Description) }}</li>{{ end }}
+</ul>
+{{ end }}

@@ -1,0 +1,18 @@
+{{- /* activity detail; dispatched from single.html for the activities section */ -}}
+{{ $p := .Params }}
+<article>
+  {{ partial "page-header.html" . }}
+  <dl class="stats">
+    <dt>date</dt><dd><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></dd>
+    <dt>type</dt><dd>{{ $p.activity | default "other" }}</dd>
+    {{ with $p.distance_km }}<dt>distance</dt><dd>{{ printf "%.1f" (float .) }} km</dd>{{ end }}
+    {{ with $p.duration }}<dt>time</dt><dd>{{ . }}</dd>{{ end }}
+    {{ with $p.elevation_m }}<dt>elevation</dt><dd>+{{ printf "%.0f" (float .) }} m</dd>{{ end }}
+    {{ with $p.location }}<dt>where</dt><dd>{{ . }}</dd>{{ end }}
+    {{ with $p.source }}<dt>source</dt><dd>{{ . }}</dd>{{ end }}
+  </dl>
+  <div class="prose">{{ .Content }}</div>
+  {{ with $p.photos }}{{ $items := slice }}{{ range . }}{{ $items = $items | append (dict "page" $ "src" . "alt" $.Title) }}{{ end }}{{ partial "photo-grid.html" $items }}{{ end }}
+  {{ if and $p.source_url (in (slice "strava" "hevy") $p.source) }}<p class="more"><a href="{{ $p.source_url }}">view on {{ $p.source }} →</a></p>{{ end }}
+  <p class="more"><a href="{{ "/activities/" | relURL }}">← all activity</a></p>
+</article>
