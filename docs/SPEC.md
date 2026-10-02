@@ -220,7 +220,7 @@ Last.fm ┘   (GitHub Action cron, every 15 min + manual dispatch)
 ## Portrait
 
 - `params.portrait.src` (an image in `assets/`, default `images/APRAM.jpg`) is shown as a circle
-  (128px desktop, 96px phone) floated right of the name. `layouts/home.html` takes a centred
+  (128px, floated right of the name on desktop; 88px above the name on phones). `layouts/home.html` takes a centred
   square crop and serves 256w/512w WebP. Change the photo by replacing the file or the param.
 
 ## Performance & accessibility budgets

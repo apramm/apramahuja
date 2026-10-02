@@ -51,7 +51,7 @@ header.site { display: flow-root; margin-bottom: 2rem; }
 header.site .home { color: var(--fg); display: inline-block; padding: .625rem 0; }
 .intro .sub { color: var(--muted); margin: 0; }
 .intro .portrait { float: right; width: 128px; height: 128px; margin: 0 0 .75rem 1.25rem; border-radius: 50%; object-fit: cover; background: var(--rule); box-shadow: 0 0 0 1px var(--rule); }
-@media (max-width: 39.99rem) { .intro .portrait { width: 96px; height: 96px; } .intro nav { clear: both; } }
+@media (max-width: 39.99rem) { .intro .portrait { float: none; display: block; width: 88px; height: 88px; margin: 0 0 1rem; } } /* phones: photo above the name */
 
 /* inline link lists separated by middots */
 .inline { list-style: none; margin: .25rem 0 0; padding: 0; display: flex; flex-wrap: wrap; }
