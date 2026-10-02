@@ -11,18 +11,24 @@ Most of the site updates itself. The rest is one Markdown file and a push.
 
 | What | Where it comes from | How often |
 |---|---|---|
-| **recently outside** + `/activities/` | Strava (runs, hikes, soccer…), including your activity photos | every 6 hours |
-| Gym workouts | Hevy (optional, needs `HEVY_API_KEY`) | every 6 hours |
-| **listening** line | Last.fm `aprammusic` (Apple Music → a scrobbler app → Last.fm) | every 6 hours |
+| **recently outside** + `/activities/` | Strava (runs, hikes, soccer…), including your activity photos | every 30 min |
+| Gym workouts | Hevy (optional, needs `HEVY_API_KEY`) | every 30 min |
+| **listening** line | Last.fm `aprammusic` (Apple Music → a scrobbler app → Last.fm) | every 30 min |
 | "updated" date in the footer | the build itself | every deploy |
 
-Every 6 hours, the `sync` GitHub Action runs the three scripts in `scripts/`. They fetch your
+Every 30 minutes, the `sync` GitHub Action runs the three scripts in `scripts/`. They fetch your
 latest data with the keys stored in GitHub Secrets, write it into the repo
 (`content/activities/`, `assets/images/activities/`, `data/music.json`) and commit it. That
 commit triggers Vercel, which rebuilds the site in under a minute. Visitors only ever load static
 pages, so the site doesn't depend on Strava or Last.fm being up. If one of them fails, the site
 keeps the last good data and GitHub emails you. To sync right away, open **Actions → sync → Run
 workflow** on GitHub.
+
+The schedule is set in `.github/workflows/sync.yml`. Every 30 minutes stays well within the free
+limits: the repo is public, so Actions minutes are free; a run only commits (and deploys) when
+something changed; and a run makes 2 Strava API calls plus one per activity that has new photos.
+GitHub can start scheduled runs 5–20 minutes late when it's busy, so treat it as "about every
+half hour".
 
 Only Strava activities set to **Everyone** are published. To hide an activity, make it private on
 Strava and the next sync removes it (this works for your 30 most recent activities; delete older files by hand). Notes you add to a synced activity's Markdown file survive
@@ -97,7 +103,7 @@ Set `draft: true` to hide a page, and set `example: true` to label placeholder c
 ```
 Strava ─┐
 Hevy  ──┼─ scripts/sync-*.mjs ──> content/activities/*.md, data/music.json ──> commit ──> Vercel build
-Last.fm ┘   GitHub Action .github/workflows/sync.yml, every 6h + manual "Run workflow"
+Last.fm ┘   GitHub Action .github/workflows/sync.yml, every 30 min + manual "Run workflow"
 ```
 
 Visitors never contact these APIs. If a provider is down or a key is missing, that script skips or

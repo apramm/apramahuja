@@ -2,7 +2,7 @@ name: sync
 
 on:
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "7,37 * * * *"   # every 30 min, off the top of the hour (GitHub may delay runs)
   workflow_dispatch:
 
 permissions: {}

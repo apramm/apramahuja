@@ -170,7 +170,7 @@ Archetypes exist for every collection so `hugo new projects/x.md` produces a val
 ```
 Strava ─┐
 Hevy  ──┼─ scripts/sync-*.mjs ─> content/activities/*.md, data/music.json ─> git commit ─> Vercel build
-Last.fm ┘   (GitHub Action cron, every 6h + manual dispatch)
+Last.fm ┘   (GitHub Action cron, every 30 min + manual dispatch)
 ```
 
 - Each provider is one script: `sync-strava.mjs`, `sync-hevy.mjs`, `sync-lastfm.mjs`, sharing

@@ -46,10 +46,21 @@ async function download(fetch, url, base, photoDir) {
   return name
 }
 
-// ≤ 1 photos API call per activity; files already on disk are reused, never re-downloaded or deleted.
+// Find `${base}.<ext>` on disk, or undefined.
+async function onDisk(photoDir, base) {
+  for (const ext of EXTS) if (await exists(join(photoDir, `${base}.${ext}`))) return `${base}.${ext}`
+}
+
+// ≤ 1 photos API call per activity, and none once all its photos are on disk (keeps frequent
+// syncs far under Strava's rate limits). Files are never re-downloaded or deleted.
 async function syncPhotos({ fetch, token, record, activity, photoDir, log }) {
-  if (!(Number(record.total_photo_count) > 0)) return []
+  const count = Number(record.total_photo_count)
+  if (!(count > 0)) return []
   const id = activity.source_id // validated digits by normalize()
+  const cached = []
+  for (let i = 1; i <= count; i++) { const name = await onDisk(photoDir, `${id}-${i}`); if (!name) break; cached.push(name) }
+  // alt here is the default; mergePhotos keeps the alt already stored in the activity file.
+  if (cached.length === count) return cached.map((name, i) => ({ src: `/images/activities/${name}`, alt: `${activity.title}, photo ${i + 1}` }))
   let list
   try {
     list = await getJson(fetch, `https://www.strava.com/api/v3/activities/${id}/photos?size=1024&photo_sources=true`, { headers: { authorization: `Bearer ${token}` } })
@@ -63,9 +74,7 @@ async function syncPhotos({ fetch, token, record, activity, photoDir, log }) {
   for (const [i, p] of list.entries()) {
     const base = `${id}-${i + 1}`
     try {
-      let name
-      for (const ext of EXTS) if (await exists(join(photoDir, `${base}.${ext}`))) { name = `${base}.${ext}`; break }
-      name ??= await download(fetch, largestUrl(p?.urls), base, photoDir)
+      const name = (await onDisk(photoDir, base)) ?? await download(fetch, largestUrl(p?.urls), base, photoDir)
       const caption = typeof p?.caption === 'string' ? p.caption.toWellFormed().trim().slice(0, 300) : ''
       out.push({ src: `/images/activities/${name}`, alt: caption || `${activity.title}, photo ${i + 1}` })
     } catch (err) {

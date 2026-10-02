@@ -195,9 +195,15 @@ test('strava photos: second run reuses files (no CDN fetch) and produces no diff
   const second = photoFetch(list, photos, {})
   assert.equal(await runPhotos(second, dir, photoDir), 0)
   assert.ok(!second.calls.some((u) => u.startsWith(CDN)), 'existing files are not re-downloaded')
-  assert.equal(second.calls.filter((u) => u.includes('/photos')).length, 1, 'one photos call per activity')
+  assert.equal(second.calls.filter((u) => u.includes('/photos')).length, 0, 'no photos call once all photos are on disk')
   assert.equal(await readFile(join(dir, '2026-09-27-strava-1.md'), 'utf8'), md)
   assert.deepEqual((await readdir(photoDir)).sort(), ['1-1.jpg', '1-2.jpg'])
+  // A photo added on Strava later (count 2 → 3) triggers one photos call and one download.
+  const more = { 1: [...photos[1], photo(`${CDN}/c.jpg`)] }
+  const third = photoFetch([act(1, { total_photo_count: 3 })], more, { [`${CDN}/c.jpg`]: () => img() })
+  assert.equal(await runPhotos(third, dir, photoDir), 0)
+  assert.equal(third.calls.filter((u) => u.includes('/photos')).length, 1)
+  assert.deepEqual((await readdir(photoDir)).sort(), ['1-1.jpg', '1-2.jpg', '1-3.jpg'])
 })
 
 test('strava photos: hand-added photos are kept after synced ones; existing synced entries keep their alt', async () => {
