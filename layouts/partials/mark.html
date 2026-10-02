@@ -1,7 +1,7 @@
 {{- /* Decorative 3D mark: inline SVG poster, upgraded to <model-viewer> on first interaction by /js/mark.js. Styles in assets/css/site.css. */ -}}
 {{- $m := site.Params.mark | default dict -}}
 {{- with $m.poster -}}
-<div class="mark" aria-hidden="true" data-model="{{ strings.TrimPrefix "/" $m.model | relURL }}" data-viewer="{{ "js/vendor/model-viewer.min.js" | relURL }}">
+<div class="mark" aria-hidden="true" data-model="{{ strings.TrimPrefix "/" $m.model | relURL }}" data-alt="{{ $m.alt | default "3D mark; drag to rotate" }}" data-orbit="{{ $m.orbit | default "35deg 65deg auto" }}" data-viewer="{{ "js/vendor/model-viewer.min.js" | relURL }}">
   {{- readFile (path.Join "static" .) | safeHTML -}}
 </div>
 <script type="module" src="{{ "js/mark.js" | relURL }}"></script>

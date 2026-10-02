@@ -5,4 +5,4 @@
 {{- with .Params.organization -}}
   {{- if eq $.Params.kind "education" }}{{ $title = . }}{{ $sub = $.Title }}{{ else }}{{ $title = printf "%s @ %s" $.Title . }}{{ end -}}
 {{- end -}}
-{{ partial "entry-row.html" (dict "page" . "title" $title "href" $href "sub" $sub "date" $when) }}
+{{ partial "entry-row.html" (dict "page" . "title" $title "href" $href "sub" $sub "date" $when "logo" .Params.logo) }}

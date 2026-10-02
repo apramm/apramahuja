@@ -17,12 +17,15 @@ params:
   docsBase: "https://apramm.github.io/docs/?doc="
   links:
     github: "https://github.com/apramm"
-    leetcode: "https://leetcode.com/u/apramm/"
     linkedin: "https://www.linkedin.com/in/apram/"
     strava: "https://www.strava.com/athletes/144141823"
+    leetcode: "https://leetcode.com/u/apramm/"
     email: "mailto:apri@student.ubc.ca"
   lastfm:
     user: "aprammusic"
   mark:
-    model: "/models/mountain.glb"
-    poster: "/models/mountain.svg"
+    # alternative: /models/mountain.glb + /models/mountain.svg (camera "35deg 65deg auto")
+    model: "/models/avatar.glb"
+    poster: "/models/avatar.svg"
+    alt: "Low-poly figurine of Apram in glasses and a hoodie; drag to rotate"
+    orbit: "20deg 80deg auto"

@@ -1,6 +1,7 @@
 ---
 title: "Backend Software Engineer Intern"
 organization: "Mastercard"
+logo: "logos/mastercard.png"
 kind: work
 start: 2026-05
 end: 2026-09

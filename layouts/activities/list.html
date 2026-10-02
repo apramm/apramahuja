@@ -4,15 +4,7 @@
 {{ range (.Paginate (.Pages.GroupByDate "2006")).PageGroups }}
 <section aria-labelledby="y{{ .Key }}">
   {{ partial "section-label.html" (dict "id" (print "y" .Key) "text" .Key) }}
-  {{- /* activity-row.html plus a thumbnail column; homepage rows stay text-only */}}
-  <ul class="rows thumbs">{{ range .Pages }}{{ $pg := . }}{{ $src := "" }}{{ with .Params.photos }}{{ $src = index . 0 }}{{ if reflect.IsMap $src }}{{ $src = $src.src }}{{ end }}{{ end }}
-    <li><a class="act" href="{{ .RelPermalink }}">
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2" | lower }}</time>
-      <span>{{ .Params.activity | default "other" }}</span>
-      <span class="stats">{{ partial "activity-stats.html" . }}{{ partial "example-tag.html" . }}</span>
-      {{- with $src }}{{ $r := or ($pg.Resources.Get .) (resources.Get (strings.TrimPrefix "/" .)) }}{{ if and $r (eq $r.MediaType.MainType "image") (ne $r.MediaType.SubType "svg") }}{{ $t := $r.Fill "88x88 webp" }}
-      <img class="thumb" src="{{ $t.RelPermalink }}" width="44" height="44" alt="" loading="lazy" decoding="async">{{ end }}{{ end }}
-    </a></li>{{ end }}</ul>
+  <ul class="rows thumbs">{{ range .Pages }}{{ partial "activity-row.html" . }}{{ end }}</ul>
 </section>
 {{ end }}
 {{ partial "pager.html" . }}

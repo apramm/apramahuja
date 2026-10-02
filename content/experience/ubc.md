@@ -1,6 +1,7 @@
 ---
 title: "BSc Computer Science, Minor in Data Science"
 organization: "University of British Columbia"
+logo: "logos/ubc.png"
 kind: education
 start: 2022-09   # approximate
 end: 2027-05     # expected

@@ -1,0 +1,5 @@
+{{- /* (dict "src" "logos/x.png" "eager" bool): 20px org logo, 40px source; alt="" because the org name is in the text */ -}}
+{{- with resources.Get (printf "images/%s" .src) -}}
+{{- $t := .Fill "40x40 webp" -}}
+<img class="logo" src="{{ $t.RelPermalink }}" width="20" height="20" alt="" {{ cond ($.eager | default false) "" `loading="lazy"` | safeHTMLAttr }} decoding="async">
+{{- end -}}

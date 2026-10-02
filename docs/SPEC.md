@@ -71,16 +71,20 @@ image, no client-side calls to Strava / Last.fm / Hevy.
 ## Homepage (top to bottom)
 
 1. **Header**: name (Newsreader 24px), one-line subtitle (`params.subtitle`), mono link row
-   `github · linkedin · strava · resume · email` from `params.links`. 3D mark floated right
+   `github · resume · linkedin · strava · leetcode · email` from `params.links`; the email href is
+   emitted as hex HTML entities (no JS) so plain-text scrapers miss it. 3D mark floated right
    (120px desktop, 84px phone).
-2. **now**: items from `content/now.md` `now:` list (`label`, `value`, optional `link`), then a
+2. **now**: items from `content/now.md` `now:` list (`label`, `value`, optional `link`, optional `logo`), then a
    **listening** line from `data/music.json` → `recent[0]`: "listening to *Track* by Artist ·
    last.fm · <relative time>". Hidden if no data.
 3. **experience**: all `experience` pages where `kind: work`, newest first, max 4:
    "role @ org" + optional one `summary` line, dates right-aligned mono. Link "full experience →".
+   Optional `logo: "logos/<file>"` (under `assets/images/`) renders a 20px square left of the
+   title (also on `/experience/`, education rows, and now items); light chip behind it in dark mode.
 4. **projects**: `featured: true`, sorted by `weight` then date, max 4: "title: description",
    `outcome` on second line, year right. Link "all projects →".
-5. **recently outside**: latest 4 activities: `date | activity | stats`. Fixed-width mono columns.
+5. **recently outside**: latest 4 activities: `date | activity | stats | 44px photo` (same
+   `activity-row.html` as `/activities/`). Fixed-width mono columns.
    Link "all activity →".
 6. **education**: `experience` pages where `kind: education`.
 7. **Footer**: "built with hugo · updated <last build date>" + theme toggle.
@@ -103,6 +107,7 @@ github: ""                                               # optional
 demo: ""                                                 # optional
 link: ""                                                 # optional project page (lab, event)
 doc: ""                                                  # optional key on apramm.github.io/docs (?doc=<key>)
+doc_label: ""                                             # optional link text for doc, default "write-up"
 image: ""                                                # optional, page bundle or /images/...
 example: false
 
@@ -214,17 +219,23 @@ Last.fm ┘   (GitHub Action cron, every 6h + manual dispatch)
 
 ## 3D mark
 
-- `scripts/make-mountain.mjs` (stdlib only) generates a deterministic low-poly mountain with a
-  trail line → `static/models/mountain.glb` (flat-shaded, vertex colors, ≤ 150 KB) and
-  `static/models/mountain.svg` poster (same mesh, painter's-algorithm projection, colors via
-  `currentColor`/CSS vars so it works in both themes).
-- `layouts/partials/mark.html`: renders the SVG poster inline (decorative, `aria-hidden`).
-  On first `pointerenter`, `focus` or `click`, `static/js/mark.js` imports a vendored
+- Default: `scripts/make-avatar.mjs` (stdlib only, deterministic) builds a chibi low-poly
+  figurine of the owner (black wavy hair, dark rectangular glasses, charcoal hoodie with hood
+  and drawstrings, white sneakers, on a grass/rock base) → `static/models/avatar.glb`
+  (flat-shaded, vertex colors, face toward +Z, ≤ 5k tris, ≤ 200 KB) and
+  `static/models/avatar.svg` poster (same mesh, camera `20deg 80deg`, painter's algorithm,
+  3 shade tones; real colors literal, base/outline/shadow from theme vars, ≤ 40 KB).
+  Both generators self-check the GLB on every run.
+- Alternative: `scripts/make-mountain.mjs` → `mountain.glb` + `mountain.svg` (low-poly peak
+  with a trail). Switch back by setting in `hugo.yaml`:
+  `params.mark: { model: /models/mountain.glb, poster: /models/mountain.svg,
+  orbit: "35deg 65deg auto", alt: "Low-poly mountain with a trail; drag to rotate" }`.
+- `layouts/partials/mark.html`: renders the SVG poster inline (decorative, `aria-hidden`) and
+  passes `params.mark.alt` / `params.mark.orbit` as data attributes.
+  On first `pointerenter`, `touchstart` or `click`, `static/js/mark.js` imports a vendored
   `static/js/vendor/model-viewer.min.js` (pinned version) and swaps in `<model-viewer>`
   with `camera-controls`, `disable-zoom`, no AR. Auto-rotate only when motion is allowed.
   The poster stays if JS fails or is disabled.
-- Swapping in a personal model later = replace `mountain.glb` + `mountain.svg` (or set
-  `params.mark.model` / `params.mark.poster`).
 
 ## Performance & accessibility budgets
 

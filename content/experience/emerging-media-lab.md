@@ -1,6 +1,7 @@
 ---
 title: "Software Developer"
 organization: "Emerging Media Lab, UBC"
+logo: "logos/ubc.png"
 kind: work
 start: 2025-05
 end: 2025-09

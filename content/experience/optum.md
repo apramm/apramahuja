@@ -1,6 +1,7 @@
 ---
 title: "Infrastructure & DevOps Intern"
 organization: "Optum (UnitedHealth Group)"
+logo: "logos/optum.png"
 kind: work
 start: 2024-09
 end: 2025-05

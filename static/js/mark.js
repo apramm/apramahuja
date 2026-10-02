@@ -13,14 +13,14 @@ async function upgrade() {
   const mv = document.createElement('model-viewer');
   const attrs = {
     src: mark.dataset.model,
-    alt: 'Low-poly mountain with a trail; drag to rotate',
+    alt: mark.dataset.alt,
     'camera-controls': '',
     'disable-zoom': '',
     'disable-pan': '',
     'interaction-prompt': 'none',
     'shadow-intensity': '0',
     exposure: '1',
-    'camera-orbit': '35deg 65deg auto',
+    'camera-orbit': mark.dataset.orbit,
     'max-camera-orbit': 'auto 85deg auto',
     loading: 'eager',
   };

@@ -1,6 +1,7 @@
-{{- /* (dict "page" p "title" t "href" url "desc" d "sub" s "date" d); all but title optional */ -}}
+{{- /* (dict "page" p "title" t "href" url "desc" d "sub" s "date" d "logo" path); all but title optional */ -}}
 <div class="row">
-  <div>
+  <div{{ with .logo }} class="l"{{ end }}>
+    {{- with .logo }}{{ partial "logo.html" (dict "src" .) }}{{ end -}}
     {{- with .href }}<a class="title" href="{{ . }}">{{ $.title }}</a>{{ else }}<span class="title">{{ .title }}</span>{{ end -}}
     {{- with .desc }}<span class="desc">: {{ . }}</span>{{ end -}}
     {{- with .page }}{{ partial "example-tag.html" . }}{{ end -}}

@@ -1,6 +1,7 @@
 ---
 title: "Software Engineer Intern"
 organization: "Aquatic Informatics (Veralto)"
+logo: "logos/aquatic.png"
 kind: work
 start: 2025-09
 end: 2025-12

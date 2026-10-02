@@ -9,7 +9,8 @@ weight: 1
 status: "complete"
 github: "https://github.com/kanish10/PILOT"
 demo: ""
-doc: ""
+doc: "ieee"
+doc_label: "ieee certificate"
 image: ""
 example: false
 ---

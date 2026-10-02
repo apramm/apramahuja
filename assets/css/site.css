@@ -167,3 +167,9 @@ footer.site p { margin: 0; }
   .act > .stats { grid-column: 2; grid-row: 1 / 3; }
   .thumbs .thumb { grid-row: 1 / 3; }
 }
+
+/* org logos (partials/logo.html): 20px square hung in the left padding, so wrapped lines stay aligned */
+.l { padding-left: 1.75rem; }
+.logo { float: left; width: 20px; height: 20px; margin: .2rem 0 0 -1.75rem; border: 1px solid var(--rule); border-radius: 4px; object-fit: contain; background: #fff; }
+:root[data-theme="dark"] .logo { padding: 2px; border-color: transparent; } /* light chip keeps dark marks visible */
+.row:has(> .l) > .date, li:has(> .row > .l) > :not(.row) { margin-left: 1.75rem; } /* wrapped date + /experience/ details line up with the title */

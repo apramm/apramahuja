@@ -11,6 +11,7 @@ github: ""             # optional repo URL
 demo: ""               # optional live/demo URL
 link: ""      # optional project page (lab, event, article)
 doc: ""                # optional key on apramm.github.io/docs (?doc=<key>)
+doc_label: ""   # optional link text for doc (default "write-up")
 image: ""              # optional, page bundle resource or /images/... (file in assets/images/)
 image_alt: ""          # optional; empty = decorative
 example: false         # true marks placeholder content

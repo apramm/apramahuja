@@ -1,7 +1,7 @@
 {{- /* context: the now page, or nil (listening line still renders from data/music.json) */ -}}
 <ul class="now">
   {{ with . }}{{ range .Params.now }}
-  <li><span class="k">{{ .label }}</span> <span>{{ if .link }}<a href="{{ .link | relURL }}">{{ .value }}</a>{{ else }}{{ .value }}{{ end }}{{ partial "example-tag.html" . }}</span></li>
+  <li><span class="k">{{ .label }}</span> <span{{ with .logo }} class="l"{{ end }}>{{ with .logo }}{{ partial "logo.html" (dict "src" . "eager" true) }}{{ end }}{{ if .link }}<a href="{{ .link | relURL }}">{{ .value }}</a>{{ else }}{{ .value }}{{ end }}{{ partial "example-tag.html" . }}</span></li>
   {{ end }}{{ end }}
   {{ with hugo.Data.music }}{{ $music := . }}{{ $user := .user | default site.Params.lastfm.user }}{{ with index (.recent | default slice) 0 }}
   {{ $ago := "" }}{{ with .played_at }}{{ $h := (now.Sub (time .)).Hours }}{{ $ago = cond (lt $h 1) "just now" (cond (lt $h 24) (printf "%.0fh ago" $h) (printf "%.0fd ago" (math.Floor (div $h 24)))) }}{{ end }}

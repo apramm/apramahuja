@@ -6,7 +6,9 @@
   <nav aria-label="elsewhere">
     <ul class="inline">
       {{ $links := merge (site.Params.links | default dict) (dict "resume" site.Params.resume) }}
-      {{ range $k := slice "github" "leetcode" "linkedin" "strava" "resume" "email" }}{{ with index $links $k }}<li><a href="{{ . }}">{{ $k }}</a></li>{{ end }}{{ end }}
+      {{ range $k := slice "github" "resume" "linkedin" "strava" "leetcode" }}{{ with index $links $k }}<li><a href="{{ . }}">{{ $k }}</a></li>{{ end }}{{ end }}
+      {{- /* email: address percent-encoded (hugo --minify decodes HTML entities back to plain text, it keeps %xx); no JS */}}
+      {{ with $links.email }}{{ $enc := "" }}{{ range split (strings.TrimPrefix "mailto:" .) "" }}{{ $enc = printf "%s%%%x" $enc . }}{{ end }}<li><a {{ printf `href="mailto:%s"` $enc | safeHTMLAttr }}>email</a></li>{{ end }}
     </ul>
   </nav>
 </div>
@@ -43,7 +45,7 @@
 {{ with first 4 (where site.RegularPages "Section" "activities").ByDate.Reverse }}
 <section aria-labelledby="outside">
   {{ partial "section-label.html" (dict "id" "outside" "text" "recently outside") }}
-  <ul class="rows">{{ range . }}{{ partial "activity-row.html" . }}{{ end }}</ul>
+  <ul class="rows thumbs">{{ range . }}{{ partial "activity-row.html" . }}{{ end }}</ul>
   <p class="more"><a href="{{ "/activities/" | relURL }}">all activity →</a></p>
 </section>
 {{ end }}
