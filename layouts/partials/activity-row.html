@@ -1,0 +1,9 @@
+{{- /* one activity → <li>; wrap in <ul class="rows thumbs"> for the 44px photo column */ -}}
+{{- $src := "" }}{{ with .Params.photos }}{{ $src = index . 0 }}{{ if reflect.IsMap $src }}{{ $src = $src.src }}{{ end }}{{ end -}}
+<li><a class="act" href="{{ .RelPermalink }}">
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2" | lower }}</time>
+  <span>{{ .Params.activity | default "other" }}</span>
+  <span class="stats">{{ partial "activity-stats.html" . }}{{ partial "example-tag.html" . }}</span>
+  {{- with $src }}{{ $r := or ($.Resources.Get .) (resources.Get (strings.TrimPrefix "/" .)) }}{{ if and $r (eq $r.MediaType.MainType "image") (ne $r.MediaType.SubType "svg") }}{{ $t := $r.Fill "88x88 webp" }}
+  <img class="thumb" src="{{ $t.RelPermalink }}" width="44" height="44" alt="" loading="lazy" decoding="async">{{ end }}{{ end }}
+</a></li>

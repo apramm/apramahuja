@@ -1,0 +1,20 @@
+{{ define "main" }}
+<article>
+  {{ partial "page-header.html" . }}
+  {{ with .Params.image }}<figure class="photo">{{ partial "img.html" (dict "page" $ "src" . "alt" ($.Params.alt | default "") "sizes" "(min-width: 680px) 640px, 100vw" "eager" true) }}</figure>{{ end }}
+  <dl class="stats">
+    {{ if not .Date.IsZero }}<dt>date</dt><dd><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></dd>{{ end }}
+    {{ with .Params.location }}<dt>where</dt><dd>{{ . }}</dd>{{ end }}
+    {{ with .Params.alt }}<dt>shows</dt><dd>{{ . }}</dd>{{ end }}
+  </dl>
+  <div class="prose">{{ .Content }}</div>
+  {{ $related := slice }}{{ range .Params.related }}{{ with site.GetPage . }}{{ $related = $related | append . }}{{ end }}{{ end }}
+  {{ with $related }}
+  <section aria-labelledby="related">
+    {{ partial "section-label.html" (dict "id" "related" "text" "related") }}
+    <ul class="rows">{{ range . }}<li>{{ partial "entry-row.html" (dict "page" . "title" .Title "href" .RelPermalink "sub" .Section "date" (cond .Date.IsZero "" (.Date.Format "2006-01-02"))) }}</li>{{ end }}</ul>
+  </section>
+  {{ end }}
+  <p class="more"><a href="{{ "/photos/" | relURL }}">← all photos</a></p>
+</article>
+{{ end }}

@@ -1,0 +1,79 @@
+name: sync
+
+on:
+  schedule:
+    - cron: "7,22,37,52 * * * *"   # every 15 min, off the top of the hour; faster risks Vercel Hobby's 100 deploys/day
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      # No token left in .git/config: provider scripts never see it. Only the commit step gets it.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+
+      # Each provider is independent: one failing never blocks the others or the commit.
+      # Secrets are scoped to the single step that needs them.
+      - name: Sync Strava
+        id: strava
+        continue-on-error: true
+        run: node scripts/sync-strava.mjs
+        env:
+          STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
+          STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
+
+      - name: Sync Hevy
+        id: hevy
+        continue-on-error: true
+        run: node scripts/sync-hevy.mjs
+        env:
+          HEVY_API_KEY: ${{ secrets.HEVY_API_KEY }}
+          SITE_TZ: ${{ vars.SITE_TZ }}
+
+      - name: Sync Last.fm
+        id: lastfm
+        continue-on-error: true
+        run: node scripts/sync-lastfm.mjs
+        env:
+          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+          LASTFM_USER: ${{ vars.LASTFM_USER }}
+
+      - name: Commit changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add content/activities data assets/images/activities
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: sync activities and music"
+          remote="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git pull --quiet --rebase "$remote" main
+          git push --quiet "$remote" HEAD:main
+
+      # Runs after the commit so good data from healthy providers still lands; failing here makes GitHub email the owner.
+      - name: Fail if any provider failed
+        if: steps.strava.outcome == 'failure' || steps.hevy.outcome == 'failure' || steps.lastfm.outcome == 'failure'
+        run: |
+          echo "::error::Provider sync failed (strava=${{ steps.strava.outcome }}, hevy=${{ steps.hevy.outcome }}, lastfm=${{ steps.lastfm.outcome }}). See the step logs above."
+          exit 1

@@ -1,0 +1,3 @@
+{{- /* context: a page (uses .Params.example) or a map with an "example" key */ -}}
+{{- $on := false }}{{ if reflect.IsMap . }}{{ $on = .example }}{{ else }}{{ $on = .Params.example }}{{ end -}}
+{{- if $on }} <span class="ex">example</span>{{ end -}}

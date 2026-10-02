@@ -1,0 +1,2 @@
+{{- /* one project page → entry-row */ -}}
+{{ partial "entry-row.html" (dict "page" . "title" .Title "href" .RelPermalink "desc" .Description "sub" .Params.outcome "date" (cond .Date.IsZero "" (.Date.Format "2006"))) }}

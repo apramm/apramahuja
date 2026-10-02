@@ -1,0 +1,23 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+{{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+{{ range slice "work" "education" }}
+{{ with sort (where $.Pages "Params.kind" .) "Params.start" "desc" }}
+<section aria-labelledby="{{ (index . 0).Params.kind }}">
+  {{ partial "section-label.html" (dict "id" (index . 0).Params.kind "text" (index . 0).Params.kind) }}
+  <ul class="rows">
+  {{ range . }}
+    <li id="{{ .File.ContentBaseName }}">
+      {{ partial "exp-row.html" . }}
+      {{ with .Params.location }}<p class="meta">{{ . }}</p>{{ end }}
+      {{ with .Params.highlights }}<ul class="highlights">{{ range . }}<li>{{ . | markdownify }}</li>{{ end }}</ul>{{ end }}
+      {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+      {{ with .Params.tags }}<p class="meta">{{ delimit . " · " }}</p>{{ end }}
+      {{ with .Params.link }}<p class="meta"><a href="{{ . }}">link →</a></p>{{ end }}
+    </li>
+  {{ end }}
+  </ul>
+</section>
+{{ end }}
+{{ end }}
+{{ end }}

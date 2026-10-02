@@ -1,0 +1,61 @@
+{{ define "header" }}
+<div class="intro">
+  {{ with site.Params.portrait }}{{ $alt := .alt }}{{ with resources.Get .src }}{{ $sq := .Crop "1200x1200 Center webp q82" }}{{ $s := $sq.Resize "256x" }}{{ $l := $sq.Resize "512x" }}
+  <img class="portrait" src="{{ $s.RelPermalink }}" srcset="{{ $s.RelPermalink }} 256w, {{ $l.RelPermalink }} 512w" sizes="128px" width="{{ div $s.Width 2 }}" height="{{ div $s.Height 2 }}" alt="{{ $alt }}" fetchpriority="high">
+  {{ end }}{{ end }}
+  <h1>{{ site.Params.name }}</h1>
+  <p class="sub">{{ site.Params.subtitle }}</p>
+  <nav aria-label="elsewhere">
+    <ul class="inline">
+      {{ $links := merge (site.Params.links | default dict) (dict "resume" site.Params.resume) }}
+      {{ range $k := slice "github" "resume" "linkedin" "strava" "leetcode" }}{{ with index $links $k }}<li><a href="{{ . }}">{{ $k }}</a></li>{{ end }}{{ end }}
+      {{- /* email: address percent-encoded (hugo --minify decodes HTML entities back to plain text, it keeps %xx); no JS */}}
+      {{ with $links.email }}{{ $enc := "" }}{{ range split (strings.TrimPrefix "mailto:" .) "" }}{{ $enc = printf "%s%%%x" $enc . }}{{ end }}<li><a {{ printf `href="mailto:%s"` $enc | safeHTMLAttr }}>email</a></li>{{ end }}
+    </ul>
+  </nav>
+</div>
+{{ end }}
+
+{{ define "main" }}
+{{ $now := site.GetPage "/now" }}
+{{ $items := slice }}{{ with $now }}{{ $items = .Params.now }}{{ end }}
+{{ $recent := (hugo.Data.music | default dict).recent }}
+{{ if or $items $recent }}
+<section aria-labelledby="now">
+  {{ partial "section-label.html" (dict "id" "now" "text" "now") }}
+  {{ partial "now-list.html" $now }}
+</section>
+{{ end }}
+
+{{ $exp := where site.RegularPages "Section" "experience" }}
+{{ with first 4 (sort (where $exp "Params.kind" "work") "Params.start" "desc") }}
+<section aria-labelledby="experience">
+  {{ partial "section-label.html" (dict "id" "experience" "text" "experience") }}
+  <ul class="rows">{{ range . }}<li>{{ partial "exp-row.html" . }}</li>{{ end }}</ul>
+  <p class="more"><a href="{{ "/experience/" | relURL }}">full experience →</a></p>
+</section>
+{{ end }}
+
+{{ with first 4 (where (where site.RegularPages "Section" "projects") "Params.featured" true).ByWeight }}
+<section aria-labelledby="projects">
+  {{ partial "section-label.html" (dict "id" "projects" "text" "projects") }}
+  <ul class="rows">{{ range . }}<li>{{ partial "project-row.html" . }}</li>{{ end }}</ul>
+  <p class="more"><a href="{{ "/projects/" | relURL }}">all projects →</a></p>
+</section>
+{{ end }}
+
+{{ with first 4 (where site.RegularPages "Section" "activities").ByDate.Reverse }}
+<section aria-labelledby="outside">
+  {{ partial "section-label.html" (dict "id" "outside" "text" "recently outside") }}
+  <ul class="rows thumbs">{{ range . }}{{ partial "activity-row.html" . }}{{ end }}</ul>
+  <p class="more"><a href="{{ "/activities/" | relURL }}">all activity →</a></p>
+</section>
+{{ end }}
+
+{{ with sort (where $exp "Params.kind" "education") "Params.start" "desc" }}
+<section aria-labelledby="education">
+  {{ partial "section-label.html" (dict "id" "education" "text" "education") }}
+  <ul class="rows">{{ range . }}<li>{{ partial "exp-row.html" . }}</li>{{ end }}</ul>
+</section>
+{{ end }}
+{{ end }}

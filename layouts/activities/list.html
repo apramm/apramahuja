@@ -1,0 +1,12 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+{{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+{{ range (.Paginate (.Pages.GroupByDate "2006")).PageGroups }}
+<section aria-labelledby="y{{ .Key }}">
+  {{ partial "section-label.html" (dict "id" (print "y" .Key) "text" .Key) }}
+  <ul class="rows thumbs">{{ range .Pages }}{{ partial "activity-row.html" . }}{{ end }}</ul>
+</section>
+{{ end }}
+{{ partial "pager.html" . }}
+<p class="more"><a href="{{ site.Params.links.strava }}">strava profile →</a></p>
+{{ end }}

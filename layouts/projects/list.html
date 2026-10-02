@@ -1,0 +1,9 @@
+{{ define "main" }}
+{{ partial "page-header.html" . }}
+{{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+<ul class="rows">
+  {{ range slice (where .Pages "Params.featured" true) (where .Pages "Params.featured" "!=" true) }}
+  {{ range .ByDate.Reverse }}<li>{{ partial "project-row.html" . }}</li>{{ end }}
+  {{ end }}
+</ul>
+{{ end }}

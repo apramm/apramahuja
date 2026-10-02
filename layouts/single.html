@@ -1,0 +1,7 @@
+{{ define "main" }}
+<article>
+  {{ partial "page-header.html" . }}
+  {{ with .Params.now }}{{ partial "now-list.html" $ }}{{ with $.Params.updated }}<p class="meta">updated {{ time.Format "2006-01-02" . }}</p>{{ end }}{{ end }}
+  <div class="prose">{{ .Content }}</div>
+</article>
+{{ end }}

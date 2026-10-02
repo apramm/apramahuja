@@ -1,0 +1,8 @@
+{{- /* slice of (dict "page" p "src" path "alt" text "href" optional-link "example" bool "eager" bool) */ -}}
+<ul class="grid">
+{{ range . }}
+  <li>{{ with .href }}<a href="{{ . }}">{{ end }}
+  {{ partial "img.html" (merge . (dict "sizes" "(min-width: 680px) 210px, 50vw")) }}
+  {{ with .href }}</a>{{ end }}{{ partial "example-tag.html" . }}</li>
+{{ end }}
+</ul>

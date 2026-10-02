@@ -1,0 +1,21 @@
+{{ define "main" }}
+<article>
+  {{ partial "page-header.html" . }}
+  <div class="prose">{{ .Content }}</div>
+  {{ $tags := slice }}{{ range .Params.tags }}{{ $tags = $tags | append (lower .) }}{{ end }}
+  {{ $related := slice }}
+  {{ range site.RegularPages.ByDate.Reverse }}
+    {{ if and (ne .Section "interests") (ne .Section "") }}
+      {{ $hit := false }}{{ range .Params.tags }}{{ if in $tags (lower .) }}{{ $hit = true }}{{ end }}{{ end }}
+      {{ if $hit }}{{ $related = $related | append . }}{{ end }}
+    {{ end }}
+  {{ end }}
+  {{ with $related }}
+  <section aria-labelledby="related">
+    {{ partial "section-label.html" (dict "id" "related" "text" "related") }}
+    <ul class="rows">{{ range . }}<li>{{ partial "entry-row.html" (dict "page" . "title" .Title "href" .RelPermalink "sub" .Section "date" (cond .Date.IsZero "" (.Date.Format "2006-01-02"))) }}</li>{{ end }}</ul>
+  </section>
+  {{ end }}
+  <p class="more"><a href="{{ "/interests/" | relURL }}">← all interests</a></p>
+</article>
+{{ end }}
