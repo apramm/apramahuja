@@ -158,9 +158,11 @@ test('writeActivities refuses unsafe filenames', async () => {
 })
 
 test('Hevy UTC times become SITE_TZ local time with explicit offset, across DST', () => {
-  // PDT (-07:00) before 2026-11-01 09:00Z, PST (-08:00) after.
-  const before = normalize('hevy', { ...hevyWorkout, start_time: '2026-11-01T08:30:00Z', end_time: '2026-11-01T09:30:00Z' })
-  const after = normalize('hevy', { ...hevyWorkout, start_time: '2026-11-01T09:30:00Z', end_time: '2026-11-01T10:30:00Z' })
+  // Uses Los Angeles: tzdata 2026c puts America/Vancouver on permanent UTC-7 from Nov 2026,
+  // so its result depends on the runtime's tz data. LA: PDT before 2026-11-01 09:00Z, PST after.
+  const la = { tz: 'America/Los_Angeles' }
+  const before = normalize('hevy', { ...hevyWorkout, start_time: '2026-11-01T08:30:00Z', end_time: '2026-11-01T09:30:00Z' }, la)
+  const after = normalize('hevy', { ...hevyWorkout, start_time: '2026-11-01T09:30:00Z', end_time: '2026-11-01T10:30:00Z' }, la)
   assert.equal(before.date, '2026-11-01T01:30:00-07:00')
   assert.equal(after.date, '2026-11-01T01:30:00-08:00')
   assert.equal(before.moving_seconds, 3600)

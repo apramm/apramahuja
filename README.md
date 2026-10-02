@@ -9,7 +9,7 @@ is the CMS. The design and the content schema are specified in [`docs/SPEC.md`](
 brew install hugo          # 0.165.0 extended (same version as vercel.json and CI)
 hugo server                # http://localhost:1313, live reload
 hugo --minify --gc         # production build into public/
-node --test scripts/       # sync script tests (Node 22, no npm install)
+node --test 'scripts/*.test.mjs'       # sync script tests (Node 22, no npm install)
 ```
 
 ## Add content

@@ -198,7 +198,7 @@ Last.fm ┘   (GitHub Action cron, every 6h + manual dispatch)
   (each `continue-on-error`) → commit `data/`/`content/activities` changes as
   `github-actions[bot]` → push `main` with the token passed only to that step → fail the job if
   any provider failed. `permissions: {}` at workflow level, `contents: write` on the job. Every
-  action pinned by commit SHA; Dependabot bumps them. Workflow `ci.yml`: on PR/push, `node --test scripts/` and
+  action pinned by commit SHA; Dependabot bumps them. Workflow `ci.yml`: on PR/push, `node --test 'scripts/*.test.mjs'` and
   `hugo --minify` with the pinned version.
 
 ## 3D mark
@@ -231,6 +231,6 @@ Last.fm ┘   (GitHub Action cron, every 6h + manual dispatch)
 3. `hugo new projects/test.md` → appears on `/projects/` without template edits.
 4. Light, dark, and toggle work; no flash of wrong theme.
 5. 320px, 390px, 1280px widths: no horizontal scroll, readable rows.
-6. Sync scripts: `node --test scripts/` passes (normalization, idempotency, failure keeps files).
+6. Sync scripts: `node --test 'scripts/*.test.mjs'` passes (normalization, idempotency, failure keeps files).
 7. No secret appears in `public/` or in any client JS.
 8. README covers local dev, adding each content type, now/music, sync setup, deploy.
