@@ -5,13 +5,13 @@ paths, so agents can run in parallel in the same tree.
 
 ## Phase 0: cleanup (lead, sequential)
 
-- [ ] Remove the Next.js app: `pages/ components/ lib/ styles/ build/ .next/ node_modules/
+- [x] Remove the Next.js app: `pages/ components/ lib/ styles/ build/ .next/ node_modules/
       package.json package-lock.json .eslintrc.json prettier.config.js .prettierignore`
-- [ ] Untrack `public/` (build output); `.gitignore` → `public/`, `resources/`, `.hugo_build.lock`, `.env`
-- [ ] Delete fabricated `content/experience/research-assistant.md`
-- [ ] `vercel.json` (Hugo 0.165.0, `hugo --minify --gc`, output `public`)
-- [ ] `hugo.yaml` baseURL → apramahuja.com, YAML params per spec
-- [ ] Remove GitHub Pages workflow `hugo.yml`
+- [x] Untrack `public/` (build output); `.gitignore` → `public/`, `resources/`, `.hugo_build.lock`, `.env`
+- [x] Delete fabricated `content/experience/research-assistant.md`
+- [x] `vercel.json` (Hugo 0.165.0, `hugo --minify --gc`, output `public`)
+- [x] `hugo.yaml` baseURL → apramahuja.com, YAML params per spec
+- [x] Remove GitHub Pages workflow `hugo.yml`
 
 ## Phase 1: build (parallel)
 
@@ -35,11 +35,11 @@ partial name `mark.html` (`{{ partial "mark.html" . }}`).
 
 ## Phase 3: fix + verify (lead)
 
-- [ ] Apply confirmed findings
-- [ ] Clean-checkout build (`git clone` to temp, `hugo --minify`)
-- [ ] Browser check: 320 / 390 / 1280, light + dark, keyboard focus
-- [ ] README rewrite
-- [ ] Commit on `hugo-revamp`; the user merges to `main` (Vercel deploys)
+- [x] Apply confirmed findings
+- [x] Clean-checkout build (`git clone` to temp, `hugo --minify`)
+- [x] Browser check: 320 / 390 / 1280, light + dark, keyboard focus
+- [x] README rewrite
+- [x] Commit on `hugo-revamp`; the user merges to `main` (Vercel deploys)
 
 ## User actions after merge
 
