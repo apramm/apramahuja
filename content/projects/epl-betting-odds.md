@@ -6,7 +6,7 @@ outcome: ""
 tags: [Data Science]
 featured: false
 status: "complete"
-github: "https://github.com/apramm/Exploring-Betting-Odds-in-a-Football-Match"
+github: "https://github.com/apramm/EnglishPremierLeague-BettingOddsModel"
 demo: ""
 doc: ""
 image: "/images/football.webp"

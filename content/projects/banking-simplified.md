@@ -6,7 +6,7 @@ outcome: ""
 tags: [Desktop]
 featured: false
 status: "complete"
-github: "https://github.com/apramm/OnlineBankingSystem"
+github: "https://github.com/apramm/EasyBanking"
 demo: ""
 doc: ""
 image: "/images/obs.webp"

@@ -6,7 +6,7 @@ outcome: ""
 tags: [JavaScript, Three.js, WebGL]
 featured: false
 status: "complete"
-github: ""
+github: "https://github.com/apramm/graphics"
 demo: "https://apramm.github.io/graphics/"
 doc: ""
 image: "/images/graphics.png"
