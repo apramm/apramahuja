@@ -6,4 +6,4 @@ weight: 3
 example: false
 ---
 
-Lifting, swimming, kickboxing, Brazilian jiu-jitsu and sambo. Workouts are logged in Hevy.
+Lifting, swimming, kickboxing, Brazilian jiu-jitsu and sambo. Workouts are logged on [Hevy](https://hevy.com/user/apramlift).
