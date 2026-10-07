@@ -18,10 +18,10 @@ Most of the site updates itself. The rest is one Markdown file and a push.
 | "updated" date in the footer | the build itself | every deploy |
 
 Every 15 minutes, the `sync` GitHub Action runs the four scripts in `scripts/`. They fetch your
-latest data with the keys stored in GitHub Secrets, write it into the repo
+latest data (with the keys stored in GitHub Secrets where a provider needs one), write it into the repo
 (`content/activities/`, `assets/images/activities/`, `data/music.json`, `data/reading.json`) and commit it. That
 commit triggers Vercel, which rebuilds the site in under a minute. Visitors only ever load static
-pages, so the site doesn't depend on Strava or Last.fm being up. If one of them fails, the site
+pages, so the site doesn't depend on Strava, Last.fm or apramreads being up. If one of them fails, the site
 keeps the last good data and GitHub emails you. To sync right away, open **Actions → sync → Run
 workflow** on GitHub.
 
@@ -119,7 +119,7 @@ synced activity (notes in the body, `photos`) survive later syncs.
 apramreads needs no key: the script reads the public `blog-manifest.json` and the Markdown posts
 from <https://apramm.github.io/apramreads/>, takes each post's `# title`, first `YYYY-MM-DD` and
 first paragraph, and writes `data/reading.json`. Daily reads are skipped on purpose; they stay on
-apramreads. If a post cannot be fetched it is skipped with a warning and the rest are written.
+apramreads. If a post cannot be fetched, its previous entry is kept (or dropped if there is none) with a warning; if every post fails the run exits 1 and the file is left as it was.
 
 Strava photos on public activities are downloaded at sync time into `assets/images/activities/`
 and committed with the activity files; Hugo serves resized webp copies from the site itself. Each

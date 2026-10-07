@@ -57,7 +57,7 @@ image, no client-side calls to Strava / Last.fm / Hevy / apramreads.
 
 | URL | Source | Content |
 |---|---|---|
-| `/` | `content/_index.md`, `content/now.md`, collections, `data/music.json` | see Homepage |
+| `/` | `content/_index.md`, `content/now.md`, collections, `data/music.json`, `data/reading.json` | see Homepage |
 | `/projects/` | `content/projects/*.md` | all projects, dated list, newest first; featured first |
 | `/projects/<slug>/` | one file | title, one-line description, outcome, tags, links, body |
 | `/experience/` | `content/experience/*.md` | full list incl. highlights + education |
@@ -220,18 +220,21 @@ apramreads ┘
   (`{ "<section>": ["<file>.md", …] }`) and then every file in sections other than `daily-reads`,
   so a new apramreads folder such as `blog/essays/` is listed with no change here. Section names
   must match `^[\w-]+$` and file names `^[\w-]+\.md$`; anything else is skipped with a warning.
+  Titles are cut to 200 characters and per-line inline-markup stripping is bounded, so a hostile post
+  cannot stall the job; the workflow step also has its own 3-minute timeout. Redirects are refused
+  (`redirect: 'error'`), as for Strava downloads.
   Each file is parsed the way apramreads' own `script.js` does: `title` = first `# ` heading
   (file name without `.md` if none), `date` = first `YYYY-MM-DD` anywhere in the file (empty if
   none), `summary` = first paragraph that is not a heading, list, code fence or `key: value` line,
   collapsed to one line and cut to 160 characters. Strings are made well-formed.
   Writes `data/reading.json`:
-  `{ fetched_at, site, items:[{ section, title, date, summary, url }], daily_reads }` with items
+  `{ fetched_at, site, items:[{ section, title, date, summary, url }] }` with items
   newest first and undated last, `url` = `<site>post.html?section=<s>&file=<f>` (query-encoded),
-  `site` = the apramreads base URL, `daily_reads` = number of files in that section (shown
-  nowhere yet; it costs nothing because it comes from the manifest). Written only when something
+  `site` = the apramreads base URL. Written only when something
   other than `fetched_at` changed, so an unchanged blog produces no commit and no deploy. A failed
   or malformed fetch (non-2xx, timeout, manifest not an object of arrays) exits 1 and leaves the
-  existing file untouched. One unreadable post logs `::warning::` and keeps its entry from the
+  existing file untouched; so does a manifest that lists no usable posts while the existing file has items (the
+  list is never blanked without a person). One unreadable post logs `::warning::` and keeps its entry from the
   previous `reading.json` (matched by `url`; dropped if there is none) so a flaky fetch never
   shrinks the list or causes an extra deploy; if every post fails the run exits 1 and the file is
   untouched. Freshness is the 15-minute cron; apramreads itself is not changed.
