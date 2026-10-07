@@ -231,8 +231,10 @@ apramreads ┘
   nowhere yet; it costs nothing because it comes from the manifest). Written only when something
   other than `fetched_at` changed, so an unchanged blog produces no commit and no deploy. A failed
   or malformed fetch (non-2xx, timeout, manifest not an object of arrays) exits 1 and leaves the
-  existing file untouched; one unreadable post is skipped with `::warning::` and the rest are
-  still written. Freshness is the 15-minute cron; apramreads itself is not changed.
+  existing file untouched. One unreadable post logs `::warning::` and keeps its entry from the
+  previous `reading.json` (matched by `url`; dropped if there is none) so a flaky fetch never
+  shrinks the list or causes an extra deploy; if every post fails the run exits 1 and the file is
+  untouched. Freshness is the 15-minute cron; apramreads itself is not changed.
 - Secrets live only in GitHub Actions secrets and local `.env` (gitignored). Nothing secret is
   read by Hugo or shipped to the browser. `.env.example` documents every variable.
 - Workflow `sync.yml`: checkout (`persist-credentials: false`) → node 22 → run four syncs
