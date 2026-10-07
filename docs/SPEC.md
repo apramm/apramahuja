@@ -222,7 +222,7 @@ apramreads ┘
   must match `^[\w-]+$` and file names `^[\w-]+\.md$`; anything else is skipped with a warning.
   Titles are cut to 200 characters and per-line inline-markup stripping is bounded, so a hostile post
   cannot stall the job; the workflow step also has its own 3-minute timeout. Redirects are refused
-  (`redirect: 'error'`), as for Strava downloads.
+  (`redirect: 'error'`; Strava photo downloads refuse them too, via `redirect: 'manual'`).
   Each file is parsed the way apramreads' own `script.js` does: `title` = first `# ` heading
   (file name without `.md` if none), `date` = first `YYYY-MM-DD` anywhere in the file (empty if
   none), `summary` = first paragraph that is not a heading, list, code fence or `key: value` line,
