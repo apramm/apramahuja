@@ -55,6 +55,11 @@ jobs:
           LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
           LASTFM_USER: ${{ vars.LASTFM_USER }}
 
+      - name: Sync apramreads
+        id: reads
+        continue-on-error: true
+        run: node scripts/sync-reads.mjs
+
       - name: Commit changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -66,14 +71,14 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "data: sync activities and music"
+          git commit -m "data: sync activities, music and reading"
           remote="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git pull --quiet --rebase "$remote" main
           git push --quiet "$remote" HEAD:main
 
       # Runs after the commit so good data from healthy providers still lands; failing here makes GitHub email the owner.
       - name: Fail if any provider failed
-        if: steps.strava.outcome == 'failure' || steps.hevy.outcome == 'failure' || steps.lastfm.outcome == 'failure'
+        if: steps.strava.outcome == 'failure' || steps.hevy.outcome == 'failure' || steps.lastfm.outcome == 'failure' || steps.reads.outcome == 'failure'
         run: |
-          echo "::error::Provider sync failed (strava=${{ steps.strava.outcome }}, hevy=${{ steps.hevy.outcome }}, lastfm=${{ steps.lastfm.outcome }}). See the step logs above."
+          echo "::error::Provider sync failed (strava=${{ steps.strava.outcome }}, hevy=${{ steps.hevy.outcome }}, lastfm=${{ steps.lastfm.outcome }}, reads=${{ steps.reads.outcome }}). See the step logs above."
           exit 1
