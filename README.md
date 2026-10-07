@@ -13,14 +13,15 @@ Most of the site updates itself. The rest is one Markdown file and a push.
 |---|---|---|
 | **recently outside** + `/activities/` | Strava (runs, hikes, soccer…), including your activity photos | every 15 min |
 | Gym workouts | Hevy (optional, needs `HEVY_API_KEY`) | every 15 min |
+| **reading** list | [apramreads](https://apramm.github.io/apramreads/): books and every section except the daily reads (no key) | every 15 min |
 | **listening** line | Last.fm `aprammusic` (Apple Music → a scrobbler app → Last.fm) | every 15 min |
 | "updated" date in the footer | the build itself | every deploy |
 
-Every 15 minutes, the `sync` GitHub Action runs the three scripts in `scripts/`. They fetch your
-latest data with the keys stored in GitHub Secrets, write it into the repo
-(`content/activities/`, `assets/images/activities/`, `data/music.json`) and commit it. That
+Every 15 minutes, the `sync` GitHub Action runs the four scripts in `scripts/`. They fetch your
+latest data (with the keys stored in GitHub Secrets where a provider needs one), write it into the repo
+(`content/activities/`, `assets/images/activities/`, `data/music.json`, `data/reading.json`) and commit it. That
 commit triggers Vercel, which rebuilds the site in under a minute. Visitors only ever load static
-pages, so the site doesn't depend on Strava or Last.fm being up. If one of them fails, the site
+pages, so the site doesn't depend on Strava, Last.fm or apramreads being up. If one of them fails, the site
 keeps the last good data and GitHub emails you. To sync right away, open **Actions → sync → Run
 workflow** on GitHub.
 
@@ -89,26 +90,36 @@ Each item is one file. `hugo new` fills in front matter from `archetypes/`.
 
 Set `draft: true` to hide a page, and set `example: true` to label placeholder content.
 
-## Homepage "now" and music
+## Homepage "now", music and reading
 
 - **now:** edit the `now:` list in `content/now.md` (label, value, optional link) and bump `updated`.
 - **listening:** read from `data/music.json`, which the Last.fm sync writes. Delete the file to
   hide the line. The "3h ago" text is computed at build time, so it refreshes each time the sync
   commits.
+- **reading:** read from `data/reading.json`, which the apramreads sync writes from the public
+  blog manifest. Every apramreads section except `daily-reads` is listed (newest four on the
+  homepage, each linking to the post on apramreads). To feature a new kind of post, add a folder
+  under `blog/` in the apramreads repo; nothing changes here. Delete the file to hide the section.
 - **name, subtitle, links, resume:** these are `params` in `hugo.yaml`. To use a local PDF for
   the resume, put the file in `static/` and change `params.resume`.
 
-## Data sync (Strava, Hevy, Last.fm)
+## Data sync (Strava, Hevy, Last.fm, apramreads)
 
 ```
-Strava ─┐
-Hevy  ──┼─ scripts/sync-*.mjs ──> content/activities/*.md, data/music.json ──> commit ──> Vercel build
-Last.fm ┘   GitHub Action .github/workflows/sync.yml, every 15 min + manual "Run workflow"
+Strava ────┐
+Hevy  ─────┼─ scripts/sync-*.mjs ──> content/activities/*.md, data/music.json, data/reading.json ──> commit ──> Vercel build
+Last.fm ───┤   GitHub Action .github/workflows/sync.yml, every 15 min + manual "Run workflow"
+apramreads ┘
 ```
 
 Visitors never contact these APIs. If a provider is down or a key is missing, that script skips or
 fails without touching existing files, and the site keeps the last good data. Hand edits to a
 synced activity (notes in the body, `photos`) survive later syncs.
+
+apramreads needs no key: the script reads the public `blog-manifest.json` and the Markdown posts
+from <https://apramm.github.io/apramreads/>, takes each post's `# title`, first `YYYY-MM-DD` and
+first paragraph, and writes `data/reading.json`. Daily reads are skipped on purpose; they stay on
+apramreads. If a post cannot be fetched, its previous entry is kept (or dropped if there is none) with a warning; if every post fails the run exits 1 and the file is left as it was.
 
 Strava photos on public activities are downloaded at sync time into `assets/images/activities/`
 and committed with the activity files; Hugo serves resized webp copies from the site itself. Each
@@ -136,7 +147,7 @@ providers is still committed. If Strava rotates the refresh token, the log names
 update.
 
 To run a sync locally, put the keys in `.env` (it's gitignored) and run
-`node --env-file=.env scripts/sync-strava.mjs`.
+`node --env-file=.env scripts/sync-strava.mjs`. The apramreads sync needs no keys: `node scripts/sync-reads.mjs`.
 
 ## Deploy
 
@@ -154,7 +165,7 @@ content/      Markdown: projects, experience, activities, photos, interests, now
 layouts/      Hugo templates and partials
 assets/       CSS and images (processed and fingerprinted by Hugo)
 static/       fonts, favicon
-data/         music.json (written by the sync)
+data/         music.json, reading.json (written by the syncs)
 scripts/      sync scripts and tests, Strava auth helper
 docs/         SPEC.md, PLAN.md, vendor notes
 ```

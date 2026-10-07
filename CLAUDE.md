@@ -11,7 +11,7 @@ covers how to update the site.
 hugo server                          # local preview, http://localhost:1313
 hugo --minify --gc                   # production build → public/ (gitignored)
 node --test 'scripts/*.test.mjs'     # sync tests; quote the glob (Node 22 rejects a directory)
-node --env-file=.env scripts/sync-strava.mjs   # also sync-lastfm.mjs, sync-hevy.mjs
+node --env-file=.env scripts/sync-strava.mjs   # also sync-lastfm.mjs, sync-hevy.mjs; sync-reads.mjs needs no .env
 ```
 
 Pinned versions: Hugo **0.165.0** extended (`vercel.json` and `.github/workflows/ci.yml`),
@@ -24,15 +24,15 @@ content/      projects/ experience/ activities/ photos/ interests/ now.md   (YAM
 layouts/      home.html, baseof.html, section dirs; partials/ (entry-row, exp-row, activity-row, img, logo, now-list…)
 assets/       css/site.css (the only stylesheet, tokens on :root) · images/ (Hugo-processed: APRAM.jpg portrait, logos/, activities/)
 static/       fonts/ (self-hosted Newsreader + Geist Mono), favicon.ico
-data/         music.json (written by the Last.fm sync)
-scripts/      sync-strava|lastfm|hevy.mjs, lib/activity.mjs (normalize/front matter/atomic writes), strava-auth.mjs, *.test.mjs
+data/         music.json (Last.fm sync), reading.json (apramreads sync: books + non-daily posts, links out)
+scripts/      sync-strava|lastfm|hevy|reads.mjs, lib/activity.mjs (normalize/front matter/atomic writes), strava-auth.mjs, *.test.mjs
 .github/      workflows/sync.yml (cron every 15 min, commits data to main), ci.yml (tests + hugo build), dependabot.yml
 vercel.json   Hugo version, cache headers, CSP
 ```
 
 ## Data flow
 
-Strava, Hevy and Last.fm → `scripts/sync-*.mjs` (in the GitHub Action every 15 min) → commit to
+Strava, Hevy, Last.fm and apramreads (public, no key) → `scripts/sync-*.mjs` (in the GitHub Action every 15 min) → commit to
 `main` → Vercel deploy. Visitors never call the APIs. Secrets live in GitHub Actions secrets and in
 the local `.env` (gitignored): `STRAVA_CLIENT_ID` (224310, not secret), `STRAVA_CLIENT_SECRET`,
 `STRAVA_REFRESH_TOKEN`, `LASTFM_API_KEY`, optional `HEVY_API_KEY`. Repo variables: `LASTFM_USER`
@@ -61,6 +61,9 @@ the local `.env` (gitignored): `STRAVA_CLIENT_ID` (224310, not secret), `STRAVA_
   320/390px iframes on a wrapper page.
 - Images: put them in `assets/` (not `static/`) so Hugo resizes them to WebP; render them through
   `partials/img.html`.
+- apramreads posts have no front matter. `sync-reads.mjs` parses `# title`, the first ISO date
+  and the first paragraph the same way apramreads' `script.js` does; keep the two in step if that
+  format changes. Daily reads (`blog/daily-reads/`) are skipped by name.
 
 ## Conventions
 

@@ -44,6 +44,15 @@
 </section>
 {{ end }}
 
+{{ $reading := hugo.Data.reading | default dict }}
+{{ with $reading.items }}
+<section aria-labelledby="reading">
+  {{ partial "section-label.html" (dict "id" "reading" "text" "reading") }}
+  <ul class="rows">{{ range first 4 . }}<li>{{ partial "entry-row.html" (dict "title" .title "href" .url "sub" .summary "date" .date) }}</li>{{ end }}</ul>
+  <p class="more"><a href="{{ $reading.site }}">more at apramreads →</a></p>
+</section>
+{{ end }}
+
 {{ with first 4 (where site.RegularPages "Section" "activities").ByDate.Reverse }}
 <section aria-labelledby="outside">
   {{ partial "section-label.html" (dict "id" "outside" "text" "recently outside") }}

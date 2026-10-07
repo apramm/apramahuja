@@ -226,8 +226,9 @@ export async function writeActivities(dir, activities, source) {
 export async function getJson(fetchFn, url, options = {}) {
   const res = await fetchFn(url, { ...options, signal: AbortSignal.timeout(TIMEOUT_MS) })
   const text = await res.text()
-  if (!res.ok) throw new Error(`HTTP ${res.status} from ${new URL(url).host}: ${text.slice(0, 200)}`)
-  return JSON.parse(text)
+  const host = new URL(url).host
+  if (!res.ok) throw new Error(`HTTP ${res.status} from ${host}: ${JSON.stringify(text.slice(0, 200))}`) // JSON-quoted: no raw newline can start a ::workflow-command:: line
+  try { return JSON.parse(text) } catch { throw new Error(`invalid JSON from ${host}`) }
 }
 
 export const isMain = (metaUrl) => Boolean(process.argv[1]) && fileURLToPath(metaUrl) === resolve(process.argv[1])

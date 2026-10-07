@@ -13,7 +13,7 @@ editing Markdown and pushing.
 ## Non-goals
 
 No CMS, no frontend framework, no cards/grids on the homepage, no analytics dashboard, no hero
-image, no client-side calls to Strava / Last.fm / Hevy.
+image, no client-side calls to Strava / Last.fm / Hevy / apramreads.
 
 ## Stack & hosting
 
@@ -57,7 +57,7 @@ image, no client-side calls to Strava / Last.fm / Hevy.
 
 | URL | Source | Content |
 |---|---|---|
-| `/` | `content/_index.md`, `content/now.md`, collections, `data/music.json` | see Homepage |
+| `/` | `content/_index.md`, `content/now.md`, collections, `data/music.json`, `data/reading.json` | see Homepage |
 | `/projects/` | `content/projects/*.md` | all projects, dated list, newest first; featured first |
 | `/projects/<slug>/` | one file | title, one-line description, outcome, tags, links, body |
 | `/experience/` | `content/experience/*.md` | full list incl. highlights + education |
@@ -83,11 +83,16 @@ image, no client-side calls to Strava / Last.fm / Hevy.
    title (also on `/experience/`, education rows, and now items); light chip behind it in dark mode.
 4. **projects**: `featured: true`, sorted by `weight` then date, max 4: "title: description",
    `outcome` on second line, year right. Link "all projects →".
-5. **recently outside**: latest 4 activities: `date | activity | stats | 44px photo` (same
+5. **reading**: items from `data/reading.json` (written by the apramreads sync), newest first,
+   max 4, through `entry-row.html`: title links to the post on apramreads, `summary` on the second
+   line, started date right-aligned mono (empty when unknown). Link "more at apramreads →" to the
+   apramreads home, where the daily reading log lives. Section absent when the file is missing or
+   has no items. Books, essays and any future apramreads section appear here; daily reads never do.
+6. **recently outside**: latest 4 activities: `date | activity | stats | 44px photo` (same
    `activity-row.html` as `/activities/`). Fixed-width mono columns.
    Link "all activity →".
-6. **education**: `experience` pages where `kind: education`.
-7. **Footer**: "built with hugo · updated <last build date>" + theme toggle.
+7. **education**: `experience` pages where `kind: education`.
+8. **Footer**: "built with hugo · updated <last build date>" + theme toggle.
 
 Placeholder content shows a small `example` tag (from `example: true` front matter).
 
@@ -168,14 +173,15 @@ Archetypes exist for every collection so `hugo new projects/x.md` produces a val
 ## Data sync (build-time only)
 
 ```
-Strava ─┐
-Hevy  ──┼─ scripts/sync-*.mjs ─> content/activities/*.md, data/music.json ─> git commit ─> Vercel build
-Last.fm ┘   (GitHub Action cron, every 15 min + manual dispatch)
+Strava ────┐
+Hevy  ─────┼─ scripts/sync-*.mjs ─> content/activities/*.md, data/music.json, data/reading.json ─> git commit ─> Vercel build
+Last.fm ───┤   (GitHub Action cron, every 15 min + manual dispatch)
+apramreads ┘
 ```
 
-- Each provider is one script: `sync-strava.mjs`, `sync-hevy.mjs`, `sync-lastfm.mjs`, sharing
-  `scripts/lib/activity.mjs` (normalize → front matter → write file named
-  `<date>-<source>-<id>.md`).
+- Each provider is one script: `sync-strava.mjs`, `sync-hevy.mjs`, `sync-lastfm.mjs`,
+  `sync-reads.mjs`, sharing `scripts/lib/activity.mjs` (normalize → front matter → write file named
+  `<date>-<source>-<id>.md`; JSON writers use its `getJson` and `writeAtomic`).
 - Missing env vars → log "skipping" and exit 0. Any API error → exit non-zero **without
   touching existing files** (write to temp, then rename). The site always builds from the last
   good data.
@@ -208,10 +214,34 @@ Last.fm ┘   (GitHub Action cron, every 15 min + manual dispatch)
   `LASTFM_API_KEY`; user from `LASTFM_USER` or `hugo.yaml`. Writes `data/music.json`:
   `{ fetched_at, user, recent:[{track, artist, album, url, played_at}], top_week:[{track, artist, plays, url}] }`.
   No album art downloaded.
+- apramreads (`sync-reads.mjs`): the reading blog at `https://apramm.github.io/apramreads/`
+  (repo `apramm/apramreads`, plain Markdown, no front matter) stays the home of all reading;
+  this site only lists and links. No key: the script reads the public `blog-manifest.json`
+  (`{ "<section>": ["<file>.md", …] }`) and then every file in sections other than `daily-reads`,
+  so a new apramreads folder such as `blog/essays/` is listed with no change here. Section names
+  must match `^[\w-]+$` and file names `^[\w-]+\.md$`; anything else is skipped with a warning.
+  Titles are cut to 200 characters and per-line inline-markup stripping is bounded, so a hostile post
+  cannot stall the job; the workflow step also has its own 3-minute timeout. Redirects are refused
+  (`redirect: 'error'`; Strava photo downloads refuse them too, via `redirect: 'manual'`).
+  Each file is parsed the way apramreads' own `script.js` does: `title` = first `# ` heading
+  (file name without `.md` if none), `date` = first `YYYY-MM-DD` anywhere in the file (empty if
+  none), `summary` = first paragraph that is not a heading, list, code fence or `key: value` line,
+  collapsed to one line and cut to 160 characters. Strings are made well-formed.
+  Writes `data/reading.json`:
+  `{ fetched_at, site, items:[{ section, title, date, summary, url }] }` with items
+  newest first and undated last, `url` = `<site>post.html?section=<s>&file=<f>` (query-encoded),
+  `site` = the apramreads base URL. Written only when something
+  other than `fetched_at` changed, so an unchanged blog produces no commit and no deploy. A failed
+  or malformed fetch (non-2xx, timeout, manifest not an object of arrays) exits 1 and leaves the
+  existing file untouched; so does a manifest that lists no usable posts while the existing file has items (the
+  list is never blanked without a person). One unreadable post logs `::warning::` and keeps its entry from the
+  previous `reading.json` (matched by `url`; dropped if there is none) so a flaky fetch never
+  shrinks the list or causes an extra deploy; if every post fails the run exits 1 and the file is
+  untouched. Freshness is the 15-minute cron; apramreads itself is not changed.
 - Secrets live only in GitHub Actions secrets and local `.env` (gitignored). Nothing secret is
   read by Hugo or shipped to the browser. `.env.example` documents every variable.
-- Workflow `sync.yml`: checkout (`persist-credentials: false`) → node 22 → run three syncs
-  (each `continue-on-error`) → commit `data/`/`content/activities`/`assets/images/activities` changes as
+- Workflow `sync.yml`: checkout (`persist-credentials: false`) → node 22 → run four syncs
+  (each `continue-on-error`; the apramreads step needs no secret) → commit `data/`/`content/activities`/`assets/images/activities` changes as
   `github-actions[bot]` → push `main` with the token passed only to that step → fail the job if
   any provider failed. `permissions: {}` at workflow level, `contents: write` on the job. Every
   action pinned by commit SHA; Dependabot bumps them. Workflow `ci.yml`: on PR/push, `node --test 'scripts/*.test.mjs'` and
@@ -242,3 +272,7 @@ Last.fm ┘   (GitHub Action cron, every 15 min + manual dispatch)
 6. Sync scripts: `node --test 'scripts/*.test.mjs'` passes (normalization, idempotency, failure keeps files).
 7. No secret appears in `public/` or in any client JS.
 8. README covers local dev, adding each content type, now/music, sync setup, deploy.
+9. With `data/reading.json` present the homepage shows a `reading` section whose rows link to
+   apramreads posts and whose dates match the files; with the file deleted the section is absent
+   and `hugo --minify` still builds clean. `sync-reads.mjs` run twice against the same blog
+   produces no diff.
