@@ -58,6 +58,7 @@ jobs:
       - name: Sync apramreads
         id: reads
         continue-on-error: true
+        timeout-minutes: 3
         run: node scripts/sync-reads.mjs
 
       - name: Commit changes

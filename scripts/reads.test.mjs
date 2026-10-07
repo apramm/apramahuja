@@ -56,7 +56,7 @@ test('parsePost: "key: value" lines before the paragraph are metadata; a sentenc
   assert.equal(parsePost(md, 't.md').summary, 'This book covers two things: x and y.')
 })
 
-test('toReading: skips daily-reads, sorts newest first with undated last, builds apramreads urls, counts daily reads', () => {
+test('toReading: skips daily-reads, sorts newest first with undated last, builds apramreads urls', () => {
   const r = toReading({
     manifest: { ...manifest, essays: ['no-date.md'] },
     posts: { ...posts, 'essays/no-date.md': '# Essay\n\nwords\n' },
@@ -64,7 +64,7 @@ test('toReading: skips daily-reads, sorts newest first with undated last, builds
   })
   assert.equal(r.fetched_at, '2026-10-06T00:00:00.000Z')
   assert.equal(r.site, SITE)
-  assert.equal(r.daily_reads, 2)
+  assert.deepEqual(Object.keys(r), ['fetched_at', 'site', 'items'])
   assert.deepEqual(r.items.map((i) => [i.section, i.title, i.date]), [
     ['books', 'Meditations by Marcus Aurelius', '2026-09-15'],
     ['books', 'Algorithm Design', '2026-02-21'],
@@ -87,6 +87,7 @@ function fetchFor(files, m = manifest) {
     url = String(url)
     calls.push(url)
     assert.ok(opts.signal, 'every request needs a timeout signal')
+    assert.equal(opts.redirect, 'error', 'no redirects')
     if (url === `${SITE}blog-manifest.json`) return json(m)
     const rel = url.slice(`${SITE}blog/`.length)
     return rel in files ? resp(files[rel]) : resp('nope', 404)
@@ -105,7 +106,6 @@ test('run: writes reading.json, never fetches daily reads, unchanged content →
   const data = JSON.parse(first)
   assert.equal(data.items.length, 2)
   assert.equal(data.items[0].title, 'Meditations by Marcus Aurelius')
-  assert.equal(data.daily_reads, 2)
 
   assert.equal(await run({ fetch: fetchFor(posts).fn, file, log: logger, now: () => '2026-10-06T06:00:00.000Z' }), 0)
   assert.equal(await readFile(file, 'utf8'), first, 'only fetched_at differs → no diff')
@@ -184,13 +184,55 @@ test('parsePost: a summary cut inside an emoji is still well-formed and within 1
   assert.ok(p.summary.length <= 160, `len ${p.summary.length}`)
 })
 
+test('parsePost: pathological input stays fast and bounded', () => {
+  const md = `# ${'T'.repeat(5000)}\n\n${'!['.repeat(200000)}\n`
+  const t0 = performance.now()
+  const p = parsePost(md, 'x.md')
+  const ms = performance.now() - t0
+  assert.ok(ms < 1000, `took ${Math.round(ms)} ms`)
+  assert.equal(p.title.length, 200)
+  assert.ok(p.summary.length <= 160, `len ${p.summary.length}`)
+  assert.ok(p.summary.isWellFormed())
+})
+
+test('parsePost: a title cut inside an emoji is still well-formed', () => {
+  assert.ok(parsePost(`# ${'a'.repeat(199)}😀\n`, 'x.md').title.isWellFormed())
+})
+
 test('toReading: previous entries fill in for posts that were not fetched, but never for unsafe names', () => {
-  const prev = (file, title) => ({ section: 'books', title, date: '2026-01-01', summary: 's', url: `${SITE}post.html?${new URLSearchParams({ section: 'books', file })}` })
+  const prev = (file, title, date = '2026-01-01') => ({ section: 'books', title, date, summary: 's', url: `${SITE}post.html?${new URLSearchParams({ section: 'books', file })}` })
   const r = toReading({
     manifest: { books: ['a.md', 'b.md', '../x.md'] },
-    posts: { 'books/a.md': '# fresh a\n' },
-    previous: [prev('a.md', 'old a'), prev('b.md', 'old b'), prev('../x.md', 'evil')],
+    posts: { 'books/a.md': '# fresh a\n\n2026-05-01\n' },
+    previous: [prev('a.md', 'old a'), prev('b.md', 'old b', null), prev('../x.md', 'evil')], // a hand-edited file may hold a non-string date
     fetchedAt: 'now',
   })
-  assert.deepEqual(r.items.map((i) => i.title), ['old b', 'fresh a'])
+  assert.deepEqual(r.items.map((i) => i.title), ['fresh a', 'old b'])
+})
+
+test('run: an upstream error body cannot inject a workflow command', async () => {
+  for (const [status, body] of [[500, 'oops\n::notice title=Deploy OK::all good'], [200, 'x\n::notice x']]) {
+    const file = join(await tmp(), 'reading.json')
+    const { lines, logger } = capture()
+    assert.equal(await run({ fetch: async () => resp(body, status), file, log: logger }), 1, `status ${status}`)
+    const out = lines.join('\n').split('\n')
+    assert.ok(out.some((l) => l.startsWith('::error::')), 'the failure is still reported')
+    assert.ok(!out.some((l) => l.startsWith('::notice')), JSON.stringify(out))
+  }
+})
+
+test('run: a manifest with no usable posts leaves an existing file untouched and exits 1', async () => {
+  const dir = await tmp()
+  const file = join(dir, 'reading.json')
+  assert.equal(await run({ fetch: fetchFor(posts).fn, file, log: capture().logger }), 0)
+  const first = await readFile(file, 'utf8')
+  const empty = { 'daily-reads': ['2026-02-08.md'] }
+  const { lines, logger } = capture()
+  assert.equal(await run({ fetch: fetchFor(posts, empty).fn, file, log: logger }), 1)
+  assert.equal(await readFile(file, 'utf8'), first)
+  assert.match(lines.join('\n'), /::error::.*blank/)
+
+  const fresh = join(dir, 'fresh.json')
+  assert.equal(await run({ fetch: fetchFor(posts, empty).fn, file: fresh, log: capture().logger }), 0)
+  assert.deepEqual(JSON.parse(await readFile(fresh, 'utf8')).items, [], 'first run on an empty manifest still writes an empty list')
 })

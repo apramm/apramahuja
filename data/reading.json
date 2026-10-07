@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-07T00:10:37.882Z",
+  "fetched_at": "2026-10-07T00:35:30.583Z",
   "site": "https://apramm.github.io/apramreads/",
   "items": [
     {
@@ -23,6 +23,5 @@
       "summary": "This book is interesting to understanding how logic/program works between different source and target languages in a compiler",
       "url": "https://apramm.github.io/apramreads/post.html?section=books&file=intro-to-compiler.md"
     }
-  ],
-  "daily_reads": 14
+  ]
 }

@@ -19,7 +19,7 @@ export function parsePost(markdown, file) {
   const text = String(markdown).toWellFormed()
   const lines = text.split('\n')
   const h1 = lines.find((l) => l.startsWith('# '))
-  const title = (h1 ? h1.slice(2) : String(file).replace(/\.md$/, '')).trim()
+  const title = (h1 ? h1.slice(2) : String(file).replace(/\.md$/, '')).trim().slice(0, 200).toWellFormed() // the cut can split a surrogate pair
   const date = text.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? ''
   const para = []
   let fence = false
@@ -29,7 +29,8 @@ export function parsePost(markdown, file) {
     if (fence) continue
     if (!l || BLOCK.test(l)) { if (para.length) break; continue }
     if (!para.length && META.test(l) && !/[.!?]$/.test(l)) continue
-    para.push(inline(l))
+    para.push(inline(l.slice(0, 2000))) // bound the regex work per line
+    if (para.join(' ').length > SUMMARY_MAX) break // the summary is cut to 160 anyway
   }
   let summary = para.join(' ').replace(/\s+/g, ' ').trim()
   if (summary.length > SUMMARY_MAX) summary = `${summary.slice(0, SUMMARY_MAX - 1).trimEnd()}…`
@@ -56,8 +57,8 @@ export function toReading({ manifest, posts, previous = [], site = SITE, fetched
       items.push({ section, title, date, summary, url })
     }
   }
-  items.sort((a, b) => b.date.localeCompare(a.date)) // ISO strings; '' sorts last; stable → manifest order among ties
-  return { fetched_at: fetchedAt, site, items, daily_reads: (manifest['daily-reads'] ?? []).length }
+  items.sort((a, b) => String(b.date ?? '').localeCompare(String(a.date ?? ''))) // ISO strings; '' sorts last; stable → manifest order among ties
+  return { fetched_at: fetchedAt, site, items }
 }
 
 // Compare ignoring fetched_at so an unchanged blog → no git diff → no deploy.
@@ -70,7 +71,7 @@ function checkManifest(m) {
 
 export async function run({ fetch = globalThis.fetch, file = join(process.cwd(), 'data', 'reading.json'), site = SITE, log = console, now = () => new Date().toISOString() } = {}) {
   try {
-    const manifest = checkManifest(await getJson(fetch, `${site}blog-manifest.json`))
+    const manifest = checkManifest(await getJson(fetch, `${site}blog-manifest.json`, { redirect: 'error' }))
     const old = await readFile(file, 'utf8').then(JSON.parse).catch(() => null)
     const previous = Array.isArray(old?.items) ? old.items : []
     const posts = {}
@@ -82,7 +83,7 @@ export async function run({ fetch = globalThis.fetch, file = join(process.cwd(),
         if (!SAFE_SECTION.test(section) || !SAFE_FILE.test(String(name))) { log.warn(`::warning::reads: skipping unsafe name ${JSON.stringify(key)}`); continue }
         wanted++
         try {
-          const res = await fetch(`${site}blog/${section}/${name}`, { signal: AbortSignal.timeout(TIMEOUT_MS) })
+          const res = await fetch(`${site}blog/${section}/${name}`, { signal: AbortSignal.timeout(TIMEOUT_MS), redirect: 'error' })
           if (!res.ok) throw new Error(`HTTP ${res.status}`)
           posts[key] = await res.text()
         } catch (err) {
@@ -93,10 +94,11 @@ export async function run({ fetch = globalThis.fetch, file = join(process.cwd(),
       }
     }
     if (wanted && failed === wanted) throw new Error(`all ${wanted} post fetches failed`) // an outage must not blank the list
+    if (!wanted && previous.length) throw new Error('manifest lists no posts; refusing to blank the reading list')
     const reading = toReading({ manifest, posts, previous, site, fetchedAt: now() })
     if (old && essence(old) === essence(reading)) { log.log('reads: unchanged'); return 0 }
     await writeAtomic(file, `${JSON.stringify(reading, null, 2)}\n`)
-    log.log(`reads: wrote ${reading.items.length} items (${reading.daily_reads} daily reads stay on apramreads)`)
+    log.log(`reads: wrote ${reading.items.length} items (${(manifest['daily-reads'] ?? []).length} daily reads stay on apramreads)`)
     return 0
   } catch (err) {
     log.error(`::error::reads sync failed, existing data left untouched: ${err.message}`)
