@@ -33,18 +33,27 @@ export function parsePost(markdown, file) {
   }
   let summary = para.join(' ').replace(/\s+/g, ' ').trim()
   if (summary.length > SUMMARY_MAX) summary = `${summary.slice(0, SUMMARY_MAX - 1).trimEnd()}…`
-  return { title, date, summary }
+  return { title, date, summary: summary.toWellFormed() } // the cut can split a surrogate pair
 }
 
-export function toReading({ manifest, posts, site = SITE, fetchedAt }) {
+const postUrl = (site, section, file) => `${site}post.html?${new URLSearchParams({ section, file })}`
+
+// `previous` = the last written items: a post that could not be fetched this time keeps its old entry.
+export function toReading({ manifest, posts, previous = [], site = SITE, fetchedAt }) {
   const items = []
   for (const [section, files] of Object.entries(manifest)) {
     if (SKIP.has(section) || !SAFE_SECTION.test(section)) continue
     for (const file of files) {
+      if (!SAFE_FILE.test(file)) continue
+      const url = postUrl(site, section, file)
       const md = posts[`${section}/${file}`]
-      if (md == null) continue
+      if (md == null) {
+        const kept = previous.find((p) => p?.url === url)
+        if (kept) items.push(kept)
+        continue
+      }
       const { title, date, summary } = parsePost(md, file)
-      items.push({ section, title, date, summary, url: `${site}post.html?${new URLSearchParams({ section, file })}` })
+      items.push({ section, title, date, summary, url })
     }
   }
   items.sort((a, b) => b.date.localeCompare(a.date)) // ISO strings; '' sorts last; stable → manifest order among ties
@@ -62,23 +71,29 @@ function checkManifest(m) {
 export async function run({ fetch = globalThis.fetch, file = join(process.cwd(), 'data', 'reading.json'), site = SITE, log = console, now = () => new Date().toISOString() } = {}) {
   try {
     const manifest = checkManifest(await getJson(fetch, `${site}blog-manifest.json`))
+    const old = await readFile(file, 'utf8').then(JSON.parse).catch(() => null)
+    const previous = Array.isArray(old?.items) ? old.items : []
     const posts = {}
+    let wanted = 0, failed = 0
     for (const [section, files] of Object.entries(manifest)) {
       if (SKIP.has(section)) continue
       for (const name of files) {
         const key = `${section}/${name}`
         if (!SAFE_SECTION.test(section) || !SAFE_FILE.test(String(name))) { log.warn(`::warning::reads: skipping unsafe name ${JSON.stringify(key)}`); continue }
+        wanted++
         try {
           const res = await fetch(`${site}blog/${section}/${name}`, { signal: AbortSignal.timeout(TIMEOUT_MS) })
           if (!res.ok) throw new Error(`HTTP ${res.status}`)
           posts[key] = await res.text()
         } catch (err) {
-          log.warn(`::warning::reads: skipping ${key}: ${err.message}`)
+          failed++
+          const kept = previous.some((p) => p?.url === postUrl(site, section, name))
+          log.warn(`::warning::reads: ${kept ? 'keeping previous entry for' : 'skipping'} ${key}: ${err.message}`)
         }
       }
     }
-    const reading = toReading({ manifest, posts, site, fetchedAt: now() })
-    const old = await readFile(file, 'utf8').then(JSON.parse).catch(() => null)
+    if (wanted && failed === wanted) throw new Error(`all ${wanted} post fetches failed`) // an outage must not blank the list
+    const reading = toReading({ manifest, posts, previous, site, fetchedAt: now() })
     if (old && essence(old) === essence(reading)) { log.log('reads: unchanged'); return 0 }
     await writeAtomic(file, `${JSON.stringify(reading, null, 2)}\n`)
     log.log(`reads: wrote ${reading.items.length} items (${reading.daily_reads} daily reads stay on apramreads)`)

@@ -136,3 +136,61 @@ test('run: one unreadable or unsafe post is a ::warning::, the rest are still wr
   assert.match(out, /::warning::.*missing\.md/)
   assert.match(out, /::warning::.*passwd/)
 })
+
+test('run: a post that fails to fetch keeps its entry from the previous reading.json; a changed post rewrites the file', async () => {
+  const file = join(await tmp(), 'reading.json')
+  const { lines, logger } = capture()
+  const ok = fetchFor(posts).fn
+  assert.equal(await run({ fetch: ok, file, log: logger, now: () => '2026-10-06T00:00:00.000Z' }), 0)
+  const first = await readFile(file, 'utf8')
+  const algo = JSON.parse(first).items.find((i) => i.title === 'Algorithm Design')
+  assert.ok(algo)
+
+  const flaky = (url, opts) => (String(url).endsWith('/algorithm-design.md') ? resp('busy', 503) : ok(url, opts))
+  assert.equal(await run({ fetch: flaky, file, log: logger, now: () => '2026-10-06T06:00:00.000Z' }), 0)
+  const second = await readFile(file, 'utf8')
+  const items = JSON.parse(second).items
+  assert.equal(items.length, 2, 'the failed post keeps its previous entry')
+  assert.deepEqual(items.find((i) => i.title === 'Algorithm Design'), algo)
+  assert.equal(second, first, 'nothing really changed → no rewrite')
+  assert.match(lines.join('\n'), /::warning::.*algorithm-design\.md/)
+
+  const edited = { ...posts, 'books/meditations.md': MEDITATIONS.replace('This book is a journal', 'A fresh summary line') }
+  assert.equal(await run({ fetch: fetchFor(edited).fn, file, log: logger, now: () => '2026-10-06T12:00:00.000Z' }), 0)
+  const third = await readFile(file, 'utf8')
+  assert.notEqual(third, first, 'a real upstream change rewrites the file')
+  assert.match(third, /A fresh summary line of marcus aurelius/)
+})
+
+test('run: every post failing exits 1 and leaves the file untouched', async () => {
+  const dir = await tmp()
+  const file = join(dir, 'reading.json')
+  assert.equal(await run({ fetch: fetchFor(posts).fn, file, log: capture().logger }), 0)
+  const first = await readFile(file, 'utf8')
+  const down = async (url) => (String(url) === `${SITE}blog-manifest.json` ? json(manifest) : resp('busy', 503))
+  const { lines, logger } = capture()
+  assert.equal(await run({ fetch: down, file, log: logger }), 1)
+  assert.equal(await readFile(file, 'utf8'), first)
+  assert.match(lines.join('\n'), /::error::/)
+
+  const fresh = join(dir, 'fresh.json')
+  assert.equal(await run({ fetch: down, file: fresh, log: capture().logger }), 1)
+  await assert.rejects(readFile(fresh), 'no previous file and nothing fetched → nothing written')
+})
+
+test('parsePost: a summary cut inside an emoji is still well-formed and within 160', () => {
+  const p = parsePost(`${'a'.repeat(158)}😀 tail words\n`, 'x.md')
+  assert.ok(p.summary.isWellFormed(), JSON.stringify(p.summary))
+  assert.ok(p.summary.length <= 160, `len ${p.summary.length}`)
+})
+
+test('toReading: previous entries fill in for posts that were not fetched, but never for unsafe names', () => {
+  const prev = (file, title) => ({ section: 'books', title, date: '2026-01-01', summary: 's', url: `${SITE}post.html?${new URLSearchParams({ section: 'books', file })}` })
+  const r = toReading({
+    manifest: { books: ['a.md', 'b.md', '../x.md'] },
+    posts: { 'books/a.md': '# fresh a\n' },
+    previous: [prev('a.md', 'old a'), prev('b.md', 'old b'), prev('../x.md', 'evil')],
+    fetchedAt: 'now',
+  })
+  assert.deepEqual(r.items.map((i) => i.title), ['old b', 'fresh a'])
+})
