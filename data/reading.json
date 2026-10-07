@@ -1,0 +1,28 @@
+{
+  "fetched_at": "2026-10-07T00:10:37.882Z",
+  "site": "https://apramm.github.io/apramreads/",
+  "items": [
+    {
+      "section": "books",
+      "title": "Meditations by Marcus Aurelius",
+      "date": "2026-09-15",
+      "summary": "This book is a journal of marcus aurelius reflecting on stoic philosophy in his life",
+      "url": "https://apramm.github.io/apramreads/post.html?section=books&file=meditations.md"
+    },
+    {
+      "section": "books",
+      "title": "Algorithm Design by Jon Kleinberg and Eva Tardos 2005",
+      "date": "2026-02-21",
+      "summary": "This book is about algorithms",
+      "url": "https://apramm.github.io/apramreads/post.html?section=books&file=algorithm-design.md"
+    },
+    {
+      "section": "books",
+      "title": "Introduction to Compiler Construction",
+      "date": "2026-02-08",
+      "summary": "This book is interesting to understanding how logic/program works between different source and target languages in a compiler",
+      "url": "https://apramm.github.io/apramreads/post.html?section=books&file=intro-to-compiler.md"
+    }
+  ],
+  "daily_reads": 14
+}
