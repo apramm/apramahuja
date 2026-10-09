@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-07T21:13:55.161Z",
+  "fetched_at": "2026-10-09T06:37:59.648Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -81,12 +81,6 @@
       "url": "https://www.last.fm/music/Sufr/_/This+Ain%27t+Luv+(feat.+YxvngTrey)"
     },
     {
-      "track": "Othaiyadi Pathayila",
-      "artist": "Anirudh Ravichander & Dhibu Ninan Thomas",
-      "plays": 4,
-      "url": "https://www.last.fm/music/Anirudh+Ravichander+&+Dhibu+Ninan+Thomas/_/Othaiyadi+Pathayila"
-    },
-    {
       "track": "Farmaish",
       "artist": "Anmol A & Mitraz",
       "plays": 3,
@@ -103,6 +97,12 @@
       "artist": "Sufr",
       "plays": 3,
       "url": "https://www.last.fm/music/Sufr/_/Khudaaya+Ve+(feat.+Awwn1k+&+Sarcastically+Kumar)"
+    },
+    {
+      "track": "Kanavula",
+      "artist": "Ahashe & Achu IFT",
+      "plays": 2,
+      "url": "https://www.last.fm/music/Ahashe+&+Achu+IFT/_/Kanavula"
     }
   ]
 }
