@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-09T23:19:33.257Z",
+  "fetched_at": "2026-10-10T02:26:35.981Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -81,28 +81,28 @@
       "url": "https://www.last.fm/music/Sufr/_/This+Ain%27t+Luv+(feat.+YxvngTrey)"
     },
     {
-      "track": "Farmaish",
-      "artist": "Anmol A & Mitraz",
-      "plays": 3,
-      "url": "https://www.last.fm/music/Anmol+A+&+Mitraz/_/Farmaish"
-    },
-    {
-      "track": "Neeya",
-      "artist": "M.Kapilan",
-      "plays": 3,
-      "url": "https://www.last.fm/music/M.Kapilan/_/Neeya"
-    },
-    {
       "track": "Khudaaya Ve (feat. Awwn1k & Sarcastically Kumar)",
       "artist": "Sufr",
       "plays": 3,
       "url": "https://www.last.fm/music/Sufr/_/Khudaaya+Ve+(feat.+Awwn1k+&+Sarcastically+Kumar)"
     },
     {
-      "track": "Kanavula",
-      "artist": "Ahashe & Achu IFT",
+      "track": "Farmaish",
+      "artist": "Anmol A & Mitraz",
       "plays": 2,
-      "url": "https://www.last.fm/music/Ahashe+&+Achu+IFT/_/Kanavula"
+      "url": "https://www.last.fm/music/Anmol+A+&+Mitraz/_/Farmaish"
+    },
+    {
+      "track": "Kabhi Jo Baadal Barse",
+      "artist": "Arijit Singh",
+      "plays": 2,
+      "url": "https://www.last.fm/music/Arijit+Singh/_/Kabhi+Jo+Baadal+Barse"
+    },
+    {
+      "track": "Nazar Na Lag Jaaye",
+      "artist": "Ash King & Sachin-Jigar",
+      "plays": 2,
+      "url": "https://www.last.fm/music/Ash+King+&+Sachin-Jigar/_/Nazar+Na+Lag+Jaaye"
     }
   ]
 }
