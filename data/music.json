@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-16T21:22:10.754Z",
+  "fetched_at": "2026-10-17T06:16:10.512Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -87,22 +87,22 @@
       "url": "https://www.last.fm/music/Asim+Azhar,+Noor,+Khan+&+Madhurxo/_/Aarzu+(with+Asim+Azhar)"
     },
     {
-      "track": "This Ain't Luv (feat. YxvngTrey)",
-      "artist": "Sufr",
-      "plays": 5,
-      "url": "https://www.last.fm/music/Sufr/_/This+Ain%27t+Luv+(feat.+YxvngTrey)"
-    },
-    {
       "track": "Neeya",
       "artist": "M.Kapilan",
       "plays": 4,
       "url": "https://www.last.fm/music/M.Kapilan/_/Neeya"
     },
     {
-      "track": "Bolve",
-      "artist": "Madan Maddi & Sukshinder Shinda",
+      "track": "Khudaaya Ve (feat. Awwn1k & Sarcastically Kumar)",
+      "artist": "Sufr",
       "plays": 4,
-      "url": "https://www.last.fm/music/Madan+Maddi+&+Sukshinder+Shinda/_/Bolve"
+      "url": "https://www.last.fm/music/Sufr/_/Khudaaya+Ve+(feat.+Awwn1k+&+Sarcastically+Kumar)"
+    },
+    {
+      "track": "This Ain't Luv (feat. YxvngTrey)",
+      "artist": "Sufr",
+      "plays": 4,
+      "url": "https://www.last.fm/music/Sufr/_/This+Ain%27t+Luv+(feat.+YxvngTrey)"
     }
   ]
 }
