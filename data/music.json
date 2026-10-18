@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-17T23:30:40.091Z",
+  "fetched_at": "2026-10-18T01:29:01.916Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -93,16 +93,16 @@
       "url": "https://www.last.fm/music/Sufr/_/Khudaaya+Ve+(feat.+Awwn1k+&+Sarcastically+Kumar)"
     },
     {
-      "track": "This Ain't Luv (feat. YxvngTrey)",
-      "artist": "Sufr",
-      "plays": 4,
-      "url": "https://www.last.fm/music/Sufr/_/This+Ain%27t+Luv+(feat.+YxvngTrey)"
-    },
-    {
       "track": "Ode to the Mets",
       "artist": "The Strokes",
       "plays": 4,
       "url": "https://www.last.fm/music/The+Strokes/_/Ode+to+the+Mets"
+    },
+    {
+      "track": "Earrings",
+      "artist": "Malcolm Todd",
+      "plays": 3,
+      "url": "https://www.last.fm/music/Malcolm+Todd/_/Earrings"
     }
   ]
 }
