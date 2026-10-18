@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-18T18:01:24.440Z",
+  "fetched_at": "2026-10-18T20:33:11.723Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -75,16 +75,16 @@
   ],
   "top_week": [
     {
-      "track": "fizaah, tu hai wahi",
-      "artist": "Sufr",
-      "plays": 7,
-      "url": "https://www.last.fm/music/Sufr/_/fizaah,+tu+hai+wahi"
-    },
-    {
       "track": "Aarzu (with Asim Azhar)",
       "artist": "Asim Azhar, Noor, Khan & Madhurxo",
       "plays": 4,
       "url": "https://www.last.fm/music/Asim+Azhar,+Noor,+Khan+&+Madhurxo/_/Aarzu+(with+Asim+Azhar)"
+    },
+    {
+      "track": "fizaah, tu hai wahi",
+      "artist": "Sufr",
+      "plays": 4,
+      "url": "https://www.last.fm/music/Sufr/_/fizaah,+tu+hai+wahi"
     },
     {
       "track": "Khudaaya Ve (feat. Awwn1k & Sarcastically Kumar)",
