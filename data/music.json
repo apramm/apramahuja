@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-27T23:14:59.847Z",
+  "fetched_at": "2026-10-28T02:24:10.851Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -75,16 +75,16 @@
   ],
   "top_week": [
     {
-      "track": "I don't even speak spanish lol (feat. Rio Santana, Judah & Andrez Babii)",
-      "artist": "XXXTENTACION",
-      "plays": 34,
-      "url": "https://www.last.fm/music/XXXTENTACION/_/I+don%27t+even+speak+spanish+lol+(feat.+Rio+Santana,+Judah+&+Andrez+Babii)"
-    },
-    {
       "track": "Yaara ve yaara",
       "artist": "Navaan Sandhu, Daaku & Shai",
       "plays": 33,
       "url": "https://www.last.fm/music/Navaan+Sandhu,+Daaku+&+Shai/_/Yaara+ve+yaara"
+    },
+    {
+      "track": "I don't even speak spanish lol (feat. Rio Santana, Judah & Andrez Babii)",
+      "artist": "XXXTENTACION",
+      "plays": 27,
+      "url": "https://www.last.fm/music/XXXTENTACION/_/I+don%27t+even+speak+spanish+lol+(feat.+Rio+Santana,+Judah+&+Andrez+Babii)"
     },
     {
       "track": "love yourself (interlude)",
