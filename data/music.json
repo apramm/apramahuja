@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-28T02:24:10.851Z",
+  "fetched_at": "2026-10-31T21:25:51.117Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -87,12 +87,6 @@
       "url": "https://www.last.fm/music/XXXTENTACION/_/I+don%27t+even+speak+spanish+lol+(feat.+Rio+Santana,+Judah+&+Andrez+Babii)"
     },
     {
-      "track": "love yourself (interlude)",
-      "artist": "XXXTENTACION",
-      "plays": 17,
-      "url": "https://www.last.fm/music/XXXTENTACION/_/love+yourself+(interlude)"
-    },
-    {
       "track": "the remedy for a broken heart (why am i so in love)",
       "artist": "XXXTENTACION",
       "plays": 12,
@@ -103,6 +97,12 @@
       "artist": "Navaan Sandhu & JayB Singh",
       "plays": 9,
       "url": "https://www.last.fm/music/Navaan+Sandhu+&+JayB+Singh/_/Hood+Ambience"
+    },
+    {
+      "track": "Sad!",
+      "artist": "XXXTENTACION",
+      "plays": 9,
+      "url": "https://www.last.fm/music/XXXTENTACION/_/Sad!"
     }
   ]
 }
