@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-31T21:25:51.117Z",
+  "fetched_at": "2026-11-01T18:40:06.884Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -81,28 +81,28 @@
       "url": "https://www.last.fm/music/Navaan+Sandhu,+Daaku+&+Shai/_/Yaara+ve+yaara"
     },
     {
-      "track": "I don't even speak spanish lol (feat. Rio Santana, Judah & Andrez Babii)",
-      "artist": "XXXTENTACION",
-      "plays": 27,
-      "url": "https://www.last.fm/music/XXXTENTACION/_/I+don%27t+even+speak+spanish+lol+(feat.+Rio+Santana,+Judah+&+Andrez+Babii)"
-    },
-    {
-      "track": "the remedy for a broken heart (why am i so in love)",
-      "artist": "XXXTENTACION",
-      "plays": 12,
-      "url": "https://www.last.fm/music/XXXTENTACION/_/the+remedy+for+a+broken+heart+(why+am+i+so+in+love)"
-    },
-    {
       "track": "Hood Ambience",
       "artist": "Navaan Sandhu & JayB Singh",
       "plays": 9,
       "url": "https://www.last.fm/music/Navaan+Sandhu+&+JayB+Singh/_/Hood+Ambience"
     },
     {
+      "track": "Kath Lagda",
+      "artist": "Navaan Sandhu, Dhanda Nyoliwala, RXTRO & Sanya Dandona",
+      "plays": 7,
+      "url": "https://www.last.fm/music/Navaan+Sandhu,+Dhanda+Nyoliwala,+RXTRO+&+Sanya+Dandona/_/Kath+Lagda"
+    },
+    {
       "track": "Sad!",
       "artist": "XXXTENTACION",
-      "plays": 9,
+      "plays": 6,
       "url": "https://www.last.fm/music/XXXTENTACION/_/Sad!"
+    },
+    {
+      "track": "I don't even speak spanish lol (feat. Rio Santana, Judah & Carlos Andrez) [Instrumental]",
+      "artist": "XXXTENTACION",
+      "plays": 5,
+      "url": "https://www.last.fm/music/XXXTENTACION/_/I+don%27t+even+speak+spanish+lol+(feat.+Rio+Santana,+Judah+&+Carlos+Andrez)+%5BInstrumental%5D"
     }
   ]
 }
