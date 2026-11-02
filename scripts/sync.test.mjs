@@ -50,6 +50,16 @@ test('strava: API error exits 1 and leaves existing files untouched', async () =
   assert.equal(await readFile(join(dir, '2026-01-01-strava-9.md'), 'utf8'), 'keep me')
 })
 
+test('strava: inactive application error skips with exit 0 and leaves existing files untouched', async () => {
+  const { lines, logger } = capture()
+  const dir = await tmp()
+  await writeFile(join(dir, '2026-01-01-strava-9.md'), 'keep me')
+  const inactive = async () => json({ message: 'Forbidden', errors: [{ resource: 'Application', field: 'Status', code: 'Inactive' }] }, 403)
+  assert.equal(await runStrava({ env: stravaEnv, fetch: inactive, dir, log: logger }), 0)
+  assert.equal(await readFile(join(dir, '2026-01-01-strava-9.md'), 'utf8'), 'keep me')
+  assert.match(lines.join('\n'), /strava: skipping because the Strava app is inactive/i)
+})
+
 test('strava: rotated refresh token writes data, logs ::error:: naming the secret, exits 1, never prints the token', async () => {
   const { lines, logger } = capture()
   const dir = await tmp()
