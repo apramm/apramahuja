@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-01T22:28:39.645Z",
+  "fetched_at": "2026-11-02T18:47:38.262Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -93,16 +93,16 @@
       "url": "https://www.last.fm/music/Navaan+Sandhu,+Dhanda+Nyoliwala,+RXTRO+&+Sanya+Dandona/_/Kath+Lagda"
     },
     {
-      "track": "Jaana (feat. Sharon Jassal)",
-      "artist": "Karun & toorjo dey",
-      "plays": 4,
-      "url": "https://www.last.fm/music/Karun+&+toorjo+dey/_/Jaana+(feat.+Sharon+Jassal)"
-    },
-    {
       "track": "AAAHH MEN!",
       "artist": "Doja Cat",
       "plays": 2,
       "url": "https://www.last.fm/music/Doja+Cat/_/AAAHH+MEN!"
+    },
+    {
+      "track": "GTA Mohali",
+      "artist": "Sultaan, Sukhn Sandhu & Bhallwaan",
+      "plays": 2,
+      "url": "https://www.last.fm/music/Sultaan,+Sukhn+Sandhu+&+Bhallwaan/_/GTA+Mohali"
     }
   ]
 }
