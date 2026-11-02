@@ -117,6 +117,11 @@ export async function run({ env = process.env, fetch = globalThis.fetch, dir = j
     }
     return 0
   } catch (err) {
+    const message = String(err?.message ?? err)
+    if (message.includes('HTTP 403 from www.strava.com') && message.includes('Application') && message.includes('Inactive')) {
+      log.warn('::warning::strava: skipping because the Strava app is inactive (HTTP 403 Application Status Inactive)')
+      return 0
+    }
     log.error(`::error::strava sync failed, existing files left untouched: ${err.message}`)
     return 1
   }
