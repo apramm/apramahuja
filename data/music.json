@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-03T01:20:24.717Z",
+  "fetched_at": "2026-11-03T21:50:48.771Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -77,20 +77,8 @@
     {
       "track": "Yaara ve yaara",
       "artist": "Navaan Sandhu, Daaku & Shai",
-      "plays": 26,
+      "plays": 8,
       "url": "https://www.last.fm/music/Navaan+Sandhu,+Daaku+&+Shai/_/Yaara+ve+yaara"
-    },
-    {
-      "track": "Hood Ambience",
-      "artist": "Navaan Sandhu & JayB Singh",
-      "plays": 6,
-      "url": "https://www.last.fm/music/Navaan+Sandhu+&+JayB+Singh/_/Hood+Ambience"
-    },
-    {
-      "track": "Kath Lagda",
-      "artist": "Navaan Sandhu, Dhanda Nyoliwala, RXTRO & Sanya Dandona",
-      "plays": 5,
-      "url": "https://www.last.fm/music/Navaan+Sandhu,+Dhanda+Nyoliwala,+RXTRO+&+Sanya+Dandona/_/Kath+Lagda"
     },
     {
       "track": "She ain’t easy",
@@ -103,6 +91,18 @@
       "artist": "Sufr",
       "plays": 4,
       "url": "https://www.last.fm/music/Sufr/_/Khudaaya+Ve+(feat.+Awwn1k+&+Sarcastically+Kumar)"
+    },
+    {
+      "track": "Money 2X",
+      "artist": "Cheema Y & Gur Sidhu",
+      "plays": 2,
+      "url": "https://www.last.fm/music/Cheema+Y+&+Gur+Sidhu/_/Money+2X"
+    },
+    {
+      "track": "Phir Se Ud Chala",
+      "artist": "Mohit Chauhan",
+      "plays": 2,
+      "url": "https://www.last.fm/music/Mohit+Chauhan/_/Phir+Se+Ud+Chala"
     }
   ]
 }
