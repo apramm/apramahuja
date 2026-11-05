@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-03T21:50:48.771Z",
+  "fetched_at": "2026-11-05T17:41:41.938Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -87,12 +87,6 @@
       "url": "https://www.last.fm/music/Navaan+Sandhu+&+Rxtro/_/She+ain%E2%80%99t+easy"
     },
     {
-      "track": "Khudaaya Ve (feat. Awwn1k & Sarcastically Kumar)",
-      "artist": "Sufr",
-      "plays": 4,
-      "url": "https://www.last.fm/music/Sufr/_/Khudaaya+Ve+(feat.+Awwn1k+&+Sarcastically+Kumar)"
-    },
-    {
       "track": "Money 2X",
       "artist": "Cheema Y & Gur Sidhu",
       "plays": 2,
@@ -103,6 +97,12 @@
       "artist": "Mohit Chauhan",
       "plays": 2,
       "url": "https://www.last.fm/music/Mohit+Chauhan/_/Phir+Se+Ud+Chala"
+    },
+    {
+      "track": "$$$",
+      "artist": "XXXTENTACION & Matt OX",
+      "plays": 2,
+      "url": "https://www.last.fm/music/XXXTENTACION+&+Matt+OX/_/$$$"
     }
   ]
 }
