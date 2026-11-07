@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-06T23:03:52.819Z",
+  "fetched_at": "2026-11-07T02:44:14.298Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -87,12 +87,6 @@
       "url": "https://www.last.fm/music/Navaan+Sandhu+&+Rxtro/_/She+ain%E2%80%99t+easy"
     },
     {
-      "track": "Money 2X",
-      "artist": "Cheema Y & Gur Sidhu",
-      "plays": 2,
-      "url": "https://www.last.fm/music/Cheema+Y+&+Gur+Sidhu/_/Money+2X"
-    },
-    {
       "track": "Phir Se Ud Chala",
       "artist": "Mohit Chauhan",
       "plays": 2,
@@ -103,6 +97,12 @@
       "artist": "Clairo",
       "plays": 1,
       "url": "https://www.last.fm/music/Clairo/_/Sofia"
+    },
+    {
+      "track": "Intezaar (feat. Arijit Singh & Asees Kaur)",
+      "artist": "Mithoon",
+      "plays": 1,
+      "url": "https://www.last.fm/music/Mithoon/_/Intezaar+(feat.+Arijit+Singh+&+Asees+Kaur)"
     }
   ]
 }
