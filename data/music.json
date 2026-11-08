@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-08T09:26:07.786Z",
+  "fetched_at": "2026-11-08T16:15:47.095Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -75,12 +75,6 @@
   ],
   "top_week": [
     {
-      "track": "Yaara ve yaara",
-      "artist": "Navaan Sandhu, Daaku & Shai",
-      "plays": 4,
-      "url": "https://www.last.fm/music/Navaan+Sandhu,+Daaku+&+Shai/_/Yaara+ve+yaara"
-    },
-    {
       "track": "Phir Se Ud Chala",
       "artist": "Mohit Chauhan",
       "plays": 2,
@@ -91,12 +85,6 @@
       "artist": "Clairo",
       "plays": 1,
       "url": "https://www.last.fm/music/Clairo/_/Sofia"
-    },
-    {
-      "track": "Intezaar (feat. Arijit Singh & Asees Kaur)",
-      "artist": "Mithoon",
-      "plays": 1,
-      "url": "https://www.last.fm/music/Mithoon/_/Intezaar+(feat.+Arijit+Singh+&+Asees+Kaur)"
     }
   ]
 }
