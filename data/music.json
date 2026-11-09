@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-08T20:36:34.666Z",
+  "fetched_at": "2026-11-09T00:00:03.483Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -73,12 +73,5 @@
       "played_at": "2026-11-01T09:22:40.000Z"
     }
   ],
-  "top_week": [
-    {
-      "track": "Sofia",
-      "artist": "Clairo",
-      "plays": 1,
-      "url": "https://www.last.fm/music/Clairo/_/Sofia"
-    }
-  ]
+  "top_week": []
 }
