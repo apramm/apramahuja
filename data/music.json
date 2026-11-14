@@ -1,77 +1,108 @@
 {
-  "fetched_at": "2026-11-09T00:00:03.483Z",
+  "fetched_at": "2026-11-14T20:09:37.647Z",
   "user": "aprammusic",
   "recent": [
     {
-      "track": "Sofia",
-      "artist": "Clairo",
-      "album": "Immunity",
-      "url": "https://www.last.fm/music/Clairo/_/Sofia",
-      "played_at": "2026-11-01T20:42:00.000Z"
+      "track": "Where Them Girls At (feat. Nicki Minaj & Flo Rida)",
+      "artist": "David Guetta",
+      "album": "Nothing but the Beat",
+      "url": "https://www.last.fm/music/David+Guetta/_/Where+Them+Girls+At+(feat.+Nicki+Minaj+&+Flo+Rida)",
+      "played_at": "2026-11-14T06:12:38.000Z"
     },
     {
-      "track": "Phir Se Ud Chala",
-      "artist": "Mohit Chauhan",
-      "album": "Rockstar (Original Motion Picture Soundtrack)",
-      "url": "https://www.last.fm/music/Mohit+Chauhan/_/Phir+Se+Ud+Chala",
-      "played_at": "2026-11-01T17:08:01.000Z"
+      "track": "Billie Jean",
+      "artist": "Michael Jackson",
+      "album": "Thriller",
+      "url": "https://www.last.fm/music/Michael+Jackson/_/Billie+Jean",
+      "played_at": "2026-11-14T00:45:00.000Z"
     },
     {
-      "track": "Phir Se Ud Chala",
-      "artist": "Mohit Chauhan",
-      "album": "Rockstar (Original Motion Picture Soundtrack)",
-      "url": "https://www.last.fm/music/Mohit+Chauhan/_/Phir+Se+Ud+Chala",
-      "played_at": "2026-11-01T17:03:33.000Z"
+      "track": "Billie Jean",
+      "artist": "Michael Jackson",
+      "album": "Thriller",
+      "url": "https://www.last.fm/music/Michael+Jackson/_/Billie+Jean",
+      "played_at": "2026-11-14T00:40:07.000Z"
     },
     {
-      "track": "Intezaar (feat. Arijit Singh & Asees Kaur)",
-      "artist": "Mithoon",
-      "album": "Intezaar (feat. Arijit Singh & Asees Kaur) - Single",
-      "url": "https://www.last.fm/music/Mithoon/_/Intezaar+(feat.+Arijit+Singh+&+Asees+Kaur)",
-      "played_at": "2026-11-01T15:29:28.000Z"
+      "track": "YUKON",
+      "artist": "Justin Bieber",
+      "album": "SWAG",
+      "url": "https://www.last.fm/music/Justin+Bieber/_/YUKON",
+      "played_at": "2026-11-14T00:34:32.000Z"
+    },
+    {
+      "track": "YUKON",
+      "artist": "Justin Bieber",
+      "album": "SWAG",
+      "url": "https://www.last.fm/music/Justin+Bieber/_/YUKON",
+      "played_at": "2026-11-14T00:31:49.000Z"
+    },
+    {
+      "track": "DAISIES",
+      "artist": "Justin Bieber",
+      "album": "SWAG",
+      "url": "https://www.last.fm/music/Justin+Bieber/_/DAISIES",
+      "played_at": "2026-11-14T00:25:34.000Z"
+    },
+    {
+      "track": "DAISIES",
+      "artist": "Justin Bieber",
+      "album": "SWAG",
+      "url": "https://www.last.fm/music/Justin+Bieber/_/DAISIES",
+      "played_at": "2026-11-14T00:22:38.000Z"
+    },
+    {
+      "track": "For A Reason",
+      "artist": "Karan Aujla & Ikky",
+      "album": "P-POP CULTURE",
+      "url": "https://www.last.fm/music/Karan+Aujla+&+Ikky/_/For+A+Reason",
+      "played_at": "2026-11-14T00:22:22.000Z"
+    },
+    {
+      "track": "For A Reason",
+      "artist": "Karan Aujla & Ikky",
+      "album": "P-POP CULTURE",
+      "url": "https://www.last.fm/music/Karan+Aujla+&+Ikky/_/For+A+Reason",
+      "played_at": "2026-11-14T00:19:22.000Z"
     },
     {
       "track": "Yaara ve yaara",
       "artist": "Navaan Sandhu, Daaku & Shai",
       "album": "Bipolar",
       "url": "https://www.last.fm/music/Navaan+Sandhu,+Daaku+&+Shai/_/Yaara+ve+yaara",
-      "played_at": "2026-11-01T09:38:25.000Z"
-    },
-    {
-      "track": "Yaara ve yaara",
-      "artist": "Navaan Sandhu, Daaku & Shai",
-      "album": "Bipolar",
-      "url": "https://www.last.fm/music/Navaan+Sandhu,+Daaku+&+Shai/_/Yaara+ve+yaara",
-      "played_at": "2026-11-01T09:35:16.000Z"
-    },
-    {
-      "track": "Yaara ve yaara",
-      "artist": "Navaan Sandhu, Daaku & Shai",
-      "album": "Bipolar",
-      "url": "https://www.last.fm/music/Navaan+Sandhu,+Daaku+&+Shai/_/Yaara+ve+yaara",
-      "played_at": "2026-11-01T09:32:07.000Z"
-    },
-    {
-      "track": "Yaara ve yaara",
-      "artist": "Navaan Sandhu, Daaku & Shai",
-      "album": "Bipolar",
-      "url": "https://www.last.fm/music/Navaan+Sandhu,+Daaku+&+Shai/_/Yaara+ve+yaara",
-      "played_at": "2026-11-01T09:28:58.000Z"
-    },
-    {
-      "track": "Yaara ve yaara",
-      "artist": "Navaan Sandhu, Daaku & Shai",
-      "album": "Bipolar",
-      "url": "https://www.last.fm/music/Navaan+Sandhu,+Daaku+&+Shai/_/Yaara+ve+yaara",
-      "played_at": "2026-11-01T09:25:49.000Z"
-    },
-    {
-      "track": "Yaara ve yaara",
-      "artist": "Navaan Sandhu, Daaku & Shai",
-      "album": "Bipolar",
-      "url": "https://www.last.fm/music/Navaan+Sandhu,+Daaku+&+Shai/_/Yaara+ve+yaara",
-      "played_at": "2026-11-01T09:22:40.000Z"
+      "played_at": "2026-11-14T00:19:22.000Z"
     }
   ],
-  "top_week": []
+  "top_week": [
+    {
+      "track": "Yaara ve yaara",
+      "artist": "Navaan Sandhu, Daaku & Shai",
+      "plays": 11,
+      "url": "https://www.last.fm/music/Navaan+Sandhu,+Daaku+&+Shai/_/Yaara+ve+yaara"
+    },
+    {
+      "track": "Vaaroon Forever (From “Mirzapur The Movie”)",
+      "artist": "Anand Bhaskar, Romy, Shreya Ghoshal & Ginny Diwan",
+      "plays": 7,
+      "url": "https://www.last.fm/music/Anand+Bhaskar,+Romy,+Shreya+Ghoshal+&+Ginny+Diwan/_/Vaaroon+Forever+(From+%E2%80%9CMirzapur+The+Movie%E2%80%9D)"
+    },
+    {
+      "track": "4Me 4Me",
+      "artist": "Malcolm Todd",
+      "plays": 7,
+      "url": "https://www.last.fm/music/Malcolm+Todd/_/4Me+4Me"
+    },
+    {
+      "track": "She ain’t easy",
+      "artist": "Navaan Sandhu & Rxtro",
+      "plays": 7,
+      "url": "https://www.last.fm/music/Navaan+Sandhu+&+Rxtro/_/She+ain%E2%80%99t+easy"
+    },
+    {
+      "track": "Somebody That I Used to Know (feat. Kimbra)",
+      "artist": "Gotye",
+      "plays": 6,
+      "url": "https://www.last.fm/music/+noredirect/Gotye/_/Somebody+That+I+Used+to+Know+(feat.+Kimbra)"
+    }
+  ]
 }
