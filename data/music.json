@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-11-21T04:02:12.312Z",
+  "fetched_at": "2026-11-21T12:30:41.397Z",
   "user": "aprammusic",
   "recent": [
     {
@@ -73,12 +73,5 @@
       "played_at": "2026-11-14T00:19:22.000Z"
     }
   ],
-  "top_week": [
-    {
-      "track": "Where Them Girls At (feat. Nicki Minaj & Flo Rida)",
-      "artist": "David Guetta",
-      "plays": 1,
-      "url": "https://www.last.fm/music/David+Guetta/_/Where+Them+Girls+At+(feat.+Nicki+Minaj+&+Flo+Rida)"
-    }
-  ]
+  "top_week": []
 }
